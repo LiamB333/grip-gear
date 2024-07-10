@@ -190,7 +190,7 @@ const LoginPage = () => {
           </div>
         )}
         <button
-          className="bg-lama text-white p-2 rounded-md disabled:bg-pink-200 disabled:cursor-not-allowed"
+          className="bg-black text-white p-2 rounded-md disabled:bg-pink-200 disabled:cursor-not-allowed"
           disabled={isLoading}
         >
           {isLoading ? "Loading..." : buttonTitle}
@@ -209,7 +209,7 @@ const LoginPage = () => {
             className="text-sm underline cursor-pointer"
             onClick={() => setMode(MODE.LOGIN)}
           >
-            Have and account?
+            Have an account?
           </div>
         )}
         {mode === MODE.RESET_PASSWORD && (

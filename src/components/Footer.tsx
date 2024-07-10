@@ -2,6 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 
 const Footer = () => {
+
+  const currentYear = new Date().getFullYear();
+
   return (
     <div className="py-24 px-4 md:px-8 lg:px-16 xl:32 2xl:px-64 bg-gray-100 text-sm mt-24">
       {/* TOP */}
@@ -9,14 +12,13 @@ const Footer = () => {
         {/* LEFT */}
         <div className="w-full md:w-1/2 lg:w-1/4 flex flex-col gap-8">
           <Link href="/">
-            <div className="text-2xl tracking-wide">LAMA</div>
+            <div className="text-2xl tracking-wide">GRIP GEAR</div>
           </Link>
           <p>
-            3252 Winding Way, Central Plaza, Willowbrook, CA 90210, United
-            States
+            If you have any questions or need help placing an order, please email us at:
           </p>
-          <span className="font-semibold">hello@lama.dev</span>
-          <span className="font-semibold">+1 234 567 890</span>
+          <span className="font-semibold">support@gripgear.com</span>
+          <span className="font-semibold">+44 7718 958135 </span>
           <div className="flex gap-6">
             <Image src="/facebook.png" alt="" width={16} height={16} />
             <Image src="/instagram.png" alt="" width={16} height={16} />
@@ -71,7 +73,7 @@ const Footer = () => {
               placeholder="Email address"
               className="p-4 w-3/4"
             />
-            <button className="w-1/4 bg-lama text-white">JOIN</button>
+            <button className="w-1/4 bg-black text-white">JOIN</button>
           </div>
           <span className="font-semibold">Secure Payments</span>
           <div className="flex justify-between">
@@ -85,15 +87,15 @@ const Footer = () => {
       </div>
       {/* BOTTOM */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-8 mt-16">
-        <div className="">© 2024 Lama Shop</div>
+        <div className="">© {currentYear} Grip Gear</div>
         <div className="flex flex-col gap-8 md:flex-row">
           <div className="">
             <span className="text-gray-500 mr-4">Language</span>
-            <span className="font-medium">United States | English</span>
+            <span className="font-medium">United Kingdom | English</span>
           </div>
           <div className="">
             <span className="text-gray-500 mr-4">Currency</span>
-            <span className="font-medium">$ USD</span>
+            <span className="font-medium">£ GBP</span>
           </div>
         </div>
       </div>

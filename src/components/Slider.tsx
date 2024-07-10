@@ -1,5 +1,4 @@
-"use client";
-
+"use client"
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -34,16 +33,8 @@ const slides = [
 const Slider = () => {
   const [current, setCurrent] = useState(0);
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-  //   }, 3000);
-
-  //   return () => clearInterval(interval);
-  // }, []);
-
   return (
-    <div className="h-[calc(100vh-80px)] overflow-hidden">
+    <div className="relative h-[calc(100vh-80px)] overflow-hidden z-0">
       <div
         className="w-max h-full flex transition-all ease-in-out duration-1000"
         style={{ transform: `translateX(-${current * 100}vw)` }}
@@ -61,8 +52,8 @@ const Slider = () => {
               <h1 className="text-5xl lg:text-6xl 2xl:text-8xl font-semibold">
                 {slide.title}
               </h1>
-              <Link href={slide.url}>
-                <button className="rounded-md bg-black text-white py-3 px-4 ">
+              <Link href="/list?cat=all-products">
+                <button className="rounded-md bg-black text-white py-3 px-4">
                   SHOP NOW
                 </button>
               </Link>
@@ -80,10 +71,10 @@ const Slider = () => {
           </div>
         ))}
       </div>
-      <div className="absolute m-auto left-1/2 bottom-8 flex gap-4">
+      <div className="absolute left-1/2 bottom-8 flex gap-4 transform -translate-x-1/2">
         {slides.map((slide, index) => (
           <div
-            className={`w-3 h-3  rounded-full ring-1 ring-gray-600 cursor-pointer flex items-center justify-center ${
+            className={`w-3 h-3 rounded-full ring-1 ring-gray-600 cursor-pointer flex items-center justify-center ${
               current === index ? "scale-150" : ""
             }`}
             key={slide.id}
