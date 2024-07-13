@@ -7,6 +7,7 @@ import Menu from "./Menu";
 
 interface Menu {
   title: string;
+  titleHref: string;
   links: { href: string; label: string }[];
 }
 
@@ -31,38 +32,32 @@ const Navbar = () => {
 
   const menus: Menu[] = [
     {
-      title: "Shop",
-      links: [
-        { href: "/list?cat=new-arrivals", label: "Midcalf Length" },
-        { href: "/list?cat=accessories", label: "Full Length" },
-      ],
-    },
-    {
       title: "Help",
+      titleHref: "/about",
       links: [
-        { href: "/customer-service", label: "FAQs" },
-        { href: "/my-account", label: "Contact Us" },
-        { href: "/find-a-store", label: "Track Your Order" },
+        { href: "/about", label: "About Us" },
+        { href: "/contact", label: "Contact Us" },
+        { href: "/faqs", label: "FAQs" },
       ],
     },
   ];
 
   return (
-    <div className="h-20 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 relative">
+    <div className="h-20 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 relative z-50">
       {/* MOBILE */}
       <div className="h-full flex items-center justify-between md:hidden">
         <Link href="/" className="flex items-center gap-3">
-            <Image
-              src="/logo-white.svg"
-              alt="Grip Gear logo"
-              width={220}
-              height={60}
-            />
-          </Link>
+          <Image
+            src="/logo-white.svg"
+            alt="Grip Gear logo"
+            width={220}
+            height={60}
+          />
+        </Link>
         <Menu />
       </div>
       {/* BIGGER SCREENS */}
-      <div className="hidden md:flex items-center justify-between gap-8 h-full">
+      <div className="hidden md:flex items-center justify-between gap-8 h-full z-50">
         {/* LEFT */}
         <div className="flex items-center gap-12">
           <Link href="/" className="flex items-center gap-3">
@@ -77,6 +72,7 @@ const Navbar = () => {
         {/* CENTER */}
         <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center gap-4">
           <Link href="/">Design</Link>
+
           {menus.map((menu) => (
             <div
               key={menu.title}
@@ -84,7 +80,19 @@ const Navbar = () => {
               onMouseEnter={() => handleMenuEnter(menu.title)}
               onMouseLeave={handleMenuLeave}
             >
-              <Link href="/">{menu.title}</Link>
+              {/* Title link */}
+              <div className="flex items-center gap-1">
+                <Link href={menu.titleHref}>
+                  <span>{menu.title}</span>
+                </Link>
+                <Image
+                  src="/down.svg"
+                  alt="Dropdown Icon"
+                  width={18}
+                  height={18}
+                  className="mt-1"
+                />
+              </div>
               {activeDropdown === menu.title && (
                 <div
                   className="absolute top-full left-0 mt-0 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-50"
@@ -107,7 +115,6 @@ const Navbar = () => {
         </div>
         {/* RIGHT */}
         <div className="flex items-center gap-8 ml-auto">
-          {/* <SearchBar /> */}
           <NavIcons />
         </div>
       </div>

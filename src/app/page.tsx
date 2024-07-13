@@ -1,70 +1,58 @@
-// "use client";
+"use client"
+import { useState } from "react";
+import StepStatusIndicator from "@/components/StatusIndicator";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation"; // Import useNavigate from next/navigation
 
-import CategoryList from "@/components/CategoryList";
-import ProductList from "@/components/ProductList";
-import Skeleton from "@/components/Skeleton";
-import Slider from "@/components/Slider";
-import { WixClientContext } from "@/context/wixContext";
-import { useWixClient } from "@/hooks/useWixClient";
-import { wixClientServer } from "@/lib/wixClientServer";
-import { Suspense, useContext, useEffect } from "react";
+const Index = () => {
+  const stepNames = ["1", "2", "3"]; // Example step names array
 
-const HomePage = async () => {
+  const [selectedTemplate, setSelectedTemplate] = useState<number | null>(null);
+  const router = useRouter(); // Use useNavigate hook for navigation
 
-  // TEST (FETCHING ON THE CLIENT COMPONENT)
-
-  // const wixClient = useWixClient()
-
-  // useEffect(() => {
-  //   const getProducts = async () => {
-  //     const res = await wixClient.products.queryProducts().find();
-
-  //     console.log(res)
-  //   };
-
-  //   getProducts();
-  // }, [wixClient]);
-  
-
-  // TEST (FETCHING ON THE SERVER COMPONENT)
-
-  // const wixClient = await wixClientServer();
-
-  // const res = await wixClient.products.queryProducts().find();
-
-  // console.log(res);
+  const handleTemplateSelect = (templateNumber: number) => {
+    setSelectedTemplate(templateNumber);
+    // Navigate to the color selection page with selected template
+    router.push(`/color-selection?template=${templateNumber}`);
+  };
 
   return (
-    <div className="">
-      <Slider />
-      <div className="mt-24 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
-        <h1 className="text-2xl">Featured Products</h1>
-        <Suspense fallback={<Skeleton />}>
-          <ProductList
-            categoryId={process.env.FEATURED_PRODUCTS_FEATURED_CATEGORY_ID!}
-            limit={4}
-          />
-        </Suspense>
-      </div>
-      <div className="mt-24">
-        <h1 className="text-2xl px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 mb-12">
-          Categories
-        </h1>
-        <Suspense fallback={<Skeleton />}>
-          <CategoryList />
-        </Suspense>
-      </div>
-      <div className="mt-24 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
-        <h1 className="text-2xl">New Products</h1>
-        <Suspense fallback={<Skeleton />}>
-          <ProductList
-            categoryId={process.env.FEATURED_PRODUCTS_NEW_CATEGORY_ID!}
-            limit={4}
-          />
-        </Suspense>
+    <div className="text-center mt-10">
+      <StepStatusIndicator
+        currentStep={1}
+        totalSteps={3}
+        stepNames={stepNames}
+      />
+      <h1 className="text-2xl font-semibold mt-10">
+        Choose your design template
+      </h1>
+      <div className="mt-10 flex justify-center">
+        <div className="grid grid-cols-2 gap-10">
+          {[1, 2, 3, 4].map((templateNumber) => (
+            <div
+              key={templateNumber}
+              className={`flex justify-center items-center ${
+                selectedTemplate === templateNumber ? "border border-blue-500" : ""
+              }`}
+              onClick={() => handleTemplateSelect(templateNumber)}
+            >
+              <Link href={`/color-selection?template=${templateNumber}`}>
+             
+                  <Image
+                    src={`/img${templateNumber}.jpeg`}
+                    alt={`Template ${templateNumber}`}
+                    width={400}
+                    height={200}
+                    className="rounded-lg"
+                  />
+              </Link>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
 };
 
-export default HomePage;
+export default Index;

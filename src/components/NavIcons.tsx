@@ -20,9 +20,6 @@ const NavIcons = () => {
   const wixClient = useWixClient();
   const isLoggedIn = wixClient.auth.loggedIn();
 
-  // TEMPORARY
-  // const isLoggedIn = false;
-
   const handleProfile = () => {
     if (!isLoggedIn) {
       router.push("/login");
@@ -30,22 +27,6 @@ const NavIcons = () => {
       setIsProfileOpen((prev) => !prev);
     }
   };
-
-  // AUTH WITH WIX-MANAGED AUTH
-
-  // const wixClient = useWixClient();
-
-  // const login = async () => {
-  //   const loginRequestData = wixClient.auth.generateOAuthData(
-  //     "http://localhost:3000"
-  //   );
-
-  //   console.log(loginRequestData);
-
-  //   localStorage.setItem("oAuthRedirectData", JSON.stringify(loginRequestData));
-  //   const { authUrl } = await wixClient.auth.getAuthUrl(loginRequestData);
-  //   window.location.href = authUrl;
-  // };
 
   const handleLogout = async () => {
     setIsLoading(true);
@@ -55,7 +36,6 @@ const NavIcons = () => {
     setIsProfileOpen(false);
     router.push(logoutUrl);
   };
-
 
   const { cart, counter, getCart } = useCartStore();
 
@@ -82,6 +62,12 @@ const NavIcons = () => {
           </div>
         </div>
       )}
+    </div>
+  );
+};
+
+{
+  /*
       <div
         className="relative cursor-pointer"
         onClick={() => setIsCartOpen((prev) => !prev)}
@@ -95,5 +81,7 @@ const NavIcons = () => {
     </div>
   );
 };
+*/
+}
 
 export default NavIcons;
