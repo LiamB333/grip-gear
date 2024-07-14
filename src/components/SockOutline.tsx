@@ -1,44 +1,111 @@
-// components/SockOutline.tsx
-
-import React, { useState } from "react";
+import React from "react";
 
 interface SockOutlineProps {
   backgroundColor: string;
+  stripeColor: string;
+  selectedTemplate: number;
 }
 
-const SockOutline: React.FC<SockOutlineProps> = ({ backgroundColor }) => {
-  const [background, setBackground] = useState(backgroundColor);
-  const [stripeColor, setStripeColor] = useState("#FFFFFF");
+const SockOutline: React.FC<SockOutlineProps> = ({
+  backgroundColor,
+  stripeColor,
+  selectedTemplate,
+}) => {
+  let patternRectangles: JSX.Element[] = [];
 
-  const handleBackgroundChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const color = e.target.value;
-    setBackground(color);
-  };
+  // Define patterns based on selectedTemplate
+  switch (selectedTemplate) {
+    case 1:
+      patternRectangles = [];
+      break;
 
-  const handleStripeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const color = e.target.value;
-    setStripeColor(color);
-  };
+    case 2:
+      patternRectangles = [
+        <rect
+          key="1"
+          x="250"
+          y="120"
+          width="145"
+          height="45"
+          fill={stripeColor}
+        />,
+        <rect
+          key="2"
+          x="524"
+          y="120"
+          width="145"
+          height="45"
+          fill={stripeColor}
+        />,
+        <rect
+          key="3"
+          x="524"
+          y="280"
+          width="145"
+          height="45"
+          fill={stripeColor}
+        />,
+        <rect
+          key="4"
+          x="250"
+          y="280"
+          width="145"
+          height="45"
+          fill={stripeColor}
+        />,
+      ];
+      break;
+    case 3:
+      patternRectangles = [
+        <path d="M251,90 L250,170 L394,270 L394,190" fill={stripeColor}></path>,
+        <path d="M525,270 L525,190 L668,90 L668,170" fill={stripeColor}></path>,
+      ];
+      break;
+    case 4:
+      patternRectangles = [
+        <path
+          d="M521,65 L523,105 L568.25,155 L567.25,115"
+          fill={stripeColor}
+        ></path>,
+        <path
+          d="M524 ,135 L525,175 L568.25,225 L567.25,185"
+          fill={stripeColor}
+        ></path>,
+        <path
+          d="M525,205 L525,245 L568.25,295 L567.25,255"
+          fill={stripeColor}
+        ></path>,
+        <path
+          d="M525,275 L525,315 L568.25,365 L567.25,325"
+          fill={stripeColor}
+        ></path>,
+
+        <path
+          d="M398.25,65 L396.25,105 L351,155 L352,115"
+          fill={stripeColor}
+        ></path>,
+        <path
+          d="M395.25,135 L394.25,175 L351,225 L352,185"
+          fill={stripeColor}
+        ></path>,
+        <path
+          d="M394.25,205 L394.25,245 L351,295 L352,255"
+          fill={stripeColor}
+        ></path>,
+        <path
+          d="M394.25,275 L394.25,315 L351,365 L352,325"
+          fill={stripeColor}
+        ></path>,
+      ];
+      break;
+    default:
+      patternRectangles = [];
+      break;
+  }
 
   return (
     <div>
-      {/* Common Color Picker for Background */}
-      <input
-        type="color"
-        value={background}
-        onChange={handleBackgroundChange}
-        style={{ marginRight: "10px" }}
-      />
-
-      {/* Separate Color Picker for Stripe */}
-      <input
-        type="color"
-        value={stripeColor}
-        onChange={handleStripeChange}
-        style={{ marginBottom: "10px" }}
-      />
-
-      <svg width="700" height="700" viewBox="0 -300 1000 1000">
+      <svg width="800" height="800" viewBox="0 0 1000 1000">
         <path
           d="M251.000000,144.500000 
 	C250.726059,153.498016 251.518829,162.520126 250.486099,171.498398 
@@ -78,7 +145,9 @@ const SockOutline: React.FC<SockOutlineProps> = ({ backgroundColor }) => {
 	C250.996460,67.333336 250.783051,73.675598 251.043365,79.998215 
 	C251.662140,95.027901 249.131317,110.000877 250.145233,124.990173 
 	C250.574173,131.331543 249.495911,137.728287 251.000000,144.000000  "
-          fill={background}
+          fill={backgroundColor}
+          stroke="black"
+          strokeWidth="1"
         />
         <path
           d="M668.000000,144.500000 
@@ -118,10 +187,11 @@ const SockOutline: React.FC<SockOutlineProps> = ({ backgroundColor }) => {
 	C668.000000,74.000000 667.544189,86.522987 668.173096,98.991272 
 	C668.543152,106.327660 669.579834,113.718933 668.827881,120.982185 
 	C668.031555,128.674744 670.447021,136.425232 668.000000,144.000000"
-          fill={background}
+          fill={backgroundColor}
+          stroke="black"
+          strokeWidth="1"
         />
-        {/* <path d="M200,200 L300,200" stroke={stripeColor} strokeWidth="10" /> */}
-        <rect x="120" y="103" width="360" height="20" fill={stripeColor} />
+        {patternRectangles}
       </svg>
     </div>
   );

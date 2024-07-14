@@ -20,7 +20,7 @@ const LogoAdditionComponent: React.FC<LogoAdditionComponentProps> = ({ onLogoSel
 
   return (
     <div className="text-center mt-4">
-      <h1 className="text-2xl font-semibold">Add Logo</h1>
+      <h2>Add Logo</h2>
       <input type="file" accept="image/*" onChange={handleLogoSelect} />
       {logoUrl && (
         <div className="mt-4">
