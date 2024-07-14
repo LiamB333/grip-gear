@@ -1,30 +1,44 @@
 // components/SockOutline.tsx
 
-import React from "react";
+import React, { useState } from "react";
 
 interface SockOutlineProps {
-  selectedColor: string;
-  stripeColor: string;
+  backgroundColor: string;
 }
 
-const SockOutline: React.FC<SockOutlineProps> = ({
-  selectedColor,
-  stripeColor,
-}) => {
+const SockOutline: React.FC<SockOutlineProps> = ({ backgroundColor }) => {
+  const [background, setBackground] = useState(backgroundColor);
+  const [stripeColor, setStripeColor] = useState("#FFFFFF");
+
+  const handleBackgroundChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const color = e.target.value;
+    setBackground(color);
+  };
+
+  const handleStripeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const color = e.target.value;
+    setStripeColor(color);
+  };
+
   return (
-    <svg width="700" height="700" viewBox="0 -300 1000 1000">
-      <defs>
-        <pattern
-          id="stripes"
-          patternUnits="userSpaceOnUse"
-          width="20"
-          height="20"
-        >
-          <rect width="10" height="20" fill={stripeColor} />
-          <rect x="10" width="10" height="20" fill={selectedColor} />
-        </pattern>
-      </defs>
-      <g fill="url(#stripes)">
+    <div>
+      {/* Common Color Picker for Background */}
+      <input
+        type="color"
+        value={background}
+        onChange={handleBackgroundChange}
+        style={{ marginRight: "10px" }}
+      />
+
+      {/* Separate Color Picker for Stripe */}
+      <input
+        type="color"
+        value={stripeColor}
+        onChange={handleStripeChange}
+        style={{ marginBottom: "10px" }}
+      />
+
+      <svg width="700" height="700" viewBox="0 -300 1000 1000">
         <path
           d="M251.000000,144.500000 
 	C250.726059,153.498016 251.518829,162.520126 250.486099,171.498398 
@@ -64,7 +78,7 @@ const SockOutline: React.FC<SockOutlineProps> = ({
 	C250.996460,67.333336 250.783051,73.675598 251.043365,79.998215 
 	C251.662140,95.027901 249.131317,110.000877 250.145233,124.990173 
 	C250.574173,131.331543 249.495911,137.728287 251.000000,144.000000  "
-          fill={selectedColor}
+          fill={background}
         />
         <path
           d="M668.000000,144.500000 
@@ -104,11 +118,12 @@ const SockOutline: React.FC<SockOutlineProps> = ({
 	C668.000000,74.000000 667.544189,86.522987 668.173096,98.991272 
 	C668.543152,106.327660 669.579834,113.718933 668.827881,120.982185 
 	C668.031555,128.674744 670.447021,136.425232 668.000000,144.000000"
-          fill={selectedColor}
+          fill={background}
         />
-        <path d="M200,200 L300,200" stroke={stripeColor} strokeWidth="10" />
-      </g>
-    </svg>
+        {/* <path d="M200,200 L300,200" stroke={stripeColor} strokeWidth="10" /> */}
+        <rect x="120" y="103" width="360" height="20" fill={stripeColor} />
+      </svg>
+    </div>
   );
 };
 
