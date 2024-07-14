@@ -1,26 +1,26 @@
-// components/ColorPicker.tsx
-"use client"
-import React from 'react';
+// components/ColorPickerComponent.tsx
+import React, { useState } from 'react';
+import { SketchPicker } from 'react-color';
 
-interface ColorPickerProps {
+interface ColorPickerComponentProps {
   onSelect: (color: string) => void;
 }
 
-const ColorPicker: React.FC<ColorPickerProps> = ({ onSelect }) => {
-  const colors = ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF']; // Example colors
+const ColorPickerComponent: React.FC<ColorPickerComponentProps> = ({ onSelect }) => {
+  const [selectedColor, setSelectedColor] = useState<string>('#FF0000');
+
+  const handleColorChange = (color: any) => {
+    setSelectedColor(color.hex);
+    onSelect(color.hex); // Pass selected color to parent component
+  };
 
   return (
-    <div className="flex justify-center mt-4">
-      {colors.map((color, index) => (
-        <div
-          key={index}
-          className="w-12 h-12 rounded-full mx-2 cursor-pointer"
-          style={{ backgroundColor: color }}
-          onClick={() => onSelect(color)}
-        ></div>
-      ))}
+    <div className="text-center mt-4">
+      <h1 className="text-2xl font-semibold">Color Picker</h1>
+      <SketchPicker color={selectedColor} onChange={handleColorChange} />
+      <div className="mt-4">Selected Color: {selectedColor}</div>
     </div>
   );
 };
 
-export default ColorPicker;
+export default ColorPickerComponent;
