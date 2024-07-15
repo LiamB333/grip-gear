@@ -24,6 +24,7 @@
     "react-color": "^2.19.3",
     "react-confetti": "^6.1.0",
     "react-dom": "^18",
+    "resend": "^3.4.0",
     "timeago.js": "^4.0.2",
     "zustand": "^4.5.2"
   },

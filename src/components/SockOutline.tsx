@@ -4,13 +4,21 @@ interface SockOutlineProps {
   backgroundColor: string;
   stripeColor: string;
   selectedTemplate: number;
+  leftLogoUrl?: string;
+  rightLogoUrl?: string;
 }
 
 const SockOutline: React.FC<SockOutlineProps> = ({
   backgroundColor,
   stripeColor,
   selectedTemplate,
+  leftLogoUrl,
+  rightLogoUrl,
 }) => {
+  const logoWidth = 100; // Example width for logos
+  const logoHeight = 100; // Example height for logos
+  const logoXOffset = 225; // Example offset for X position
+  const logoYOffset = 170; // Example offset for Y position
   let patternRectangles: JSX.Element[] = [];
 
   // Define patterns based on selectedTemplate
@@ -59,6 +67,8 @@ const SockOutline: React.FC<SockOutlineProps> = ({
       patternRectangles = [
         <path d="M251,90 L250,170 L394,270 L394,190" fill={stripeColor}></path>,
         <path d="M525,270 L525,190 L668,90 L668,170" fill={stripeColor}></path>,
+
+        //<rect x="250" y="150" width="80" height="100" fill="none" stroke="black" stroke-width="3" stroke-dasharray="5,5" />,
       ];
       break;
     case 4:
@@ -192,6 +202,27 @@ const SockOutline: React.FC<SockOutlineProps> = ({
           strokeWidth="1"
         />
         {patternRectangles}
+        {/* Left Logo */}
+        {leftLogoUrl && (
+          <image
+            x={logoXOffset + 369}
+            y={logoYOffset}
+            width={logoWidth}
+            height={logoHeight}
+            xlinkHref={leftLogoUrl}
+          />
+        )}
+
+        {/* Right Logo */}
+        {rightLogoUrl && (
+          <image
+            x={logoXOffset} // Adjust x position for right logo
+            y={logoYOffset}
+            width={logoWidth}
+            height={logoHeight}
+            xlinkHref={rightLogoUrl}
+          />
+        )}
       </svg>
     </div>
   );

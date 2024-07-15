@@ -60,6 +60,10 @@ const Navbar = () => {
       <div className="hidden md:flex items-center justify-between gap-8 h-full z-50">
         {/* LEFT */}
         <div className="flex items-center gap-12">
+          {/* Add any other links or components for the left side */}
+        </div>
+        {/* CENTER */}
+        <div className="absolute left-1/2 transform -translate-x-1/2">
           <Link href="/" className="flex items-center gap-3">
             <Image
               src="/logo-white.svg"
@@ -69,7 +73,21 @@ const Navbar = () => {
             />
           </Link>
         </div>
-        {/* CENTER */}
+        {/* RIGHT 
+        <div className="flex items-center gap-8 ml-auto">
+          <NavIcons />
+        </div>
+        */}
+      </div>
+    </div>
+  );
+};
+
+export default Navbar;
+
+
+{
+  /* CENTER 
         <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center gap-4">
           <Link href="/">Design</Link>
 
@@ -80,7 +98,7 @@ const Navbar = () => {
               onMouseEnter={() => handleMenuEnter(menu.title)}
               onMouseLeave={handleMenuLeave}
             >
-              {/* Title link */}
+        
               <div className="flex items-center gap-1">
                 <Link href={menu.titleHref}>
                   <span>{menu.title}</span>
@@ -113,13 +131,14 @@ const Navbar = () => {
             </div>
           ))}
         </div>
-        {/* RIGHT */}
+        */
+}
+{
+  /* RIGHT 
         <div className="flex items-center gap-8 ml-auto">
-          <NavIcons />
+           <NavIcons /> 
         </div>
       </div>
     </div>
-  );
-};
-
-export default Navbar;
+    */
+}
