@@ -2,7 +2,7 @@ import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import { saveLogo } from "../../utils/indexedDB";
 
-interface LogoAdditionComponentProps {
+interface LogoPickerProps {
   onLogoSelect: (
     leftLogoId: string,
     rightLogoId: string,
@@ -10,9 +10,7 @@ interface LogoAdditionComponentProps {
   ) => void;
 }
 
-const LogoAdditionComponent: React.FC<LogoAdditionComponentProps> = ({
-  onLogoSelect,
-}) => {
+const LogoPicker: React.FC<LogoPickerProps> = ({ onLogoSelect }) => {
   const handleLogoSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -61,7 +59,7 @@ const LogoAdditionComponent: React.FC<LogoAdditionComponentProps> = ({
   };
 
   return (
-    <div className="text-center ">
+    <div className="text-center">
       <h2 className="text-lg font-semibold mb-2">Add Logo</h2>
       <input
         type="file"
@@ -80,4 +78,4 @@ const LogoAdditionComponent: React.FC<LogoAdditionComponentProps> = ({
   );
 };
 
-export default LogoAdditionComponent;
+export default LogoPicker;

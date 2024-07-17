@@ -224,7 +224,6 @@ const SockOutline: React.FC<SockOutlineProps> = ({
             xlinkHref={leftLogoUrl}
           />
         )}
-
         {/* Right Logo */}
         {rightLogoUrl && (
           <image

@@ -3,7 +3,7 @@ import { products } from "@wix/stores";
 import Image from "next/image";
 import Link from "next/link";
 import DOMPurify from "isomorphic-dompurify";
-import Pagination from "../Website/Pagination";
+import Pagination from "./Pagination";
 
 const PRODUCT_PER_PAGE = 8;
 

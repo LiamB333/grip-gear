@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { SketchPicker } from "react-color";
 
-interface ColorPickerComponentProps {
+interface ColorPickerProps {
+  title: string;
   onSelect: (color: string) => void;
 }
 
-const ColorPickerComponent: React.FC<ColorPickerComponentProps> = ({
-  onSelect,
-}) => {
+const ColorPicker: React.FC<ColorPickerProps> = ({ title, onSelect }) => {
   const [selectedColor, setSelectedColor] = useState<string>("#FF0000");
   const [displayColorPicker, setDisplayColorPicker] = useState<boolean>(false);
   const colorPickerRef = useRef<HTMLDivElement>(null);
@@ -40,6 +39,7 @@ const ColorPickerComponent: React.FC<ColorPickerComponentProps> = ({
 
   return (
     <div className="relative text-center mt-2" ref={colorPickerRef}>
+      <h2 className="text-lg md:text-lg font-semibold">{title}</h2>
       <button
         className="p-2 border border-black rounded bg-white text-black hover:bg-gray-100 hover:text-black transition duration-300"
         onClick={handleColorPickerToggle}
@@ -55,4 +55,4 @@ const ColorPickerComponent: React.FC<ColorPickerComponentProps> = ({
   );
 };
 
-export default ColorPickerComponent;
+export default ColorPicker;

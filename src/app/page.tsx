@@ -1,12 +1,15 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import ColorPickerComponent from "@/components/Designer/ColorPicker";
-import LogoAdditionComponent from "@/components/Designer/LogoPicker";
 import SockOutline from "@/components/Designer/SockOutline";
+import TemplateSelector from "@/components/Designer/TemplateSelector";
+import QuantitySelector from "@/components/Designer/QuantitySelector";
+import PriceDisplay from "@/components/Designer/PriceDisplay";
 import { useSearchParams, useRouter } from "next/navigation";
 import { getLogo } from "../utils/indexedDB";
+import ColorPicker from "@/components/Designer/ColorPicker";
+import LogoPicker from "@/components/Designer/LogoPicker";
 
-const SockSelectionPage = () => {
+const SockCustomiser = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -96,8 +99,7 @@ const SockSelectionPage = () => {
     setShowErrorMessage(false);
   };
 
-  const handleTemplateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedValue = parseInt(e.target.value, 10);
+  const handleTemplateChange = (selectedValue: number) => {
     setSelectedTemplate(selectedValue);
     if (selectedValue === 1) {
       setStripeColor("#FFFFFF");
@@ -106,8 +108,7 @@ const SockSelectionPage = () => {
     updateSearchParams("selectedTemplate", selectedValue.toString());
   };
 
-  const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseInt(e.target.value, 10);
+  const handleQuantityChange = (value: number) => {
     setQuantity(value);
   };
 
@@ -132,7 +133,6 @@ const SockSelectionPage = () => {
   const updateSearchParams = (key: string, value: string) => {
     const params = new URLSearchParams(window.location.search);
     params.set(key, value);
-
     const newUrl = `${window.location.pathname}?${params.toString()}`;
     window.history.replaceState({}, "", newUrl);
   };
@@ -169,72 +169,43 @@ const SockSelectionPage = () => {
           />
         </div>
         <div className="controls flex flex-col items-center space-y-4 md:space-y-6">
-          <div className="text-center">
-            <h2 className="text-lg md:text-lg font-semibold mb-2">
-              Choose Pattern
-            </h2>
-            <select
-              className="p-1 md:p-2 border border-black rounded bg-white text-black cursor-pointer hover:bg-gray-100 hover:text-black transition duration-300"
-              value={selectedTemplate}
-              onChange={handleTemplateChange}
-            >
-              <option value={1}>Pattern 1</option>
-              <option value={2}>Pattern 2</option>
-              <option value={3}>Pattern 3</option>
-              <option value={4}>Pattern 4</option>
-            </select>
-          </div>
-          <div className="text-center">
-            <h2 className="text-lg md:text-lg font-semibold">
-              Choose Background Colour
-            </h2>
-            <ColorPickerComponent onSelect={handleBackgroundColorSelect} />
-          </div>
+          <TemplateSelector
+            selectedTemplate={selectedTemplate}
+            onChange={handleTemplateChange}
+          />
+          <ColorPicker
+            title="Choose Background Colour"
+            onSelect={handleBackgroundColorSelect}
+          />
           {selectedTemplate !== 1 && (
-            <div className="text-center">
-              <h2 className="text-lg md:text-lg font-semibold">
-                Choose Stripe Colour
-              </h2>
-              <ColorPickerComponent onSelect={handleStripeColorSelect} />
-            </div>
-          )}
-          <div className="text-center">
-            <LogoAdditionComponent onLogoSelect={handleLogoSelect} />
-            {showErrorMessage && (
-              <p className="text-red-500 mt-2">Please upload a logo.</p>
-            )}
-          </div>
-          <div className="text-center">
-            <h2 className="text-lg md:text-lg font-semibold">
-              Choose Quantity (min 50)
-            </h2>
-            <input
-              type="number"
-              min="50"
-              value={quantity}
-              onChange={handleQuantityChange}
-              onBlur={handleQuantityBlur}
-              className="p-1 md:p-2 border border-black rounded bg-white text-black cursor-pointer hover:bg-gray-100 hover:text-black transition duration-300 w-24"
+            <ColorPicker
+              title="Choose Stripe Colour"
+              onSelect={handleStripeColorSelect}
             />
-            {quantityErrorMessage && (
-              <p className="text-red-500 mt-2">{quantityErrorMessage}</p>
-            )}
-          </div>
-          <div className="mt-4 flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4">
-            <div className="text-lg md:text-xl font-semibold text-green-600">
-              {calculatePrice()}
-            </div>
-            <button
-              className="bg-blue-500 text-white hover:bg-blue-700 hover:text-white font-semibold py-1 px-4 md:py-2 md:px-8 rounded-lg transition-colors duration-300 ease-in-out"
-              onClick={handleContinue}
-            >
-              Continue
-            </button>
-          </div>
+          )}
+          <LogoPicker onLogoSelect={handleLogoSelect} />
+          {showErrorMessage && (
+            <p className="text-red-500 mt-2">Please upload a logo.</p>
+          )}
+          <QuantitySelector
+            quantity={quantity}
+            onChange={handleQuantityChange}
+            onBlur={handleQuantityBlur}
+          />
+          {quantityErrorMessage && (
+            <p className="text-red-500 mt-2">{quantityErrorMessage}</p>
+          )}
+          <PriceDisplay price={calculatePrice()} />
+          <button
+            className="bg-blue-500 text-white hover:bg-blue-700 hover:text-white font-semibold py-1 px-4 md:py-2 md:px-8 rounded-lg transition-colors duration-300 ease-in-out"
+            onClick={handleContinue}
+          >
+            Continue
+          </button>
         </div>
       </div>
     </div>
   );
 };
 
-export default SockSelectionPage;
+export default SockCustomiser;
