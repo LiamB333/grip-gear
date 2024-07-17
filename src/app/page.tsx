@@ -1,9 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import ColorPickerComponent from "@/components/ColorPicker";
-import LogoAdditionComponent from "@/components/LogoPicker";
-import SockOutline from "@/components/SockOutline";
-import Link from "next/link";
+import ColorPickerComponent from "@/components/Designer/ColorPicker";
+import LogoAdditionComponent from "@/components/Designer/LogoPicker";
+import SockOutline from "@/components/Designer/SockOutline";
 import { useSearchParams, useRouter } from "next/navigation";
 import { getLogo } from "../utils/indexedDB";
 
@@ -17,15 +16,31 @@ const SockSelectionPage = () => {
     return value !== null ? value : undefined;
   };
 
-  const [backgroundColor, setBackgroundColor] = useState(getParam("backgroundColor") || "#E4E4E4");
-  const [stripeColor, setStripeColor] = useState(getParam("stripeColor") || "#FFFFFF");
-  const [selectedTemplate, setSelectedTemplate] = useState<number>(parseInt(getParam("selectedTemplate") || "1", 10));
-  const [leftSockLogoId, setLeftSockLogoId] = useState<string | undefined>(getParam("leftSockLogo"));
-  const [rightSockLogoId, setRightSockLogoId] = useState<string | undefined>(getParam("rightSockLogo"));
-  const [fullLogoId, setFullLogoId] = useState<string | undefined>(getParam("fullLogo"));
-  const [quantity, setQuantity] = useState<number>(parseInt(getParam("quantity") || "50", 10));
+  const [backgroundColor, setBackgroundColor] = useState(
+    getParam("backgroundColor") || "#E4E4E4"
+  );
+  const [stripeColor, setStripeColor] = useState(
+    getParam("stripeColor") || "#FFFFFF"
+  );
+  const [selectedTemplate, setSelectedTemplate] = useState<number>(
+    parseInt(getParam("selectedTemplate") || "1", 10)
+  );
+  const [leftSockLogoId, setLeftSockLogoId] = useState<string | undefined>(
+    getParam("leftSockLogo")
+  );
+  const [rightSockLogoId, setRightSockLogoId] = useState<string | undefined>(
+    getParam("rightSockLogo")
+  );
+  const [fullLogoId, setFullLogoId] = useState<string | undefined>(
+    getParam("fullLogo")
+  );
+  const [quantity, setQuantity] = useState<number>(
+    parseInt(getParam("quantity") || "50", 10)
+  );
   const [showErrorMessage, setShowErrorMessage] = useState(false);
-  const [quantityErrorMessage, setQuantityErrorMessage] = useState<string | null>(null);
+  const [quantityErrorMessage, setQuantityErrorMessage] = useState<
+    string | null
+  >(null);
 
   const [leftSockLogo, setLeftSockLogo] = useState<string | undefined>();
   const [rightSockLogo, setRightSockLogo] = useState<string | undefined>();
@@ -66,7 +81,11 @@ const SockSelectionPage = () => {
     updateSearchParams("stripeColor", color);
   };
 
-  const handleLogoSelect = (leftLogoId: string, rightLogoId: string, fullLogoId: string) => {
+  const handleLogoSelect = (
+    leftLogoId: string,
+    rightLogoId: string,
+    fullLogoId: string
+  ) => {
     setLeftSockLogoId(leftLogoId);
     setRightSockLogoId(rightLogoId);
     setFullLogoId(fullLogoId);
@@ -115,10 +134,12 @@ const SockSelectionPage = () => {
     params.set(key, value);
 
     const newUrl = `${window.location.pathname}?${params.toString()}`;
-    window.history.replaceState({}, '', newUrl);
+    window.history.replaceState({}, "", newUrl);
   };
 
-  const handleContinue = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleContinue = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     if (!logosUploaded) {
       e.preventDefault();
       setShowErrorMessage(true);
@@ -133,8 +154,10 @@ const SockSelectionPage = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen space-y-3">
-      <h1 className="text-2xl md:text-2xl font-bold mb-4 text-center">Customise Your Socks</h1>
+    <div className="flex flex-col justify-center items-center min-h-screen space-y-2">
+      <h1 className="text-2xl md:text-2xl font-bold mb-2 text-center">
+        Customise Your Socks
+      </h1>
       <div className="flex flex-col md:flex-row md:space-x-8 space-y-8 md:space-y-0 items-center">
         <div className="flex justify-center w-full md:w-auto">
           <SockOutline
@@ -147,7 +170,9 @@ const SockSelectionPage = () => {
         </div>
         <div className="controls flex flex-col items-center space-y-4 md:space-y-6">
           <div className="text-center">
-            <h2 className="text-lg md:text-xl font-semibold mb-2">Choose Template</h2>
+            <h2 className="text-lg md:text-lg font-semibold mb-2">
+              Choose Pattern
+            </h2>
             <select
               className="p-1 md:p-2 border border-black rounded bg-white text-black cursor-pointer hover:bg-gray-100 hover:text-black transition duration-300"
               value={selectedTemplate}
@@ -160,12 +185,16 @@ const SockSelectionPage = () => {
             </select>
           </div>
           <div className="text-center">
-            <h2 className="text-lg md:text-xl font-semibold">Choose Background Colour</h2>
+            <h2 className="text-lg md:text-lg font-semibold">
+              Choose Background Colour
+            </h2>
             <ColorPickerComponent onSelect={handleBackgroundColorSelect} />
           </div>
           {selectedTemplate !== 1 && (
             <div className="text-center">
-              <h2 className="text-lg md:text-xl font-semibold">Choose Stripe Colour</h2>
+              <h2 className="text-lg md:text-lg font-semibold">
+                Choose Stripe Colour
+              </h2>
               <ColorPickerComponent onSelect={handleStripeColorSelect} />
             </div>
           )}
@@ -176,20 +205,22 @@ const SockSelectionPage = () => {
             )}
           </div>
           <div className="text-center">
-            <h2 className="text-lg md:text-xl font-semibold">Choose Quantity (min 50)</h2>
+            <h2 className="text-lg md:text-lg font-semibold">
+              Choose Quantity (min 50)
+            </h2>
             <input
               type="number"
               min="50"
               value={quantity}
               onChange={handleQuantityChange}
               onBlur={handleQuantityBlur}
-              className="p-1 md:p-2 border border-black rounded bg-white text-black cursor-pointer hover:bg-gray-100 hover:text-black transition duration-300"
+              className="p-1 md:p-2 border border-black rounded bg-white text-black cursor-pointer hover:bg-gray-100 hover:text-black transition duration-300 w-24"
             />
             {quantityErrorMessage && (
               <p className="text-red-500 mt-2">{quantityErrorMessage}</p>
             )}
           </div>
-          <div className="mt-4 flex flex-col items-center space-y-2 md:space-y-4">
+          <div className="mt-4 flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4">
             <div className="text-lg md:text-xl font-semibold text-green-600">
               {calculatePrice()}
             </div>

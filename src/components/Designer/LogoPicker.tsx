@@ -1,9 +1,13 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
-import { saveLogo } from "../utils/indexedDB";
+import { saveLogo } from "../../utils/indexedDB";
 
 interface LogoAdditionComponentProps {
-  onLogoSelect: (leftLogoId: string, rightLogoId: string, fullLogoId: string) => void;
+  onLogoSelect: (
+    leftLogoId: string,
+    rightLogoId: string,
+    fullLogoId: string
+  ) => void;
 }
 
 const LogoAdditionComponent: React.FC<LogoAdditionComponentProps> = ({
@@ -58,7 +62,7 @@ const LogoAdditionComponent: React.FC<LogoAdditionComponentProps> = ({
 
   return (
     <div className="text-center ">
-      <h2 className="text-xl font-semibold mb-2">Add Logo</h2>
+      <h2 className="text-lg font-semibold mb-2">Add Logo</h2>
       <input
         type="file"
         accept="image/*"

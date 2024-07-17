@@ -1,6 +1,6 @@
-import Filter from "@/components/Filter";
-import ProductList from "@/components/ProductList";
-import Skeleton from "@/components/Skeleton";
+import Filter from "@/components/Website/Filter";
+import ProductList from "@/components/Designer/ProductList";
+import Skeleton from "@/components/Website/Skeleton";
 import { wixClientServer } from "@/lib/wixClientServer";
 import Image from "next/image";
 import { Suspense } from "react";
@@ -18,7 +18,7 @@ const ListPage = async ({ searchParams }: { searchParams: any }) => {
       <Filter />
       {/* PRODUCTS */}
       <h1 className="mt-12 text-xl font-semibold">{cat?.collection?.name}</h1>
-      <Suspense fallback={<Skeleton/>}>
+      <Suspense fallback={<Skeleton />}>
         <ProductList
           categoryId={
             cat.collection?._id || "00000000-000000-000000-000000000001"

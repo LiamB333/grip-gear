@@ -1,4 +1,4 @@
-import UpdateButton from "@/components/UpdateButton";
+import UpdateButton from "@/components/Website/UpdateButton";
 import { updateUser } from "@/lib/actions";
 import { wixClientServer } from "@/lib/wixClientServer";
 import { members } from "@wix/members";
