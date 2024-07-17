@@ -1,9 +1,10 @@
-"use client"
-import { useSearchParams } from "next/navigation";
+"use client";
+import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const DetailsPage = () => {
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   const selectedTemplate = searchParams.get("selectedTemplate") || "";
   const backgroundColor = searchParams.get("backgroundColor") || "";
@@ -38,21 +39,20 @@ const DetailsPage = () => {
     <div className="flex justify-center items-center p-8">
       <div className="max-w-xl bg-white shadow-md rounded px-8 py-6">
         <h1 className="text-3xl font-bold mb-4">Customisation Details</h1>
-          <div>
+        <div>
+          <p>
+            <strong>Template:</strong> {selectedTemplate}
+          </p>
+          <p>
+            <strong>Background Color:</strong> {backgroundColor}
+          </p>
+          {selectedTemplate !== "1" && (
             <p>
-              <strong>Template:</strong> {selectedTemplate}
+              <strong>Stripe Color:</strong> {stripeColor}
             </p>
-            <p>
-              <strong>Background Color:</strong>{" "}
-              {backgroundColor}
-            </p>
-            {selectedTemplate !== "1" && (
-              <p>
-                <strong>Stripe Color:</strong> {stripeColor}
-              </p>
-            )}
-          </div>
-  
+          )}
+        </div>
+
         <form>
           <div className="m-4">
             <div className="mb-4">
@@ -107,10 +107,7 @@ const DetailsPage = () => {
               />
             </div>
             <div className="mb-6">
-              <label
-                className="block text-sm font-bold mb-2"
-                htmlFor="email"
-              >
+              <label className="block text-sm font-bold mb-2" htmlFor="email">
                 Email
               </label>
               <input
@@ -125,16 +122,17 @@ const DetailsPage = () => {
             </div>
             <div className="flex items-center justify-between">
               <button
+                type="button"
+                className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                onClick={() => router.back()}
+              >
+                Back
+              </button>
+              <button
                 type="submit"
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               >
                 Submit
-              </button>
-              <button
-                type="button"
-                className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              >
-                Back
               </button>
             </div>
           </div>
@@ -143,6 +141,5 @@ const DetailsPage = () => {
     </div>
   );
 };
-
 
 export default DetailsPage;
