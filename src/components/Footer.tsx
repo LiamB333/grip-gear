@@ -73,24 +73,25 @@ const Footer = () => {
           <h2 className="text-base font-semibold leading-4 text-gray-800 dark:text-black mb-4">
             Socials
           </h2>
-          <Link
-            href="/"
-            className="focus:outline-none focus:underline hover:text-gray-500 text-base leading-4 mt-2 text-gray-800 dark:text-black cursor-pointer"
-          >
-            Instagram
-          </Link>
-          <Link
-            href="/"
-            className="focus:outline-none focus:underline hover:text-gray-500 text-base leading-4 mt-2 text-gray-800 dark:text-black cursor-pointer"
-          >
-            Tiktok
-          </Link>
-          <Link
-            href="/"
-            className="focus:outline-none focus:underline hover:text-gray-500 text-base leading-4 mt-2 text-gray-800 dark:text-black cursor-pointer"
-          >
-            LinkedIn
-          </Link>
+          <div className="flex gap-5">
+            <Link
+              href="https://www.instagram.com/gripgear__uk/"
+              className="flex items-center"
+            >
+              <Image
+                src="/instagram.svg"
+                alt="Instagram"
+                width={20}
+                height={20}
+              />
+            </Link>
+            <Link
+              href="https://www.tiktok.com/@ne.stud"
+              className="flex items-center"
+            >
+              <Image src="/tik-tok.svg" alt="Tik Tok" width={20} height={20} />
+            </Link>
+          </div>
         </div>
       </div>
     </div>
