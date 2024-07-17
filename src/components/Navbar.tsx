@@ -48,7 +48,7 @@ const Navbar = () => {
           <Image
             src="/logo-white.svg"
             alt="Grip Gear logo"
-            width={220}
+            width={180}
             height={60}
           />
         </Link>
@@ -66,7 +66,7 @@ const Navbar = () => {
             <Image
               src="/logo-white.svg"
               alt="Grip Gear logo"
-              width={220}
+              width={180}
               height={60}
             />
           </Link>

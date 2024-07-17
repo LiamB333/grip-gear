@@ -18,15 +18,23 @@ export async function POST(request: NextRequest) {
     const backgroundColor = formData.get("backgroundColor");
     const stripeColor = formData.get("stripeColor");
     const quantity = formData.get("quantity");
-    const fullLogo = formData.get("fullLogo");  // New field for full logo image
-    const message = formData.get("message");
+    const fullLogo = formData.get("fullLogo");
 
-    if (!name || !email || !telephone || !template || !backgroundColor || !quantity) {
+    if (
+      !name ||
+      !email ||
+      !telephone ||
+      !template ||
+      !backgroundColor ||
+      !quantity
+    ) {
       console.error("Missing form data");
       throw new Error("Missing form data");
     }
 
-    console.log(`Form data - Name: ${name}, Email: ${email}, Telephone: ${telephone}, Template: ${template}, Background Color: ${backgroundColor}, Stripe Color: ${stripeColor}, Quantity: ${quantity}, Message: ${message}, Full Logo: ${fullLogo}`);
+    console.log(
+      `Form data - Name: ${name}, Email: ${email}, Telephone: ${telephone}, Template: ${template}, Background Color: ${backgroundColor}, Stripe Color: ${stripeColor}, Quantity: ${quantity}`
+    );
 
     // create transporter object
     const transporter = nodemailer.createTransport({
@@ -36,6 +44,20 @@ export async function POST(request: NextRequest) {
         pass: password,
       },
     });
+
+    const attachments = [];
+    if (fullLogo && typeof fullLogo === "string") {
+      const matches = fullLogo.match(/^data:(.*);base64,(.*)$/);
+      if (matches && matches.length === 3) {
+        const contentType = matches[1];
+        const base64Data = matches[2];
+        attachments.push({
+          filename: "logo.png",
+          content: Buffer.from(base64Data, "base64"),
+          contentType: contentType,
+        });
+      }
+    }
 
     const mail = await transporter.sendMail({
       from: username,
@@ -50,17 +72,20 @@ export async function POST(request: NextRequest) {
         <p>Background Color: ${backgroundColor}</p>
         <p>Stripe Color: ${stripeColor}</p>
         <p>Quantity: ${quantity}</p>
-        ${fullLogo ? `<img src="${fullLogo}" alt="Full Logo" width="100" height="100" />` : ''}
-        <p>Message: ${message}</p>
       `,
+      attachments: attachments.length > 0 ? attachments : undefined,
     });
 
     console.log("Email sent successfully");
 
     return NextResponse.json({ message: "Success: email was sent" });
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : "Unknown error occurred";
+    const errorMessage =
+      error instanceof Error ? error.message : "Unknown error occurred";
     console.error("Error sending email:", errorMessage);
-    return NextResponse.json({ message: "COULD NOT SEND MESSAGE", error: errorMessage }, { status: 500 });
+    return NextResponse.json(
+      { message: "COULD NOT SEND MESSAGE", error: errorMessage },
+      { status: 500 }
+    );
   }
 }

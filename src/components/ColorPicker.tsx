@@ -39,7 +39,7 @@ const ColorPickerComponent: React.FC<ColorPickerComponentProps> = ({
   };
 
   return (
-    <div className="text-center mt-2" ref={colorPickerRef}>
+    <div className="relative text-center mt-2" ref={colorPickerRef}>
       <button
         className="p-2 border border-black rounded bg-white text-black hover:bg-gray-100 hover:text-black transition duration-300"
         onClick={handleColorPickerToggle}
@@ -47,7 +47,7 @@ const ColorPickerComponent: React.FC<ColorPickerComponentProps> = ({
         {displayColorPicker ? "Close Color Picker" : "Pick a Color"}
       </button>
       {displayColorPicker && (
-        <div className="mt-2">
+        <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 z-10">
           <SketchPicker color={selectedColor} onChange={handleColorChange} />
         </div>
       )}

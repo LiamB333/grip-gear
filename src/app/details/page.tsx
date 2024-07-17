@@ -62,7 +62,17 @@ const DetailsPage = () => {
     data.append("backgroundColor", backgroundColor);
     data.append("stripeColor", stripeColor);
     data.append("quantity", quantity);
-    data.append("fullLogo", fullLogo ? fullLogo : "");  // Append the full logo if available
+    if (fullLogo) {
+      const response = await fetch(fullLogo);
+      const blob = await response.blob();
+      const base64Logo = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result as string);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+      data.append("fullLogo", base64Logo);
+    }
     data.append("message", "");
 
     try {
@@ -74,7 +84,9 @@ const DetailsPage = () => {
       if (!response.ok) {
         const errorData = await response.json();
         console.error("Server error:", errorData);
-        throw new Error(`Response status: ${response.status}, ${errorData.message}`);
+        throw new Error(
+          `Response status: ${response.status}, ${errorData.message}`
+        );
       }
 
       const responseData = await response.json();
@@ -83,43 +95,24 @@ const DetailsPage = () => {
       alert("Message successfully sent");
       router.push("/");
     } catch (err: unknown) {
-      const errorMessage = err instanceof Error ? err.message : "Unknown error occurred";
+      const errorMessage =
+        err instanceof Error ? err.message : "Unknown error occurred";
       console.error("Client error:", errorMessage);
       alert("Error, please try resubmitting the form");
     }
   };
 
   return (
-    <div className="flex justify-center items-center p-8">
+    <div className="flex justify-center items-center">
       <div className="max-w-xl bg-white shadow-md rounded px-8 py-6">
-        <h1 className="text-3xl font-bold mb-4">Customisation Details</h1>
-        <div>
-          <p>
-            <strong>Template:</strong> {selectedTemplate}
-          </p>
-          <p>
-            <strong>Background Color:</strong> {backgroundColor}
-          </p>
-          {selectedTemplate !== "1" && (
-            <p>
-              <strong>Stripe Color:</strong> {stripeColor}
-            </p>
-          )}
-          {fullLogo && (
-            <div>
-              <strong>Full Logo:</strong>
-              <img src={fullLogo} alt="Full Logo" width={100} height={100} />
-            </div>
-          )}
-          <p>
-            <strong>Quantity:</strong> {quantity}
-          </p>
-        </div>
-
+        <h1 className="text-2xl font-bold mb-4">Customisation Details</h1>
         <form onSubmit={handleSubmit}>
           <div className="m-4">
             <div className="mb-4">
-              <label className="block text-sm font-bold mb-2" htmlFor="firstName">
+              <label
+                className="block text-sm font-bold mb-2"
+                htmlFor="firstName"
+              >
                 First Name
               </label>
               <input
@@ -133,7 +126,10 @@ const DetailsPage = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-sm font-bold mb-2" htmlFor="lastName">
+              <label
+                className="block text-sm font-bold mb-2"
+                htmlFor="lastName"
+              >
                 Last Name
               </label>
               <input
@@ -147,7 +143,10 @@ const DetailsPage = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-sm font-bold mb-2" htmlFor="telephone">
+              <label
+                className="block text-sm font-bold mb-2"
+                htmlFor="telephone"
+              >
                 Telephone
               </label>
               <input

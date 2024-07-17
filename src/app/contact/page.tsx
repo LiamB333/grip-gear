@@ -1,8 +1,14 @@
 "use client";
 import Link from "next/link";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 
 export default function Contact() {
+  const [formStatus, setFormStatus] = useState({
+    submitted: false,
+    success: false,
+    message: ''
+  });
+
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -24,12 +30,20 @@ export default function Contact() {
       const responseData = await response.json();
       console.log(responseData.message);
 
-      alert("Message successfully sent");
+      setFormStatus({
+        submitted: true,
+        success: true,
+        message: 'Message successfully sent'
+      });
     } catch (err: unknown) {
       const errorMessage =
         err instanceof Error ? err.message : "Unknown error occurred";
       console.error("Client error:", errorMessage);
-      alert("Error, please try resubmitting the form");
+      setFormStatus({
+        submitted: true,
+        success: false,
+        message: 'Error, please try resubmitting the form'
+      });
     }
   }
 
@@ -77,6 +91,11 @@ export default function Contact() {
           Send
         </button>
       </form>
+      {formStatus.submitted && (
+        <div className={`mt-4 p-2 rounded ${formStatus.success ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}>
+          {formStatus.message}
+        </div>
+      )}
     </main>
   );
 }

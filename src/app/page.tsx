@@ -4,7 +4,7 @@ import ColorPickerComponent from "@/components/ColorPicker";
 import LogoAdditionComponent from "@/components/LogoPicker";
 import SockOutline from "@/components/SockOutline";
 import Link from "next/link";
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useSearchParams, useRouter } from "next/navigation";
 import { getLogo } from "../utils/indexedDB";
 
 const SockSelectionPage = () => {
@@ -23,7 +23,7 @@ const SockSelectionPage = () => {
   const [leftSockLogoId, setLeftSockLogoId] = useState<string | undefined>(getParam("leftSockLogo"));
   const [rightSockLogoId, setRightSockLogoId] = useState<string | undefined>(getParam("rightSockLogo"));
   const [fullLogoId, setFullLogoId] = useState<string | undefined>(getParam("fullLogo"));
-  const [quantity, setQuantity] = useState<number>(parseInt(getParam("quantity") || "50", 10)); // New state for quantity
+  const [quantity, setQuantity] = useState<number>(parseInt(getParam("quantity") || "50", 10));
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [quantityErrorMessage, setQuantityErrorMessage] = useState<string | null>(null);
 
@@ -73,8 +73,8 @@ const SockSelectionPage = () => {
     updateSearchParams("leftSockLogo", leftLogoId);
     updateSearchParams("rightSockLogo", rightLogoId);
     updateSearchParams("fullLogo", fullLogoId);
-    setLogosUploaded(true); // Set logos uploaded to true when logos are selected
-    setShowErrorMessage(false); // Reset error message when logos are uploaded
+    setLogosUploaded(true);
+    setShowErrorMessage(false);
   };
 
   const handleTemplateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -104,7 +104,7 @@ const SockSelectionPage = () => {
   const calculatePrice = () => {
     const pricePer50 = templatePrices[selectedTemplate];
     if (pricePer50 !== undefined) {
-      const price = (pricePer50 / 50) * quantity; // Calculate price based on quantity
+      const price = (pricePer50 / 50) * quantity;
       return `£${price.toFixed(2)}`;
     }
     return "Price information not available";
@@ -114,7 +114,6 @@ const SockSelectionPage = () => {
     const params = new URLSearchParams(window.location.search);
     params.set(key, value);
 
-    // Replace the search params in the URL without full page reload
     const newUrl = `${window.location.pathname}?${params.toString()}`;
     window.history.replaceState({}, '', newUrl);
   };
@@ -134,9 +133,10 @@ const SockSelectionPage = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen p-4">
-      <div className="flex">
-        <div className="sock-outline">
+    <div className="flex flex-col justify-center items-center min-h-screen space-y-3">
+      <h1 className="text-2xl md:text-2xl font-bold mb-4 text-center">Customise Your Socks</h1>
+      <div className="flex flex-col md:flex-row md:space-x-8 space-y-8 md:space-y-0 items-center">
+        <div className="flex justify-center w-full md:w-auto">
           <SockOutline
             backgroundColor={backgroundColor}
             stripeColor={stripeColor}
@@ -145,12 +145,11 @@ const SockSelectionPage = () => {
             rightLogoUrl={rightSockLogo}
           />
         </div>
-        <div className="controls ml-8 flex flex-col items-center space-y-6 my-10">
-          <h1 className="text-3xl font-bold mb-4">Customise Your Socks</h1>
-          <div className="mb-4 text-center">
-            <h2 className="text-xl font-semibold mb-2">Choose Template</h2>
+        <div className="controls flex flex-col items-center space-y-4 md:space-y-6">
+          <div className="text-center">
+            <h2 className="text-lg md:text-xl font-semibold mb-2">Choose Template</h2>
             <select
-              className="p-2 border border-black rounded bg-white text-black cursor-pointer hover:bg-gray-100 hover:text-black transition duration-300"
+              className="p-1 md:p-2 border border-black rounded bg-white text-black cursor-pointer hover:bg-gray-100 hover:text-black transition duration-300"
               value={selectedTemplate}
               onChange={handleTemplateChange}
             >
@@ -160,42 +159,42 @@ const SockSelectionPage = () => {
               <option value={4}>Pattern 4</option>
             </select>
           </div>
-          <div className="mb-4 text-center">
-            <h2 className="text-xl font-semibold">Choose Background Colour</h2>
+          <div className="text-center">
+            <h2 className="text-lg md:text-xl font-semibold">Choose Background Colour</h2>
             <ColorPickerComponent onSelect={handleBackgroundColorSelect} />
           </div>
           {selectedTemplate !== 1 && (
-            <div className="mb-4 text-center">
-              <h2 className="text-xl font-semibold">Choose Stripe Colour</h2>
+            <div className="text-center">
+              <h2 className="text-lg md:text-xl font-semibold">Choose Stripe Colour</h2>
               <ColorPickerComponent onSelect={handleStripeColorSelect} />
             </div>
           )}
-          <div className="mb-4 text-center">
+          <div className="text-center">
             <LogoAdditionComponent onLogoSelect={handleLogoSelect} />
             {showErrorMessage && (
               <p className="text-red-500 mt-2">Please upload a logo.</p>
             )}
           </div>
-          <div className="mb-4 text-center">
-            <h2 className="text-xl font-semibold">Choose Quantity (min 50)</h2>
+          <div className="text-center">
+            <h2 className="text-lg md:text-xl font-semibold">Choose Quantity (min 50)</h2>
             <input
               type="number"
               min="50"
               value={quantity}
               onChange={handleQuantityChange}
               onBlur={handleQuantityBlur}
-              className="p-2 border border-black rounded bg-white text-black cursor-pointer hover:bg-gray-100 hover:text-black transition duration-300"
+              className="p-1 md:p-2 border border-black rounded bg-white text-black cursor-pointer hover:bg-gray-100 hover:text-black transition duration-300"
             />
             {quantityErrorMessage && (
               <p className="text-red-500 mt-2">{quantityErrorMessage}</p>
             )}
           </div>
-          <div className="mt-4 flex items-center">
-            <div className="text-xl font-semibold text-green-600 mr-4">
+          <div className="mt-4 flex flex-col items-center space-y-2 md:space-y-4">
+            <div className="text-lg md:text-xl font-semibold text-green-600">
               {calculatePrice()}
             </div>
             <button
-              className="bg-blue-500 text-white hover:bg-blue-700 hover:text-white font-semibold py-2 px-8 rounded-lg transition-colors duration-300 ease-in-out"
+              className="bg-blue-500 text-white hover:bg-blue-700 hover:text-white font-semibold py-1 px-4 md:py-2 md:px-8 rounded-lg transition-colors duration-300 ease-in-out"
               onClick={handleContinue}
             >
               Continue
