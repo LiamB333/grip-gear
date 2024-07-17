@@ -1,15 +1,40 @@
 "use client";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { getLogo } from "../../utils/indexedDB";
 
 const DetailsPage = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const selectedTemplate = searchParams.get("selectedTemplate") || "";
-  const backgroundColor = searchParams.get("backgroundColor") || "";
-  const stripeColor = searchParams.get("stripeColor") || "";
-  const fullLogo = searchParams.get("fullLogo") || "";
+  const selectedTemplate = searchParams.get("selectedTemplate") || "1";
+  const backgroundColor = searchParams.get("backgroundColor") || "#E4E4E4"; // Default to #E4E4E4
+  const stripeColor = searchParams.get("stripeColor") || "#FFFFFF"; // Default to #E4E4E4
+  const fullLogoId = searchParams.get("fullLogo") || "";
+  const leftLogoId = searchParams.get("leftSockLogo") || "";
+  const rightLogoId = searchParams.get("rightSockLogo") || "";
+
+  const [fullLogo, setFullLogo] = useState<string | undefined>();
+  const [leftLogo, setLeftLogo] = useState<string | undefined>();
+  const [rightLogo, setRightLogo] = useState<string | undefined>();
+
+  useEffect(() => {
+    const fetchLogos = async () => {
+      if (fullLogoId) {
+        const storedFullLogo = await getLogo(fullLogoId);
+        setFullLogo(storedFullLogo || undefined);
+      }
+      if (leftLogoId) {
+        const storedLeftLogo = await getLogo(leftLogoId);
+        setLeftLogo(storedLeftLogo || undefined);
+      }
+      if (rightLogoId) {
+        const storedRightLogo = await getLogo(rightLogoId);
+        setRightLogo(storedRightLogo || undefined);
+      }
+    };
+    fetchLogos();
+  }, [fullLogoId, leftLogoId, rightLogoId]);
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -26,7 +51,14 @@ const DetailsPage = () => {
       telephone: "",
       email: "",
     });
-  }, [selectedTemplate, backgroundColor, stripeColor, fullLogo]);
+  }, [
+    selectedTemplate,
+    backgroundColor,
+    stripeColor,
+    fullLogo,
+    leftLogo,
+    rightLogo,
+  ]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -50,6 +82,12 @@ const DetailsPage = () => {
             <p>
               <strong>Stripe Color:</strong> {stripeColor}
             </p>
+          )}
+          {fullLogo && (
+            <div>
+              <strong>Full Logo:</strong>
+              <img src={fullLogo} alt="Full Logo" width={100} height={100} />
+            </div>
           )}
         </div>
 

@@ -1,5 +1,3 @@
-// components/ColorPickerComponent.tsx
-
 import React, { useState, useEffect, useRef } from "react";
 import { SketchPicker } from "react-color";
 

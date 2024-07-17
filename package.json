@@ -26,6 +26,7 @@
     "react-dom": "^18",
     "resend": "^3.4.0",
     "timeago.js": "^4.0.2",
+    "uuid": "^10.0.0",
     "zustand": "^4.5.2"
   },
   "devDependencies": {
@@ -35,6 +36,7 @@
     "@types/react": "^18",
     "@types/react-color": "^3.0.12",
     "@types/react-dom": "^18",
+    "@types/uuid": "^10.0.0",
     "eslint": "^8",
     "eslint-config-next": "14.2.2",
     "postcss": "^8",

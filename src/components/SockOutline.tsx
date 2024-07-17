@@ -30,7 +30,7 @@ const SockOutline: React.FC<SockOutlineProps> = ({
     case 2:
       patternRectangles = [
         <rect
-          key="1"
+          key="stripe1"
           x="250"
           y="120"
           width="145"
@@ -38,7 +38,7 @@ const SockOutline: React.FC<SockOutlineProps> = ({
           fill={stripeColor}
         />,
         <rect
-          key="2"
+          key="stripe2"
           x="524"
           y="120"
           width="145"
@@ -46,7 +46,7 @@ const SockOutline: React.FC<SockOutlineProps> = ({
           fill={stripeColor}
         />,
         <rect
-          key="3"
+          key="stripe3"
           x="524"
           y="280"
           width="145"
@@ -54,7 +54,7 @@ const SockOutline: React.FC<SockOutlineProps> = ({
           fill={stripeColor}
         />,
         <rect
-          key="4"
+          key="stripe4"
           x="250"
           y="280"
           width="145"
@@ -65,8 +65,16 @@ const SockOutline: React.FC<SockOutlineProps> = ({
       break;
     case 3:
       patternRectangles = [
-        <path d="M251,90 L250,170 L394,270 L394,190" fill={stripeColor}></path>,
-        <path d="M525,270 L525,190 L668,90 L668,170" fill={stripeColor}></path>,
+        <path
+          key="path1"
+          d="M251,90 L250,170 L394,270 L394,190"
+          fill={stripeColor}
+        ></path>,
+        <path
+          key="path2"
+          d="M525,270 L525,190 L668,90 L668,170"
+          fill={stripeColor}
+        ></path>,
 
         //<rect x="250" y="150" width="80" height="100" fill="none" stroke="black" stroke-width="3" stroke-dasharray="5,5" />,
       ];
@@ -74,35 +82,43 @@ const SockOutline: React.FC<SockOutlineProps> = ({
     case 4:
       patternRectangles = [
         <path
+          key="path3"
           d="M521,65 L523,105 L568.25,155 L567.25,115"
           fill={stripeColor}
         ></path>,
         <path
+          key="path4"
           d="M524 ,135 L525,175 L568.25,225 L567.25,185"
           fill={stripeColor}
         ></path>,
         <path
+          key="path5"
           d="M525,205 L525,245 L568.25,295 L567.25,255"
           fill={stripeColor}
         ></path>,
         <path
+          key="path6"
           d="M525,275 L525,315 L568.25,365 L567.25,325"
           fill={stripeColor}
         ></path>,
 
         <path
+          key="path7"
           d="M398.25,65 L396.25,105 L351,155 L352,115"
           fill={stripeColor}
         ></path>,
         <path
+          key="path8"
           d="M395.25,135 L394.25,175 L351,225 L352,185"
           fill={stripeColor}
         ></path>,
         <path
+          key="path9"
           d="M394.25,205 L394.25,245 L351,295 L352,255"
           fill={stripeColor}
         ></path>,
         <path
+          key="path10"
           d="M394.25,275 L394.25,315 L351,365 L352,325"
           fill={stripeColor}
         ></path>,

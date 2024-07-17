@@ -1,20 +1,33 @@
-"use client"
-import React, { useState } from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import ColorPickerComponent from "@/components/ColorPicker";
 import LogoAdditionComponent from "@/components/LogoPicker";
 import SockOutline from "@/components/SockOutline";
 import Link from "next/link";
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
+import { getLogo } from "../utils/indexedDB";
 
 const SockSelectionPage = () => {
   const searchParams = useSearchParams();
-  
-  const [backgroundColor, setBackgroundColor] = useState(searchParams.get("backgroundColor") || "#FF0000");
-  const [stripeColor, setStripeColor] = useState(searchParams.get("stripeColor") || "#FFFFFF");
-  const [selectedTemplate, setSelectedTemplate] = useState<number>(parseInt(searchParams.get("selectedTemplate") || "1", 10));
-  const [leftSockLogo, setLeftSockLogo] = useState<string>(searchParams.get("leftSockLogo") || "");
-  const [rightSockLogo, setRightSockLogo] = useState<string>(searchParams.get("rightSockLogo") || "");
-  const [fullLogo, setFullLogo] = useState<string>(searchParams.get("fullLogo") || "");
+  const router = useRouter();
+
+  const getParam = (param: string) => {
+    const value = searchParams.get(param);
+    console.log(`Fetched param ${param}: ${value}`);
+    return value !== null ? value : undefined;
+  };
+
+  const [backgroundColor, setBackgroundColor] = useState(getParam("backgroundColor") || "#E4E4E4");
+  const [stripeColor, setStripeColor] = useState(getParam("stripeColor") || "#FFFFFF");
+  const [selectedTemplate, setSelectedTemplate] = useState<number>(parseInt(getParam("selectedTemplate") || "1", 10));
+  const [leftSockLogoId, setLeftSockLogoId] = useState<string | undefined>(getParam("leftSockLogo"));
+  const [rightSockLogoId, setRightSockLogoId] = useState<string | undefined>(getParam("rightSockLogo"));
+  const [fullLogoId, setFullLogoId] = useState<string | undefined>(getParam("fullLogo"));
+
+  const [leftSockLogo, setLeftSockLogo] = useState<string | undefined>();
+  const [rightSockLogo, setRightSockLogo] = useState<string | undefined>();
+  const [logosUploaded, setLogosUploaded] = useState(false);
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
 
   const templatePrices: { [key: number]: number } = {
     1: 48,
@@ -22,6 +35,24 @@ const SockSelectionPage = () => {
     3: 49,
     4: 50,
   };
+
+  useEffect(() => {
+    const fetchLogos = async () => {
+      console.log("Fetching logos with IDs:", leftSockLogoId, rightSockLogoId);
+      if (leftSockLogoId) {
+        const storedLeftSockLogo = await getLogo(leftSockLogoId);
+        setLeftSockLogo(storedLeftSockLogo || undefined);
+        console.log("Fetched left logo:", storedLeftSockLogo);
+      }
+      if (rightSockLogoId) {
+        const storedRightSockLogo = await getLogo(rightSockLogoId);
+        setRightSockLogo(storedRightSockLogo || undefined);
+        console.log("Fetched right logo:", storedRightSockLogo);
+      }
+      setLogosUploaded(!!(leftSockLogoId && rightSockLogoId));
+    };
+    fetchLogos();
+  }, [leftSockLogoId, rightSockLogoId]);
 
   const handleBackgroundColorSelect = (color: string) => {
     setBackgroundColor(color);
@@ -33,17 +64,15 @@ const SockSelectionPage = () => {
     updateSearchParams("stripeColor", color);
   };
 
-  const handleLogoSelect = (
-    leftLogoUrl: string,
-    rightLogoUrl: string,
-    fullLogoUrl: string
-  ) => {
-    setLeftSockLogo(leftLogoUrl);
-    setRightSockLogo(rightLogoUrl);
-    setFullLogo(fullLogoUrl);
-    updateSearchParams("leftSockLogo", leftLogoUrl);
-    updateSearchParams("rightSockLogo", rightLogoUrl);
-    updateSearchParams("fullLogo", fullLogoUrl);
+  const handleLogoSelect = (leftLogoId: string, rightLogoId: string, fullLogoId: string) => {
+    setLeftSockLogoId(leftLogoId);
+    setRightSockLogoId(rightLogoId);
+    setFullLogoId(fullLogoId);
+    updateSearchParams("leftSockLogo", leftLogoId);
+    updateSearchParams("rightSockLogo", rightLogoId);
+    updateSearchParams("fullLogo", fullLogoId);
+    setLogosUploaded(true); // Set logos uploaded to true when logos are selected
+    setShowErrorMessage(false); // Reset error message when logos are uploaded
   };
 
   const handleTemplateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -64,12 +93,22 @@ const SockSelectionPage = () => {
   };
 
   const updateSearchParams = (key: string, value: string) => {
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams(window.location.search);
     params.set(key, value);
 
     // Replace the search params in the URL without full page reload
     const newUrl = `${window.location.pathname}?${params.toString()}`;
     window.history.replaceState({}, '', newUrl);
+  };
+
+  const handleContinue = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    if (!logosUploaded) {
+      e.preventDefault();
+      setShowErrorMessage(true);
+    } else {
+      setShowErrorMessage(false);
+      router.push(`/details${window.location.search}`);
+    }
   };
 
   return (
@@ -111,13 +150,17 @@ const SockSelectionPage = () => {
           )}
           <div className="mb-4 text-center">
             <LogoAdditionComponent onLogoSelect={handleLogoSelect} />
+            {showErrorMessage && (
+              <p className="text-red-500 mt-2">Please upload a logo.</p>
+            )}
           </div>
           <div className="mt-4">
-            <Link href={`/details${window.location.search}`}>
-              <button className="bg-blue-500 text-white hover:bg-blue-700 hover:text-white font-semibold mt-5 py-2 px-8 rounded-lg transition-colors duration-300 ease-in-out">
-                Continue
-              </button>
-            </Link>
+            <button
+              className="bg-blue-500 text-white hover:bg-blue-700 hover:text-white font-semibold mt-5 py-2 px-8 rounded-lg transition-colors duration-300 ease-in-out"
+              onClick={handleContinue}
+            >
+              Continue
+            </button>
           </div>
           <div className="mt-4 text-xl font-semibold">{calculatePrice()}</div>
         </div>
