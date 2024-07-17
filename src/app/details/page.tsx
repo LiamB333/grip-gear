@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Resend } from "resend"; // Import Resend library
+import { Resend } from "resend";
 
 const DetailsPage = () => {
   const [savedCustomization, setSavedCustomization] = useState<any>(null);
