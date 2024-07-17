@@ -23,17 +23,19 @@ const SockSelectionPage = () => {
   const [leftSockLogoId, setLeftSockLogoId] = useState<string | undefined>(getParam("leftSockLogo"));
   const [rightSockLogoId, setRightSockLogoId] = useState<string | undefined>(getParam("rightSockLogo"));
   const [fullLogoId, setFullLogoId] = useState<string | undefined>(getParam("fullLogo"));
+  const [quantity, setQuantity] = useState<number>(parseInt(getParam("quantity") || "50", 10)); // New state for quantity
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [quantityErrorMessage, setQuantityErrorMessage] = useState<string | null>(null);
 
   const [leftSockLogo, setLeftSockLogo] = useState<string | undefined>();
   const [rightSockLogo, setRightSockLogo] = useState<string | undefined>();
   const [logosUploaded, setLogosUploaded] = useState(false);
-  const [showErrorMessage, setShowErrorMessage] = useState(false);
 
   const templatePrices: { [key: number]: number } = {
-    1: 48,
-    2: 50,
-    3: 49,
-    4: 50,
+    1: 240,
+    2: 250,
+    3: 245,
+    4: 250,
   };
 
   useEffect(() => {
@@ -85,11 +87,27 @@ const SockSelectionPage = () => {
     updateSearchParams("selectedTemplate", selectedValue.toString());
   };
 
+  const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(e.target.value, 10);
+    setQuantity(value);
+  };
+
+  const handleQuantityBlur = () => {
+    if (quantity < 50) {
+      setQuantityErrorMessage("Quantity cannot be less than 50.");
+    } else {
+      setQuantityErrorMessage(null);
+      updateSearchParams("quantity", quantity.toString());
+    }
+  };
+
   const calculatePrice = () => {
-    const price = templatePrices[selectedTemplate];
-    return price !== undefined
-      ? `£${price.toFixed(2)} for 10 socks`
-      : "Price information not available";
+    const pricePer50 = templatePrices[selectedTemplate];
+    if (pricePer50 !== undefined) {
+      const price = (pricePer50 / 50) * quantity; // Calculate price based on quantity
+      return `£${price.toFixed(2)}`;
+    }
+    return "Price information not available";
   };
 
   const updateSearchParams = (key: string, value: string) => {
@@ -105,8 +123,12 @@ const SockSelectionPage = () => {
     if (!logosUploaded) {
       e.preventDefault();
       setShowErrorMessage(true);
+    } else if (quantity < 50) {
+      e.preventDefault();
+      setQuantityErrorMessage("Quantity cannot be less than 50.");
     } else {
       setShowErrorMessage(false);
+      setQuantityErrorMessage(null);
       router.push(`/details${window.location.search}`);
     }
   };
@@ -154,15 +176,31 @@ const SockSelectionPage = () => {
               <p className="text-red-500 mt-2">Please upload a logo.</p>
             )}
           </div>
-          <div className="mt-4">
+          <div className="mb-4 text-center">
+            <h2 className="text-xl font-semibold">Choose Quantity (min 50)</h2>
+            <input
+              type="number"
+              min="50"
+              value={quantity}
+              onChange={handleQuantityChange}
+              onBlur={handleQuantityBlur}
+              className="p-2 border border-black rounded bg-white text-black cursor-pointer hover:bg-gray-100 hover:text-black transition duration-300"
+            />
+            {quantityErrorMessage && (
+              <p className="text-red-500 mt-2">{quantityErrorMessage}</p>
+            )}
+          </div>
+          <div className="mt-4 flex items-center">
+            <div className="text-xl font-semibold text-green-600 mr-4">
+              {calculatePrice()}
+            </div>
             <button
-              className="bg-blue-500 text-white hover:bg-blue-700 hover:text-white font-semibold mt-5 py-2 px-8 rounded-lg transition-colors duration-300 ease-in-out"
+              className="bg-blue-500 text-white hover:bg-blue-700 hover:text-white font-semibold py-2 px-8 rounded-lg transition-colors duration-300 ease-in-out"
               onClick={handleContinue}
             >
               Continue
             </button>
           </div>
-          <div className="mt-4 text-xl font-semibold">{calculatePrice()}</div>
         </div>
       </div>
     </div>

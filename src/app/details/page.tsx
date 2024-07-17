@@ -9,10 +9,11 @@ const DetailsPage = () => {
 
   const selectedTemplate = searchParams.get("selectedTemplate") || "1";
   const backgroundColor = searchParams.get("backgroundColor") || "#E4E4E4"; // Default to #E4E4E4
-  const stripeColor = searchParams.get("stripeColor") || "#FFFFFF"; // Default to #E4E4E4
+  const stripeColor = searchParams.get("stripeColor") || "#FFFFFF"; // Default to #FFFFFF
   const fullLogoId = searchParams.get("fullLogo") || "";
   const leftLogoId = searchParams.get("leftSockLogo") || "";
   const rightLogoId = searchParams.get("rightSockLogo") || "";
+  const quantity = searchParams.get("quantity") || "50"; // Default to 50
 
   const [fullLogo, setFullLogo] = useState<string | undefined>();
   const [leftLogo, setLeftLogo] = useState<string | undefined>();
@@ -43,28 +44,49 @@ const DetailsPage = () => {
     email: "",
   });
 
-  useEffect(() => {
-    // Update form data when query parameters change
-    setFormData({
-      firstName: "",
-      lastName: "",
-      telephone: "",
-      email: "",
-    });
-  }, [
-    selectedTemplate,
-    backgroundColor,
-    stripeColor,
-    fullLogo,
-    leftLogo,
-    rightLogo,
-  ]);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const data = new FormData();
+    data.append("name", `${formData.firstName} ${formData.lastName}`);
+    data.append("email", formData.email);
+    data.append("telephone", formData.telephone);
+    data.append("template", selectedTemplate);
+    data.append("backgroundColor", backgroundColor);
+    data.append("stripeColor", stripeColor);
+    data.append("quantity", quantity);
+    data.append("fullLogo", fullLogo ? fullLogo : "");  // Append the full logo if available
+    data.append("message", "");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        body: data,
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("Server error:", errorData);
+        throw new Error(`Response status: ${response.status}, ${errorData.message}`);
+      }
+
+      const responseData = await response.json();
+      console.log(responseData.message);
+
+      alert("Message successfully sent");
+      router.push("/");
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : "Unknown error occurred";
+      console.error("Client error:", errorMessage);
+      alert("Error, please try resubmitting the form");
+    }
   };
 
   return (
@@ -89,15 +111,15 @@ const DetailsPage = () => {
               <img src={fullLogo} alt="Full Logo" width={100} height={100} />
             </div>
           )}
+          <p>
+            <strong>Quantity:</strong> {quantity}
+          </p>
         </div>
 
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="m-4">
             <div className="mb-4">
-              <label
-                className="block text-sm font-bold mb-2"
-                htmlFor="firstName"
-              >
+              <label className="block text-sm font-bold mb-2" htmlFor="firstName">
                 First Name
               </label>
               <input
@@ -111,10 +133,7 @@ const DetailsPage = () => {
               />
             </div>
             <div className="mb-4">
-              <label
-                className="block text-sm font-bold mb-2"
-                htmlFor="lastName"
-              >
+              <label className="block text-sm font-bold mb-2" htmlFor="lastName">
                 Last Name
               </label>
               <input
@@ -128,10 +147,7 @@ const DetailsPage = () => {
               />
             </div>
             <div className="mb-4">
-              <label
-                className="block text-sm font-bold mb-2"
-                htmlFor="telephone"
-              >
+              <label className="block text-sm font-bold mb-2" htmlFor="telephone">
                 Telephone
               </label>
               <input

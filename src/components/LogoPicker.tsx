@@ -57,7 +57,7 @@ const LogoAdditionComponent: React.FC<LogoAdditionComponentProps> = ({
   };
 
   return (
-    <div className="text-center mt-2">
+    <div className="text-center ">
       <h2 className="text-xl font-semibold mb-2">Add Logo</h2>
       <input
         type="file"
