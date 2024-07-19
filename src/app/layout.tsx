@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Grip Gear",
-  description: "Cheap grip socks",
+  description: "Grip Sock Customiser",
 };
 
 export default function RootLayout({
