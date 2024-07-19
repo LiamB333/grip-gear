@@ -160,7 +160,7 @@ const SockSelectionPage = () => {
 
   return (
     <div className="flex flex-col min-h-screen overflow-hidden bg-[#F5F7FA]">
-      <div className="flex justify-end">
+      <div className="flex justify-end p-3">
         <Link href="/" className="flex items-center gap-3">
           <Image
             src="/logo-removed-bg.svg"

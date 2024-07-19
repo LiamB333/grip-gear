@@ -29,12 +29,13 @@ const FooterComponent: React.FC<FooterComponentProps> = ({
   return (
     <div className="w-full fixed bottom-0 left-0 bg-white text-sm z-50 flex justify-end items-center h-16 shadow-xl">
       <div className="flex items-center h-full">
-        <p
-          className="text-lg font-semibold text-black mr-4 cursor-pointer"
+        <div
+          className="flex items-center text-lg font-semibold text-black mr-6 cursor-pointer"
           onClick={toggleQuantitySelector}
         >
-          Quantity: {quantity}
-        </p>
+          <span>Quantity: {quantity}</span>
+          <img src="/icons/down.svg" alt="Down" className="ml-2 w-4 h-4" />
+        </div>
         <p className="text-lg font-semibold text-green-600 mr-4">{price}</p>
         <button
           className="bg-black text-white hover:bg-blue-500 font-semibold h-full px-10 transition-colors duration-300 ease-in-out"

@@ -31,12 +31,19 @@ const Sidebar: React.FC<SidebarProps> = ({
     useState(false);
   const [showStripeColorPicker, setShowStripeColorPicker] = useState(false);
 
+  const templates = [
+    { id: 1, image: "/sock-1.png" },
+    { id: 2, image: "/sock-2.png" },
+    { id: 3, image: "/sock-3.png" },
+    { id: 4, image: "/sock-4.png" },
+  ];
+
   return (
     <div className="flex relative overflow-hidden">
       {/* Main Sidebar */}
       <div className="w-20 bg-white text-black flex flex-col items-center py-4 shadow-xl fixed top-0 left-0 h-full z-10">
         <button
-          className="mb-4 p-2 bg-white text-black hover:text-blue-500 focus:outline-none flex flex-col items-center sidebar-button"
+          className="mb-4 p-2 bg-white text-black hover:text-blue-500 focus:outline-none flex flex-col items-center group"
           onClick={() => toggleSidebar("design")}
         >
           <img
@@ -44,12 +51,12 @@ const Sidebar: React.FC<SidebarProps> = ({
             alt="Design"
             width={20}
             height={20}
-            className="sidebar-icon"
+            className="sidebar-icon group-hover:fill-current text-blue-500"
           />
-          <span className="mt-2">Design</span>
+          <span className="mt-2 group-hover:text-blue-500">Design</span>
         </button>
         <button
-          className="mb-4 p-2 bg-white text-black hover:text-blue-500 focus:outline-none flex flex-col items-center sidebar-button"
+          className="mb-4 p-2 bg-white text-black hover:text-blue-500 focus:outline-none flex flex-col items-center group"
           onClick={() => toggleSidebar("colour")}
         >
           <img
@@ -57,12 +64,12 @@ const Sidebar: React.FC<SidebarProps> = ({
             alt="Colour"
             width={20}
             height={20}
-            className="sidebar-icon"
+            className="sidebar-icon group-hover:fill-current text-blue-500"
           />
-          <span className="mt-2">Colour</span>
+          <span className="mt-2 group-hover:text-blue-500">Colour</span>
         </button>
         <button
-          className="mb-4 p-2 bg-white text-black hover:text-blue-500 focus:outline-none flex flex-col items-center sidebar-button"
+          className="mb-4 p-2 bg-white text-black hover:text-blue-500 focus:outline-none flex flex-col items-center group"
           onClick={() => toggleSidebar("logo")}
         >
           <img
@@ -70,25 +77,41 @@ const Sidebar: React.FC<SidebarProps> = ({
             alt="Logo"
             width={20}
             height={20}
-            className="sidebar-icon"
+            className="sidebar-icon group-hover:fill-current text-blue-500"
           />
-          <span className="mt-2">Logo</span>
+          <span className="mt-2 group-hover:text-blue-500">Logo</span>
         </button>
       </div>
 
       {/* Nested Sidebar */}
       {activeSidebar && (
-        <div className="w-64 bg-white h-full shadow-xl fixed top-0 left-20 z-10 overflow-hidden">
+        <div className="w-64 bg-white h-full shadow-xl fixed top-0 left-20 z-10 overflow-auto">
           {activeSidebar === "design" && (
             <div className="p-4">
               <div className="mb-2">
                 <h1 className="text-xl">Select Design</h1>
                 <p className="text-xs">Choose a standard design</p>
               </div>
-              <TemplateSelector
-                selectedTemplate={selectedTemplate}
-                onChange={handleTemplateChange}
-              />
+              <div className="grid grid-cols-2 gap-2 overflow-auto max-h-96">
+                {templates.map((template) => (
+                  <div
+                    key={template.id}
+                    className={`p-1 border ${
+                      selectedTemplate === template.id
+                        ? "border-blue-500"
+                        : "border-gray-300"
+                    } cursor-pointer`}
+                    onClick={() => handleTemplateChange(template.id)}
+                  >
+                    <Image
+                      src={template.image}
+                      alt={`Template ${template.id}`}
+                      width={100}
+                      height={100}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           )}
           {activeSidebar === "colour" && (
@@ -99,15 +122,16 @@ const Sidebar: React.FC<SidebarProps> = ({
               </div>
 
               <ColorPickerComponent
-                title="Choose Background Colour"
+                title="Background Colour"
                 onSelect={handleBackgroundColorSelect}
               />
 
               {selectedTemplate !== 1 && (
                 <>
                   <ColorPickerComponent
-                    title="Choose Stripe Colour"
+                    title="Stripe Colour"
                     onSelect={handleStripeColorSelect}
+                    defaultColor="#FFFFFF"
                   />
                 </>
               )}

@@ -6,10 +6,20 @@
   display: none;
 }
 
-.scrollbar-hide{
+.scrollbar-hide {
   scrollbar-width: none;
 }
 
-.sidebar-button:hover .sidebar-icon {
-  fill: #3b82f6; 
+.sidebar-button {
+  transition: color 0.3s;
 }
+
+.sidebar-button {
+  transition: color 0.3s;
+}
+
+.sidebar-button:hover .sidebar-icon {
+  filter: invert(29%) sepia(98%) saturate(1864%) hue-rotate(180deg)
+    brightness(96%) contrast(88%);
+}
+

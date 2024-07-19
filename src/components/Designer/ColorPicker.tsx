@@ -4,10 +4,11 @@ import { SketchPicker } from "react-color";
 interface ColorPickerProps {
   title: string;
   onSelect: (color: string) => void;
+  defaultColor?: string; // Add a defaultColor prop
 }
 
-const ColorPicker: React.FC<ColorPickerProps> = ({ title, onSelect }) => {
-  const [selectedColor, setSelectedColor] = useState<string>("#FF0000");
+const ColorPicker: React.FC<ColorPickerProps> = ({ title, onSelect, defaultColor = "#FF0000" }) => {
+  const [selectedColor, setSelectedColor] = useState<string>(defaultColor);
   const [displayColorPicker, setDisplayColorPicker] = useState<boolean>(false);
   const colorPickerRef = useRef<HTMLDivElement>(null);
 
