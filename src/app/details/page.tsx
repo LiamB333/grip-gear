@@ -1,11 +1,10 @@
 "use client";
 import { useSearchParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { getLogo } from "../../utils/indexedDB";
 import Navbar from "@/components/NavBar";
 
-
-const DetailsPage = () => {
+const DetailsPageContent = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -109,7 +108,9 @@ const DetailsPage = () => {
       <Navbar />
       <div className="flex justify-center items-center">
         <div className="max-w-xl bg-white shadow-md rounded border-2 border-gray-100 px-8 py-6">
-          <h1 className="text-2xl font-bold mb-4 text-center">Enter your details</h1>
+          <h1 className="text-2xl font-bold mb-4 text-center">
+            Enter your details
+          </h1>
           <form onSubmit={handleSubmit}>
             <div className="m-4">
               <div className="mb-4">
@@ -199,5 +200,11 @@ const DetailsPage = () => {
     </>
   );
 };
+
+const DetailsPage = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <DetailsPageContent />
+  </Suspense>
+);
 
 export default DetailsPage;

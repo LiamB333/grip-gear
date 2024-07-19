@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import SockOutline from "@/components/Designer/SockOutline";
 import FooterComponent from "@/components/Designer/DesignerFooter";
 import Sidebar from "@/components/Designer/Sidebar";
@@ -8,7 +8,7 @@ import Image from "next/image";
 import { useSearchParams, useRouter } from "next/navigation";
 import { getLogo } from "../utils/indexedDB";
 
-const SockSelectionPage = () => {
+const SockSelectionPageContent = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -224,5 +224,11 @@ const SockSelectionPage = () => {
     </div>
   );
 };
+
+const SockSelectionPage = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <SockSelectionPageContent />
+  </Suspense>
+);
 
 export default SockSelectionPage;
