@@ -57,9 +57,7 @@ const Navbar = () => {
       {/* BIGGER SCREENS */}
       <div className="hidden md:flex items-center justify-between gap-8 h-full z-50 bg-white">
         {/* LEFT */}
-        <div className="flex items-center gap-12">
-
-        </div>
+        <div className="flex items-center gap-12"></div>
         {/* CENTER */}
         <div className="absolute left-1/2 transform -translate-x-1/2">
           <Link href="/" className="flex items-center gap-3">
