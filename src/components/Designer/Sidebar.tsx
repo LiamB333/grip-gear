@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import LogoPicker from "@/components/Designer/LogoPicker";
 import ColorPickerComponent from "@/components/Designer/ColorPicker";
 import TemplateSelector from "@/components/Designer/TemplateSelector"; // Adjust the import path as necessary
+import Image from "next/image"; // Make sure you have the Image component imported
 
 interface SidebarProps {
   activeSidebar: string | null;
@@ -31,35 +32,59 @@ const Sidebar: React.FC<SidebarProps> = ({
   const [showStripeColorPicker, setShowStripeColorPicker] = useState(false);
 
   return (
-    <div className="flex h-screen relative">
+    <div className="flex relative overflow-hidden">
       {/* Main Sidebar */}
       <div className="w-20 bg-white text-black flex flex-col items-center py-4 shadow-xl fixed top-0 left-0 h-full z-10">
         <button
-          className="mb-4 p-2 bg-white text-black hover:text-blue-500 focus:outline-none"
+          className="mb-4 p-2 bg-white text-black hover:text-blue-500 focus:outline-none flex flex-col items-center sidebar-button"
           onClick={() => toggleSidebar("design")}
         >
-          Design
+          <img
+            src="/icons/color-pencil.svg"
+            alt="Design"
+            width={20}
+            height={20}
+            className="sidebar-icon"
+          />
+          <span className="mt-2">Design</span>
         </button>
         <button
-          className="mb-4 p-2 bg-white text-black hover:text-blue-500 focus:outline-none"
+          className="mb-4 p-2 bg-white text-black hover:text-blue-500 focus:outline-none flex flex-col items-center sidebar-button"
           onClick={() => toggleSidebar("colour")}
         >
-          Colour
+          <img
+            src="/icons/bucket.svg"
+            alt="Colour"
+            width={20}
+            height={20}
+            className="sidebar-icon"
+          />
+          <span className="mt-2">Colour</span>
         </button>
         <button
-          className="mb-4 p-2 bg-white text-black hover:text-blue-500 focus:outline-none"
+          className="mb-4 p-2 bg-white text-black hover:text-blue-500 focus:outline-none flex flex-col items-center sidebar-button"
           onClick={() => toggleSidebar("logo")}
         >
-          Logo
+          <img
+            src="/icons/export.svg"
+            alt="Logo"
+            width={20}
+            height={20}
+            className="sidebar-icon"
+          />
+          <span className="mt-2">Logo</span>
         </button>
       </div>
 
       {/* Nested Sidebar */}
       {activeSidebar && (
-        <div className="w-64 bg-white h-full shadow-xl fixed top-0 left-20 z-10 overflow-auto">
+        <div className="w-64 bg-white h-full shadow-xl fixed top-0 left-20 z-10 overflow-hidden">
           {activeSidebar === "design" && (
             <div className="p-4">
-              <h1 className="">Select Design</h1>
+              <div className="mb-2">
+                <h1 className="text-xl">Select Design</h1>
+                <p className="text-xs">Choose a standard design</p>
+              </div>
               <TemplateSelector
                 selectedTemplate={selectedTemplate}
                 onChange={handleTemplateChange}
@@ -67,8 +92,11 @@ const Sidebar: React.FC<SidebarProps> = ({
             </div>
           )}
           {activeSidebar === "colour" && (
-            <>
-              <h1 className="p-4">Select Colour</h1>
+            <div className="p-4">
+              <div className="mb-2">
+                <h1 className="text-xl">Select Colour</h1>
+                <p className="text-xs">Decide on your colour combination</p>
+              </div>
 
               <ColorPickerComponent
                 title="Choose Background Colour"
@@ -76,21 +104,24 @@ const Sidebar: React.FC<SidebarProps> = ({
               />
 
               {selectedTemplate !== 1 && (
-                <ColorPickerComponent
-                  title="Choose Stripe Colour"
-                  onSelect={handleStripeColorSelect}
-                />
+                <>
+                  <ColorPickerComponent
+                    title="Choose Stripe Colour"
+                    onSelect={handleStripeColorSelect}
+                  />
+                </>
               )}
-            </>
+            </div>
           )}
 
           {activeSidebar === "logo" && (
-            <>
-              <h1 className="p-4">Select Logo</h1>
-              <div className="p-4">
-                <LogoPicker onLogoSelect={handleLogoSelect} />
+            <div className="p-4">
+              <div className="mb-2">
+                <h1 className="text-xl">Select Logo</h1>
+                <p className="text-xs">Decide on your sock badge</p>
               </div>
-            </>
+              <LogoPicker onLogoSelect={handleLogoSelect} />
+            </div>
           )}
         </div>
       )}

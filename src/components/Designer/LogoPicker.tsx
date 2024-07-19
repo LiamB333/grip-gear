@@ -69,9 +69,22 @@ const LogoPicker: React.FC<LogoPickerProps> = ({ onLogoSelect }) => {
       />
       <label
         htmlFor="fileInput"
-        className="p-2 border border-black rounded bg-white text-black cursor-pointer hover:bg-gray-100 hover:text-black transition duration-300"
+        className="p-4 border border-gray-300 rounded bg-white text-black cursor-pointer hover:bg-blue-100 transition duration-300 inline-block"
       >
-        Choose File
+        <div className="flex flex-col items-center">
+          <img
+            src="/icons/upload-simple.svg"
+            alt="Logo"
+            width={24}
+            height={24}
+            className="mb-2"
+          />
+          <div className="text-sm">Choose File</div>
+          <div className="text-xs text-gray-500">(Max size: 10MB)</div>
+          <div className="text-xs text-gray-500">
+            We accept file types like png / jpg
+          </div>
+        </div>
       </label>
     </div>
   );

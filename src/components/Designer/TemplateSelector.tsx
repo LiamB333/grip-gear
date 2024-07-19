@@ -16,7 +16,7 @@ const TemplateSelector: React.FC<TemplateSelectorProps> = ({
   return (
     <div className="text-center mt-6">
       <select
-        className="p-2 md:p-2 border border-black rounded bg-white text-black cursor-pointer hover:bg-gray-100 hover:text-black transition duration-300"
+        className="p-2 md:p-2 border border-black rounded bg-white text-black cursor-pointer hover:bg-blue-200 hover:text-black transition duration-300"
         value={selectedTemplate}
         onChange={handleTemplateChange}
       >

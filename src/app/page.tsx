@@ -19,7 +19,7 @@ const SockSelectionPage = () => {
   };
 
   const [backgroundColor, setBackgroundColor] = useState(
-    getParam("backgroundColor") || "#E4E4E4"
+    getParam("backgroundColor") || "#8E1E1E"
   );
   const [stripeColor, setStripeColor] = useState(
     getParam("stripeColor") || "#FFFFFF"
@@ -40,9 +40,7 @@ const SockSelectionPage = () => {
     parseInt(getParam("quantity") || "50", 10)
   );
   const [showErrorMessage, setShowErrorMessage] = useState(false);
-  const [quantityErrorMessage, setQuantityErrorMessage] = useState<
-    string | null
-  >(null);
+  const [quantityErrorMessage, setQuantityErrorMessage] = useState<string | null>(null);
   const [activeSidebar, setActiveSidebar] = useState<string | null>("design");
 
   const [leftSockLogo, setLeftSockLogo] = useState<string | undefined>();
@@ -161,8 +159,8 @@ const SockSelectionPage = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#F5F7FA]">
-      <div className="flex justify-end p-4">
+    <div className="flex flex-col min-h-screen overflow-hidden bg-[#F5F7FA]">
+      <div className="flex justify-end">
         <Link href="/" className="flex items-center gap-3">
           <Image
             src="/logo-removed-bg.svg"
@@ -172,7 +170,7 @@ const SockSelectionPage = () => {
           />
         </Link>
       </div>
-      <div className="flex flex-row flex-1">
+      <div className="flex flex-row flex-1 overflow-hidden">
         <Sidebar
           activeSidebar={activeSidebar}
           toggleSidebar={toggleSidebar}
@@ -182,11 +180,9 @@ const SockSelectionPage = () => {
           handleTemplateChange={handleTemplateChange}
           selectedTemplate={selectedTemplate}
         />
-        <div
-          className={`flex flex-col justify-center items-center flex-1 space-y-2 pb-24 ml-48`}
-        >
+        <div className="flex flex-col justify-center items-center flex-1 space-y-2 ml-48 overflow-hidden">
           <div className="flex flex-col md:flex-row md:space-x-8 space-y-8 md:space-y-0 items-center">
-            <div className="flex justify-center w-full md:w-auto">
+            <div className="flex justify-center md:w-auto">
               <SockOutline
                 backgroundColor={backgroundColor}
                 stripeColor={stripeColor}

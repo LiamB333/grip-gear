@@ -9,3 +9,7 @@
 .scrollbar-hide{
   scrollbar-width: none;
 }
+
+.sidebar-button:hover .sidebar-icon {
+  fill: #3b82f6; 
+}

@@ -40,10 +40,30 @@ const ColorPicker: React.FC<ColorPickerProps> = ({ title, onSelect }) => {
   return (
     <div className="relative text-center mt-2" ref={colorPickerRef}>
       <button
-        className="p-2 border border-black rounded bg-white text-black hover:bg-gray-100 hover:text-black transition duration-300"
+        className="flex items-center justify-between w-full p-2 border border-gray-300 rounded bg-white text-black hover:bg-blue-100 transition duration-300"
         onClick={handleColorPickerToggle}
       >
-        {displayColorPicker ? "Close Color Picker" : "Pick a Color"}
+        <div className="flex items-center">
+          <span
+            className="inline-block w-6 h-6 mr-2 rounded-full"
+            style={{ backgroundColor: selectedColor }}
+          ></span>
+          <span className="text-xs">{title}</span>
+        </div>
+        <svg
+          className="w-4 h-4 text-black"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M9 5l7 7-7 7"
+          ></path>
+        </svg>
       </button>
       {displayColorPicker && (
         <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 z-10">
