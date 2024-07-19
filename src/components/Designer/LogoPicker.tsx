@@ -60,7 +60,6 @@ const LogoPicker: React.FC<LogoPickerProps> = ({ onLogoSelect }) => {
 
   return (
     <div className="text-center">
-      <h2 className="text-lg font-semibold mb-2">Add Logo</h2>
       <input
         type="file"
         accept="image/*"

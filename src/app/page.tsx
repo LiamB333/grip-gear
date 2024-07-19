@@ -1,15 +1,14 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import SockOutline from "@/components/Designer/SockOutline";
-import TemplateSelector from "@/components/Designer/TemplateSelector";
-import QuantitySelector from "@/components/Designer/QuantitySelector";
-import PriceDisplay from "@/components/Designer/PriceDisplay";
+import FooterComponent from "@/components/Designer/DesignerFooter";
+import Sidebar from "@/components/Designer/Sidebar";
+import Link from "next/link";
+import Image from "next/image";
 import { useSearchParams, useRouter } from "next/navigation";
 import { getLogo } from "../utils/indexedDB";
-import ColorPicker from "@/components/Designer/ColorPicker";
-import LogoPicker from "@/components/Designer/LogoPicker";
 
-const SockCustomiser = () => {
+const SockSelectionPage = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -44,6 +43,7 @@ const SockCustomiser = () => {
   const [quantityErrorMessage, setQuantityErrorMessage] = useState<
     string | null
   >(null);
+  const [activeSidebar, setActiveSidebar] = useState<string | null>("design");
 
   const [leftSockLogo, setLeftSockLogo] = useState<string | undefined>();
   const [rightSockLogo, setRightSockLogo] = useState<string | undefined>();
@@ -110,6 +110,7 @@ const SockCustomiser = () => {
 
   const handleQuantityChange = (value: number) => {
     setQuantity(value);
+    updateSearchParams("quantity", value.toString());
   };
 
   const handleQuantityBlur = () => {
@@ -117,7 +118,6 @@ const SockCustomiser = () => {
       setQuantityErrorMessage("Quantity cannot be less than 50.");
     } else {
       setQuantityErrorMessage(null);
-      updateSearchParams("quantity", quantity.toString());
     }
   };
 
@@ -140,11 +140,10 @@ const SockCustomiser = () => {
   const handleContinue = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
+    e.preventDefault();
     if (!logosUploaded) {
-      e.preventDefault();
       setShowErrorMessage(true);
     } else if (quantity < 50) {
-      e.preventDefault();
       setQuantityErrorMessage("Quantity cannot be less than 50.");
     } else {
       setShowErrorMessage(false);
@@ -153,59 +152,69 @@ const SockCustomiser = () => {
     }
   };
 
+  const toggleSidebar = (sidebar: string) => {
+    if (activeSidebar === sidebar) {
+      setActiveSidebar(null);
+    } else {
+      setActiveSidebar(sidebar);
+    }
+  };
+
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen space-y-2">
-      <h1 className="text-2xl md:text-2xl font-bold mb-2 text-center">
-        Customise Your Socks
-      </h1>
-      <div className="flex flex-col md:flex-row md:space-x-8 space-y-8 md:space-y-0 items-center">
-        <div className="flex justify-center w-full md:w-auto">
-          <SockOutline
-            backgroundColor={backgroundColor}
-            stripeColor={stripeColor}
-            selectedTemplate={selectedTemplate}
-            leftLogoUrl={leftSockLogo}
-            rightLogoUrl={rightSockLogo}
+    <div className="flex flex-col min-h-screen bg-[#F5F7FA]">
+      <div className="flex justify-end p-4">
+        <Link href="/" className="flex items-center gap-3">
+          <Image
+            src="/logo-removed-bg.svg"
+            alt="Grip Gear logo"
+            width={160}
+            height={60}
           />
-        </div>
-        <div className="controls flex flex-col items-center space-y-4 md:space-y-6">
-          <TemplateSelector
-            selectedTemplate={selectedTemplate}
-            onChange={handleTemplateChange}
-          />
-          <ColorPicker
-            title="Choose Background Colour"
-            onSelect={handleBackgroundColorSelect}
-          />
-          {selectedTemplate !== 1 && (
-            <ColorPicker
-              title="Choose Stripe Colour"
-              onSelect={handleStripeColorSelect}
-            />
-          )}
-          <LogoPicker onLogoSelect={handleLogoSelect} />
-          {showErrorMessage && (
-            <p className="text-red-500 mt-2">Please upload a logo.</p>
-          )}
-          <QuantitySelector
+        </Link>
+      </div>
+      <div className="flex flex-row flex-1">
+        <Sidebar
+          activeSidebar={activeSidebar}
+          toggleSidebar={toggleSidebar}
+          handleLogoSelect={handleLogoSelect}
+          handleBackgroundColorSelect={handleBackgroundColorSelect}
+          handleStripeColorSelect={handleStripeColorSelect}
+          handleTemplateChange={handleTemplateChange}
+          selectedTemplate={selectedTemplate}
+        />
+        <div
+          className={`flex flex-col justify-center items-center flex-1 space-y-2 pb-24 ml-48`}
+        >
+          <div className="flex flex-col md:flex-row md:space-x-8 space-y-8 md:space-y-0 items-center">
+            <div className="flex justify-center w-full md:w-auto">
+              <SockOutline
+                backgroundColor={backgroundColor}
+                stripeColor={stripeColor}
+                selectedTemplate={selectedTemplate}
+                leftLogoUrl={leftSockLogo}
+                rightLogoUrl={rightSockLogo}
+              />
+            </div>
+            <div className="controls flex flex-col items-center space-y-4 md:space-y-6">
+              {showErrorMessage && (
+                <p className="text-red-500 mt-2">Please upload a logo.</p>
+              )}
+              {quantityErrorMessage && (
+                <p className="text-red-500 mt-2">{quantityErrorMessage}</p>
+              )}
+            </div>
+          </div>
+          <FooterComponent
+            price={calculatePrice()}
             quantity={quantity}
-            onChange={handleQuantityChange}
-            onBlur={handleQuantityBlur}
+            onQuantityChange={handleQuantityChange}
+            onQuantityBlur={handleQuantityBlur}
+            onContinue={handleContinue}
           />
-          {quantityErrorMessage && (
-            <p className="text-red-500 mt-2">{quantityErrorMessage}</p>
-          )}
-          <PriceDisplay price={calculatePrice()} />
-          <button
-            className="bg-blue-500 text-white hover:bg-blue-700 hover:text-white font-semibold py-1 px-4 md:py-2 md:px-8 rounded-lg transition-colors duration-300 ease-in-out"
-            onClick={handleContinue}
-          >
-            Continue
-          </button>
         </div>
       </div>
     </div>
   );
 };
 
-export default SockCustomiser;
+export default SockSelectionPage;

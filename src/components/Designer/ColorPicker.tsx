@@ -39,7 +39,6 @@ const ColorPicker: React.FC<ColorPickerProps> = ({ title, onSelect }) => {
 
   return (
     <div className="relative text-center mt-2" ref={colorPickerRef}>
-      <h2 className="text-lg md:text-lg font-semibold">{title}</h2>
       <button
         className="p-2 border border-black rounded bg-white text-black hover:bg-gray-100 hover:text-black transition duration-300"
         onClick={handleColorPickerToggle}
