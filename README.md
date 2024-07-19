@@ -1,2 +1,1 @@
-# grip-gear-customiser
-Grip Gear Sock Customiser
+# Grip Gear Sock Customiser
