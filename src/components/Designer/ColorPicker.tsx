@@ -7,7 +7,11 @@ interface ColorPickerProps {
   defaultColor?: string; // Add a defaultColor prop
 }
 
-const ColorPicker: React.FC<ColorPickerProps> = ({ title, onSelect, defaultColor = "#FF0000" }) => {
+const ColorPicker: React.FC<ColorPickerProps> = ({
+  title,
+  onSelect,
+  defaultColor = "#FF0000",
+}) => {
   const [selectedColor, setSelectedColor] = useState<string>(defaultColor);
   const [displayColorPicker, setDisplayColorPicker] = useState<boolean>(false);
   const colorPickerRef = useRef<HTMLDivElement>(null);
@@ -46,7 +50,7 @@ const ColorPicker: React.FC<ColorPickerProps> = ({ title, onSelect, defaultColor
       >
         <div className="flex items-center">
           <span
-            className="inline-block w-6 h-6 mr-2 rounded-full"
+            className="inline-block w-6 h-6 mr-2 rounded-full border border-gray-400"
             style={{ backgroundColor: selectedColor }}
           ></span>
           <span className="text-xs">{title}</span>

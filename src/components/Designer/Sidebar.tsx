@@ -53,7 +53,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             height={20}
             className="sidebar-icon group-hover:fill-current text-blue-500"
           />
-          <span className="mt-2 group-hover:text-blue-500">Design</span>
+          <span className="mt-2 font-semibold group-hover:text-blue-500">Design</span>
         </button>
         <button
           className="mb-4 p-2 bg-white text-black hover:text-blue-500 focus:outline-none flex flex-col items-center group"
@@ -66,7 +66,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             height={20}
             className="sidebar-icon group-hover:fill-current text-blue-500"
           />
-          <span className="mt-2 group-hover:text-blue-500">Colour</span>
+          <span className="mt-2 font-semibold group-hover:text-blue-500">Colour</span>
         </button>
         <button
           className="mb-4 p-2 bg-white text-black hover:text-blue-500 focus:outline-none flex flex-col items-center group"
@@ -79,7 +79,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             height={20}
             className="sidebar-icon group-hover:fill-current text-blue-500"
           />
-          <span className="mt-2 group-hover:text-blue-500">Logo</span>
+          <span className="mt-2 font-semibold group-hover:text-blue-500">Logo</span>
         </button>
       </div>
 
