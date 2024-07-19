@@ -207,7 +207,7 @@ const SockSelectionPage = () => {
                 <p className="text-red-500 mt-2">Please upload a logo.</p>
               )}
               {quantityErrorMessage && (
-                <p className="text-red-500 mt-2">{quantityErrorMessage}</p>
+                <p className="text-red-500 mt-3">{quantityErrorMessage}</p>
               )}
             </div>
           </div>
