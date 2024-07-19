@@ -119,13 +119,22 @@ const SockSelectionPage = () => {
     }
   };
 
-  const calculatePrice = () => {
+  const calculatePriceAndSavings = () => {
     const pricePer50 = templatePrices[selectedTemplate];
+    let savings = 0;
     if (pricePer50 !== undefined) {
-      const price = (pricePer50 / 50) * quantity;
-      return `£${price.toFixed(2)}`;
+      let price = (pricePer50 / 50) * quantity;
+      let discount = 0;
+      if (quantity > 100) {
+        discount = quantity * 0.40;
+      } else if (quantity > 80) {
+        discount = quantity * 0.10;
+      }
+      price -= discount;
+      savings = (discount / (price + discount)) * 100;
+      return { price: `£${price.toFixed(0)}`, savings: savings.toFixed(0) };
     }
-    return "Price information not available";
+    return { price: "Price information not available", savings: "0" };
   };
 
   const updateSearchParams = (key: string, value: string) => {
@@ -158,9 +167,11 @@ const SockSelectionPage = () => {
     }
   };
 
+  const { price, savings } = calculatePriceAndSavings();
+
   return (
     <div className="flex flex-col min-h-screen overflow-hidden bg-[#F5F7FA]">
-      <div className="flex justify-end p-3">
+      <div className="flex justify-end p-4">
         <Link href="/" className="flex items-center gap-3">
           <Image
             src="/logo-removed-bg.svg"
@@ -182,7 +193,7 @@ const SockSelectionPage = () => {
         />
         <div className="flex flex-col justify-center items-center flex-1 space-y-2 ml-48 overflow-hidden">
           <div className="flex flex-col md:flex-row md:space-x-8 space-y-8 md:space-y-0 items-center">
-            <div className="flex justify-center md:w-auto">
+            <div className="flex justify-center w-full md:w-auto">
               <SockOutline
                 backgroundColor={backgroundColor}
                 stripeColor={stripeColor}
@@ -201,7 +212,8 @@ const SockSelectionPage = () => {
             </div>
           </div>
           <FooterComponent
-            price={calculatePrice()}
+            price={price}
+            savings={savings}
             quantity={quantity}
             onQuantityChange={handleQuantityChange}
             onQuantityBlur={handleQuantityBlur}

@@ -3,6 +3,7 @@ import QuantitySelector from "./QuantitySelector";
 
 interface FooterComponentProps {
   price: string;
+  savings: string | null;
   quantity: number;
   onQuantityChange: (value: number) => void;
   onQuantityBlur: () => void;
@@ -11,6 +12,7 @@ interface FooterComponentProps {
 
 const FooterComponent: React.FC<FooterComponentProps> = ({
   price,
+  savings,
   quantity,
   onQuantityChange,
   onQuantityBlur,
@@ -30,13 +32,19 @@ const FooterComponent: React.FC<FooterComponentProps> = ({
     <div className="w-full fixed bottom-0 left-0 bg-white text-sm z-50 flex justify-end items-center h-16 shadow-xl">
       <div className="flex items-center h-full">
         <div
-          className="flex items-center text-lg font-semibold text-black mr-6 cursor-pointer"
+          className="flex items-center text-lg font-semibold text-black mr-4 cursor-pointer"
           onClick={toggleQuantitySelector}
         >
           <span>Quantity: {quantity}</span>
           <img src="/icons/down.svg" alt="Down" className="ml-2 w-4 h-4" />
         </div>
-        <p className="text-lg font-semibold text-green-600 mr-4">{price}</p>
+        <p className="text-lg font-semibold text-black mr-4">{price}</p>
+        {savings && (
+          <div className="flex items-center text-xs font-semibold bg-green-100 text-green-700 px-2 py-1 rounded-lg mr-4">
+            <span className="text-green-700">{savings}% </span> Quantity discount
+
+          </div>
+        )}
         <button
           className="bg-black text-white hover:bg-blue-500 font-semibold h-full px-10 transition-colors duration-300 ease-in-out"
           onClick={onContinue}

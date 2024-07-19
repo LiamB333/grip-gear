@@ -127,7 +127,7 @@ const SockOutline: React.FC<SockOutlineProps> = ({
 
   return ( //650 650    5 50 900 1000
     <div>
-      <svg width="650" height="525" viewBox="0 50 900 800">
+      <svg width="650" height="510" viewBox="0 50 900 800">
         <path
           d="M251.000000,144.500000 
           C250.726059,153.498016 251.518829,162.520126 250.486099,171.498398 

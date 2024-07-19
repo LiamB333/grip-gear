@@ -29,7 +29,7 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({ quantity, onChange,
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value, 10);
-    if (!isNaN(value) && value >= 50 && value <= 1000) {
+    if (!isNaN(value) && value >= 50 && value <= 500) {
       onChange(value);
     }
   };
@@ -41,7 +41,7 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({ quantity, onChange,
   };
 
   const handleIncrement = () => {
-    if (quantity < 1000) {
+    if (quantity < 500) {
       onChange(quantity + 1);
     }
   };
@@ -81,7 +81,7 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({ quantity, onChange,
         id="quantity-range"
         name="quantity-range"
         min="50"
-        max="1000"
+        max="500"
         value={quantity}
         onChange={handleSlideChange}
         onBlur={onBlur}

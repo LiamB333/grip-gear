@@ -53,7 +53,9 @@ const Sidebar: React.FC<SidebarProps> = ({
             height={20}
             className="sidebar-icon group-hover:fill-current text-blue-500"
           />
-          <span className="mt-2 font-semibold group-hover:text-blue-500">Design</span>
+          <span className="mt-2 font-semibold group-hover:text-blue-500">
+            Design
+          </span>
         </button>
         <button
           className="mb-4 p-2 bg-white text-black hover:text-blue-500 focus:outline-none flex flex-col items-center group"
@@ -66,7 +68,9 @@ const Sidebar: React.FC<SidebarProps> = ({
             height={20}
             className="sidebar-icon group-hover:fill-current text-blue-500"
           />
-          <span className="mt-2 font-semibold group-hover:text-blue-500">Colour</span>
+          <span className="mt-2 font-semibold group-hover:text-blue-500">
+            Colour
+          </span>
         </button>
         <button
           className="mb-4 p-2 bg-white text-black hover:text-blue-500 focus:outline-none flex flex-col items-center group"
@@ -79,7 +83,9 @@ const Sidebar: React.FC<SidebarProps> = ({
             height={20}
             className="sidebar-icon group-hover:fill-current text-blue-500"
           />
-          <span className="mt-2 font-semibold group-hover:text-blue-500">Logo</span>
+          <span className="mt-2 font-semibold group-hover:text-blue-500">
+            Logo
+          </span>
         </button>
       </div>
 
@@ -96,7 +102,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                 {templates.map((template) => (
                   <div
                     key={template.id}
-                    className={`p-1 border ${
+                    className={`p-1 border-2 ${
                       selectedTemplate === template.id
                         ? "border-blue-500"
                         : "border-gray-300"
@@ -144,7 +150,10 @@ const Sidebar: React.FC<SidebarProps> = ({
                 <h1 className="text-xl">Select Logo</h1>
                 <p className="text-xs">Decide on your sock badge</p>
               </div>
-              <LogoPicker onLogoSelect={handleLogoSelect} />
+              <LogoPicker
+                onLogoSelect={handleLogoSelect}
+                defaultLogoUrl="/default.png"
+              />
             </div>
           )}
         </div>

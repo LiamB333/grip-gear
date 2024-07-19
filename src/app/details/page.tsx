@@ -107,8 +107,8 @@ const DetailsPage = () => {
     <>
       <Navbar />
       <div className="flex justify-center items-center">
-        <div className="max-w-xl bg-white shadow-md rounded px-8 py-6">
-          <h1 className="text-2xl font-bold mb-4">Customisation Details</h1>
+        <div className="max-w-xl bg-white shadow-md rounded border-2 border-gray-100 px-8 py-6">
+          <h1 className="text-2xl font-bold mb-4 text-center">Enter your details</h1>
           <form onSubmit={handleSubmit}>
             <div className="m-4">
               <div className="mb-4">
