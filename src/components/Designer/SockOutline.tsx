@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 interface SockOutlineProps {
   backgroundColor: string;
@@ -15,6 +15,35 @@ const SockOutline: React.FC<SockOutlineProps> = ({
   leftLogoUrl,
   rightLogoUrl,
 }) => {
+  const [viewBox, setViewBox] = useState("0 50 900 800");
+  const [svgSize, setSvgSize] = useState({ width: "400", height: "400" });
+  const [svgPosition, setSvgPosition] = useState("center");
+
+  useEffect(() => {
+    const updateViewBoxAndSize = () => {
+      if (window.innerWidth < 768) {
+        setViewBox("0 50 900 800");
+        setSvgSize({ width: "390", height: "390" });
+        setSvgPosition("center");
+      } else if (window.innerWidth >= 768 && window.innerWidth < 1024) {
+        setViewBox("50 50 800 800");
+        setSvgSize({ width: "520", height: "500" });
+        setSvgPosition("center");
+      } else {
+        setViewBox("200 50 800 800");
+        setSvgSize({ width: "900", height: "500" });
+        setSvgPosition("flex-end");
+      }
+    };
+
+    updateViewBoxAndSize();
+    window.addEventListener("resize", updateViewBoxAndSize);
+
+    return () => {
+      window.removeEventListener("resize", updateViewBoxAndSize);
+    };
+  }, []);
+
   const logoWidth = 100; // Example width for logos
   const logoHeight = 100; // Example height for logos
   const logoXOffset = 225; // Example offset for X position
@@ -125,9 +154,9 @@ const SockOutline: React.FC<SockOutlineProps> = ({
       break;
   }
 
-  return ( //650 650    5 50 900 1000
-    <div>
-      <svg width="650" height="510" viewBox="0 50 900 800">
+  return (
+    <div className={`flex justify-${svgPosition} items-center`}>
+      <svg width={svgSize.width} height={svgSize.height} viewBox={viewBox}>
         <path
           d="M251.000000,144.500000 
           C250.726059,153.498016 251.518829,162.520126 250.486099,171.498398 

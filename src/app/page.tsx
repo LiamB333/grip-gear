@@ -3,6 +3,7 @@ import React, { useState, useEffect, Suspense } from "react";
 import SockOutline from "@/components/Designer/SockOutline";
 import FooterComponent from "@/components/Designer/DesignerFooter";
 import Sidebar from "@/components/Designer/Sidebar";
+import MobileConfig from "@/components/Designer/MobileConfig";
 import Link from "next/link";
 import Image from "next/image";
 import { useSearchParams, useRouter } from "next/navigation";
@@ -47,6 +48,8 @@ const SockSelectionPageContent = () => {
   const [rightSockLogo, setRightSockLogo] = useState<string | undefined>();
   const [logosUploaded, setLogosUploaded] = useState(false);
 
+  const [isClient, setIsClient] = useState(false);
+
   const templatePrices: { [key: number]: number } = {
     1: 240,
     2: 250,
@@ -55,6 +58,8 @@ const SockSelectionPageContent = () => {
   };
 
   useEffect(() => {
+    setIsClient(true); // This ensures client-side rendering
+
     const fetchLogos = async () => {
       console.log("Fetching logos with IDs:", leftSockLogoId, rightSockLogoId);
       if (leftSockLogoId) {
@@ -126,9 +131,9 @@ const SockSelectionPageContent = () => {
       let price = (pricePer50 / 50) * quantity;
       let discount = 0;
       if (quantity > 100) {
-        discount = quantity * 0.40;
+        discount = quantity * 0.4;
       } else if (quantity > 80) {
-        discount = quantity * 0.10;
+        discount = quantity * 0.1;
       }
       price -= discount;
       savings = (discount / (price + discount)) * 100;
@@ -171,7 +176,7 @@ const SockSelectionPageContent = () => {
 
   return (
     <div className="flex flex-col min-h-screen overflow-hidden bg-[#F5F7FA]">
-      <div className="flex justify-end p-4">
+      <div className="flex justify-center lg:justify-end p-4">
         <Link href="/" className="flex items-center gap-3">
           <Image
             src="/logo-removed-bg.svg"
@@ -181,17 +186,20 @@ const SockSelectionPageContent = () => {
           />
         </Link>
       </div>
+
       <div className="flex flex-row flex-1 overflow-hidden">
-        <Sidebar
-          activeSidebar={activeSidebar}
-          toggleSidebar={toggleSidebar}
-          handleLogoSelect={handleLogoSelect}
-          handleBackgroundColorSelect={handleBackgroundColorSelect}
-          handleStripeColorSelect={handleStripeColorSelect}
-          handleTemplateChange={handleTemplateChange}
-          selectedTemplate={selectedTemplate}
-        />
-        <div className="flex flex-col justify-center items-center flex-1 space-y-2 ml-48 overflow-hidden">
+        <div className="hidden lg:block lg:w-64">
+          <Sidebar
+            activeSidebar={activeSidebar}
+            toggleSidebar={toggleSidebar}
+            handleLogoSelect={handleLogoSelect}
+            handleBackgroundColorSelect={handleBackgroundColorSelect}
+            handleStripeColorSelect={handleStripeColorSelect}
+            handleTemplateChange={handleTemplateChange}
+            selectedTemplate={selectedTemplate}
+          />
+        </div>
+        <div className="flex flex-col justify-center items-center flex-1 space-y-2 overflow-hidden lg:ml-64">
           <div className="flex flex-col md:flex-row md:space-x-8 space-y-8 md:space-y-0 items-center">
             <div className="flex justify-center w-full md:w-auto">
               <SockOutline
@@ -221,6 +229,17 @@ const SockSelectionPageContent = () => {
           />
         </div>
       </div>
+      {isClient && (
+        <div className="block lg:hidden">
+          <MobileConfig
+            handleLogoSelect={handleLogoSelect}
+            handleBackgroundColorSelect={handleBackgroundColorSelect}
+            handleStripeColorSelect={handleStripeColorSelect}
+            handleTemplateChange={handleTemplateChange}
+            selectedTemplate={selectedTemplate}
+          />
+        </div>
+      )}
     </div>
   );
 };

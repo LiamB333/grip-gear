@@ -16,6 +16,7 @@ interface SidebarProps {
   handleStripeColorSelect: (color: string) => void;
   handleTemplateChange: (selectedValue: number) => void;
   selectedTemplate: number;
+  className?: string; // Add this line to accept className prop
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
@@ -26,6 +27,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   handleStripeColorSelect,
   handleTemplateChange,
   selectedTemplate,
+  className, // Add this line to accept className prop
 }) => {
   const [showBackgroundColorPicker, setShowBackgroundColorPicker] =
     useState(false);
@@ -39,7 +41,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   ];
 
   return (
-    <div className="flex relative overflow-hidden">
+    <div className={`flex relative overflow-hidden ${className}`}>
       {/* Main Sidebar */}
       <div className="w-20 bg-white text-black flex flex-col items-center py-4 shadow-xl fixed top-0 left-0 h-full z-10">
         <button
