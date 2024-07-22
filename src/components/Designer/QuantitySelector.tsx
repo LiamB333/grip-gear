@@ -1,33 +1,16 @@
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 
 interface QuantitySelectorProps {
   quantity: number;
   onChange: (value: number) => void;
   onBlur: () => void;
-  onClose: () => void;
 }
 
 const QuantitySelector: React.FC<QuantitySelectorProps> = ({
   quantity,
   onChange,
   onBlur,
-  onClose
 }) => {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (ref.current && !ref.current.contains(event.target as Node)) {
-        onClose();
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [onClose]);
-
   const handleSlideChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(parseInt(e.target.value, 10));
   };
@@ -64,7 +47,7 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
   const savings = calculateSavings() * 100;
 
   return (
-    <div ref={ref} className="bg-white p-4 shadow-lg rounded-lg fixed bottom-16 right-4 w-64">
+    <div className="bg-white p-4 rounded-lg w-full">
       <label htmlFor="quantity" className="block text-sm font-medium text-black">
         Quantity
       </label>
@@ -110,12 +93,6 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
           <span className="text-green-700">{savings.toFixed(0)}%</span>‎ Quantity discount
         </div>
       )}
-      <button
-        className="mt-4 bg-black text-white hover:bg-blue-500 font-semibold px-4 py-2 transition-colors duration-300 ease-in-out rounded-lg w-full"
-        onClick={onClose}
-      >
-        Close
-      </button>
     </div>
   );
 };

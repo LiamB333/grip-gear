@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import LogoPicker from "@/components/Designer/LogoPicker";
 import ColorPickerComponent from "@/components/Designer/ColorPicker";
-import TemplateSelector from "@/components/Designer/TemplateSelector"; // Adjust the import path as necessary
-import Image from "next/image"; // Make sure you have the Image component imported
+import QuantitySelector from "./QuantitySelector"; // Ensure this is the correct path
+import Image from "next/image";
 
 interface SidebarProps {
   activeSidebar: string | null;
@@ -16,7 +16,10 @@ interface SidebarProps {
   handleStripeColorSelect: (color: string) => void;
   handleTemplateChange: (selectedValue: number) => void;
   selectedTemplate: number;
-  className?: string; // Add this line to accept className prop
+  quantity: number;
+  onQuantityChange: (value: number) => void;
+  onQuantityBlur: () => void;
+  className?: string;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
@@ -27,12 +30,11 @@ const Sidebar: React.FC<SidebarProps> = ({
   handleStripeColorSelect,
   handleTemplateChange,
   selectedTemplate,
-  className, // Add this line to accept className prop
+  quantity,
+  onQuantityChange,
+  onQuantityBlur,
+  className,
 }) => {
-  const [showBackgroundColorPicker, setShowBackgroundColorPicker] =
-    useState(false);
-  const [showStripeColorPicker, setShowStripeColorPicker] = useState(false);
-
   const templates = [
     { id: 1, image: "/sock-1.png" },
     { id: 2, image: "/sock-2.png" },
@@ -45,11 +47,11 @@ const Sidebar: React.FC<SidebarProps> = ({
       {/* Main Sidebar */}
       <div className="w-20 bg-white text-black flex flex-col items-center py-4 shadow-xl fixed top-0 left-0 h-full z-10">
         <button
-          className="mb-4 p-2 bg-white text-black hover:text-blue-500 focus:outline-none flex flex-col items-center group"
+          className="mb-4 p-2 bg-white text-black hover:bg-blue-100 focus:outline-none flex flex-col items-center group"
           onClick={() => toggleSidebar("design")}
         >
-          <img
-            src="/icons/color-pencil.svg"
+          <Image
+            src="/icons/pattern.svg"
             alt="Design"
             width={20}
             height={20}
@@ -60,10 +62,10 @@ const Sidebar: React.FC<SidebarProps> = ({
           </span>
         </button>
         <button
-          className="mb-4 p-2 bg-white text-black hover:text-blue-500 focus:outline-none flex flex-col items-center group"
+          className="mb-4 p-2 bg-white text-black hover:bg-blue-100 focus:outline-none flex flex-col items-center group"
           onClick={() => toggleSidebar("colour")}
         >
-          <img
+          <Image
             src="/icons/bucket.svg"
             alt="Colour"
             width={20}
@@ -75,10 +77,10 @@ const Sidebar: React.FC<SidebarProps> = ({
           </span>
         </button>
         <button
-          className="mb-4 p-2 bg-white text-black hover:text-blue-500 focus:outline-none flex flex-col items-center group"
+          className="mb-4 p-2 bg-white text-black hover:bg-blue-100 focus:outline-none flex flex-col items-center group"
           onClick={() => toggleSidebar("logo")}
         >
-          <img
+          <Image
             src="/icons/export.svg"
             alt="Logo"
             width={20}
@@ -87,6 +89,21 @@ const Sidebar: React.FC<SidebarProps> = ({
           />
           <span className="mt-2 font-semibold group-hover:text-blue-500">
             Logo
+          </span>
+        </button>
+        <button
+          className="mb-4 p-2 bg-white text-black hover:bg-blue-100 focus:outline-none flex flex-col items-center group"
+          onClick={() => toggleSidebar("quantity")}
+        >
+          <Image
+            src="/icons/shopping.svg"
+            alt="Quantity"
+            width={20}
+            height={20}
+            className="sidebar-icon group-hover:fill-current text-blue-500"
+          />
+          <span className="mt-2 font-semibold group-hover:text-blue-500">
+            Quantity
           </span>
         </button>
       </div>
@@ -98,7 +115,6 @@ const Sidebar: React.FC<SidebarProps> = ({
             <div className="p-4">
               <div className="mb-2">
                 <h1 className="text-xl">Select Design</h1>
-                <p className="text-xs">Choose a standard design</p>
               </div>
               <div className="grid grid-cols-2 gap-2 overflow-auto max-h-96">
                 {templates.map((template) => (
@@ -126,7 +142,6 @@ const Sidebar: React.FC<SidebarProps> = ({
             <div className="p-4">
               <div className="mb-2">
                 <h1 className="text-xl">Select Colour</h1>
-                <p className="text-xs">Decide on your colour combination</p>
               </div>
 
               <ColorPickerComponent
@@ -150,11 +165,23 @@ const Sidebar: React.FC<SidebarProps> = ({
             <div className="p-4">
               <div className="mb-2">
                 <h1 className="text-xl">Select Logo</h1>
-                <p className="text-xs">Decide on your sock badge</p>
               </div>
               <LogoPicker
                 onLogoSelect={handleLogoSelect}
                 defaultLogoUrl="/default.png"
+              />
+            </div>
+          )}
+
+          {activeSidebar === "quantity" && (
+            <div className="p-4">
+              <div className="mb-2">
+                <h1 className="text-xl">Select Quantity</h1>
+              </div>
+              <QuantitySelector
+                quantity={quantity}
+                onChange={onQuantityChange}
+                onBlur={onQuantityBlur}
               />
             </div>
           )}

@@ -41,7 +41,9 @@ const SockSelectionPageContent = () => {
     parseInt(getParam("quantity") || "50", 10)
   );
   const [showErrorMessage, setShowErrorMessage] = useState(false);
-  const [quantityErrorMessage, setQuantityErrorMessage] = useState<string | null>(null);
+  const [quantityErrorMessage, setQuantityErrorMessage] = useState<
+    string | null
+  >(null);
   const [activeSidebar, setActiveSidebar] = useState<string | null>("design");
 
   const [leftSockLogo, setLeftSockLogo] = useState<string | undefined>();
@@ -197,6 +199,9 @@ const SockSelectionPageContent = () => {
             handleStripeColorSelect={handleStripeColorSelect}
             handleTemplateChange={handleTemplateChange}
             selectedTemplate={selectedTemplate}
+            quantity={quantity}
+            onQuantityChange={handleQuantityChange}
+            onQuantityBlur={handleQuantityBlur}
           />
         </div>
         <div className="flex flex-col justify-center items-center flex-1 space-y-2 overflow-hidden lg:ml-64">
@@ -219,14 +224,7 @@ const SockSelectionPageContent = () => {
               )}
             </div>
           </div>
-          <FooterComponent
-            price={price}
-            savings={savings}
-            quantity={quantity}
-            onQuantityChange={handleQuantityChange}
-            onQuantityBlur={handleQuantityBlur}
-            onContinue={handleContinue}
-          />
+          <FooterComponent price={price} onContinue={handleContinue} />
         </div>
       </div>
       {isClient && (
@@ -237,6 +235,9 @@ const SockSelectionPageContent = () => {
             handleStripeColorSelect={handleStripeColorSelect}
             handleTemplateChange={handleTemplateChange}
             selectedTemplate={selectedTemplate}
+            quantity={quantity}
+            onQuantityChange={handleQuantityChange}
+            onQuantityBlur={handleQuantityBlur}
           />
         </div>
       )}

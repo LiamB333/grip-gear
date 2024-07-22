@@ -71,18 +71,13 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
         </svg>
       </button>
       {displayColorPicker && (
-        <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 z-10">
-          <div
-            className="p-2"
-            style={{
-              width: window.innerWidth < 640 ? '228px' : '250px',
-              height: window.innerWidth < 640 ? '228px' : '250px',
-            }}
-          >
+        <div className="pb-20 z-10">
+          <div className="p-1">
             <SketchPicker
               color={selectedColor}
               onChange={handleColorChange}
-              width={window.innerWidth < 640 ? '200px' : '200px'}
+              width="200px"
+              presetColors={[]}
               disableAlpha
             />
           </div>
