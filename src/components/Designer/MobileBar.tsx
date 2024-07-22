@@ -288,7 +288,7 @@ const MobileBar: React.FC<MobileBarProps> = ({
           <div className="p-4">
             <LogoPicker
               onLogoSelect={handleLogoSelect}
-              defaultLogoUrl="/default.png"
+            
             />
           </div>
         </div>

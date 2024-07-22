@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import LogoPicker from "@/components/Designer/LogoPicker";
-import QuantitySelector from "./QuantitySelector"; // Ensure this is the correct path
+import QuantitySelector from "./QuantitySelector";
 import Image from "next/image";
 
 interface SidebarProps {
@@ -99,66 +99,29 @@ const Sidebar: React.FC<SidebarProps> = ({
     <div className={`flex relative overflow-hidden ${className}`}>
       {/* Main Sidebar */}
       <div className="w-20 bg-white text-black flex flex-col items-center py-4 shadow-xl fixed top-0 left-0 h-full z-10">
-        <button
-          className="mb-4 p-2 bg-white text-black hover:bg-blue-100 focus:outline-none flex flex-col items-center group"
-          onClick={() => toggleSidebar("design")}
-        >
-          <Image
-            src="/icons/pattern.svg"
-            alt="Design"
-            width={20}
-            height={20}
-            className="sidebar-icon group-hover:fill-current text-blue-500"
-          />
-          <span className="mt-2 font-semibold group-hover:text-blue-500">
-            Design
-          </span>
-        </button>
-        <button
-          className="mb-4 p-2 bg-white text-black hover:bg-blue-100 focus:outline-none flex flex-col items-center group"
-          onClick={() => toggleSidebar("colour")}
-        >
-          <Image
-            src="/icons/bucket.svg"
-            alt="Colour"
-            width={20}
-            height={20}
-            className="sidebar-icon group-hover:fill-current text-blue-500"
-          />
-          <span className="mt-2 font-semibold group-hover:text-blue-500">
-            Colour
-          </span>
-        </button>
-        <button
-          className="mb-4 p-2 bg-white text-black hover:bg-blue-100 focus:outline-none flex flex-col items-center group"
-          onClick={() => toggleSidebar("logo")}
-        >
-          <Image
-            src="/icons/export.svg"
-            alt="Logo"
-            width={20}
-            height={20}
-            className="sidebar-icon group-hover:fill-current text-blue-500"
-          />
-          <span className="mt-2 font-semibold group-hover:text-blue-500">
-            Logo
-          </span>
-        </button>
-        <button
-          className="mb-4 p-2 bg-white text-black hover:bg-blue-100 focus:outline-none flex flex-col items-center group"
-          onClick={() => toggleSidebar("quantity")}
-        >
-          <Image
-            src="/icons/add.svg"
-            alt="Quantity"
-            width={20}
-            height={20}
-            className="sidebar-icon group-hover:fill-current text-blue-500"
-          />
-          <span className="mt-2 font-semibold group-hover:text-blue-500">
-            Quantity
-          </span>
-        </button>
+        {[
+          { name: "design", icon: "/icons/pattern.svg" },
+          { name: "colour", icon: "/icons/bucket.svg" },
+          { name: "logo", icon: "/icons/export.svg" },
+          { name: "quantity", icon: "/icons/add.svg" },
+        ].map((item) => (
+          <button
+            key={item.name}
+            className="mb-4 p-2 bg-white text-black hover:bg-blue-100 focus:outline-none flex flex-col items-center group w-full"
+            onClick={() => toggleSidebar(item.name)}
+          >
+            <Image
+              src={item.icon}
+              alt={item.name.charAt(0).toUpperCase() + item.name.slice(1)}
+              width={20}
+              height={20}
+              className="sidebar-icon group-hover:fill-current text-blue-500"
+            />
+            <span className="mt-2 font-semibold group-hover:text-blue-500 w-full text-center">
+              {item.name.charAt(0).toUpperCase() + item.name.slice(1)}
+            </span>
+          </button>
+        ))}
       </div>
 
       {/* Nested Sidebar */}
@@ -290,10 +253,7 @@ const Sidebar: React.FC<SidebarProps> = ({
               <div className="mb-2">
                 <h1 className="text-xl">Select Logo</h1>
               </div>
-              <LogoPicker
-                onLogoSelect={handleLogoSelect}
-                defaultLogoUrl="/default.png"
-              />
+              <LogoPicker onLogoSelect={handleLogoSelect} />
             </div>
           )}
 

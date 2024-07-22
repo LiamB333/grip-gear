@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { saveLogo } from "../../utils/indexedDB";
 import NextImage from "next/image";
@@ -9,64 +9,12 @@ interface LogoPickerProps {
     rightLogoId: string,
     fullLogoId: string
   ) => void;
-  defaultLogoUrl: string;
 }
 
-const LogoPicker: React.FC<LogoPickerProps> = ({
-  onLogoSelect,
-  defaultLogoUrl,
-}) => {
+const LogoPicker: React.FC<LogoPickerProps> = ({ onLogoSelect }) => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  useEffect(() => {
-    const loadDefaultLogo = async () => {
-      if (defaultLogoUrl) {
-        const fullId = uuidv4();
-        await saveLogo(fullId, defaultLogoUrl);
-
-        const image = new Image();
-        image.src = defaultLogoUrl;
-        image.onload = async () => {
-          if (image.width > 600 || image.height > 600) {
-            setErrorMessage("Image dimensions must be 600x600 pixels or less");
-            return;
-          }
-
-          const canvas = document.createElement("canvas");
-          const ctx = canvas.getContext("2d");
-          if (ctx) {
-            const height = image.height;
-            const width = image.width / 2; // Split image in half horizontally
-
-            canvas.width = width;
-            canvas.height = height;
-
-            // Draw left half of the image
-            ctx.drawImage(image, 0, 0, width, height, 0, 0, width, height);
-            const leftDataURL = canvas.toDataURL("image/png");
-            const leftId = uuidv4();
-            await saveLogo(leftId, leftDataURL);
-
-            // Clear canvas for drawing right half of the image
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // Draw right half of the image
-            ctx.drawImage(image, width, 0, width, height, 0, 0, width, height);
-            const rightDataURL = canvas.toDataURL("image/png");
-            const rightId = uuidv4();
-            await saveLogo(rightId, rightDataURL);
-
-            // Pass both halves to parent component
-            onLogoSelect(leftId, rightId, fullId);
-          }
-        };
-      }
-    };
-
-    loadDefaultLogo();
-  }, [defaultLogoUrl, onLogoSelect]);
-
-  const handleLogoSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleLogoSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const validTypes = ["image/png", "image/jpeg"];
@@ -75,7 +23,6 @@ const LogoPicker: React.FC<LogoPickerProps> = ({
         return;
       }
 
-      // Check if the file size exceeds 10MB
       const maxSizeInBytes = 10 * 1024 * 1024; // 10MB in bytes
       if (file.size > maxSizeInBytes) {
         setErrorMessage("Please upload a file smaller than 10MB");
@@ -85,11 +32,11 @@ const LogoPicker: React.FC<LogoPickerProps> = ({
       const reader = new FileReader();
       reader.onloadend = async () => {
         const base64String = reader.result as string;
+        const img = new Image();
+        img.src = base64String;
 
-        const image = new Image();
-        image.src = base64String;
-        image.onload = async () => {
-          if (image.width > 600 || image.height > 600) {
+        img.onload = async () => {
+          if (img.width > 600 || img.height > 600) {
             setErrorMessage("Image dimensions must be 600x600 pixels or less");
             return;
           }
@@ -100,14 +47,14 @@ const LogoPicker: React.FC<LogoPickerProps> = ({
           const canvas = document.createElement("canvas");
           const ctx = canvas.getContext("2d");
           if (ctx) {
-            const height = image.height;
-            const width = image.width / 2; // Split image in half horizontally
+            const height = img.height;
+            const width = img.width / 2; // Split image in half horizontally
 
             canvas.width = width;
             canvas.height = height;
 
             // Draw left half of the image
-            ctx.drawImage(image, 0, 0, width, height, 0, 0, width, height);
+            ctx.drawImage(img, 0, 0, width, height, 0, 0, width, height);
             const leftDataURL = canvas.toDataURL("image/png");
             const leftId = uuidv4();
             await saveLogo(leftId, leftDataURL);
@@ -116,16 +63,25 @@ const LogoPicker: React.FC<LogoPickerProps> = ({
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             // Draw right half of the image
-            ctx.drawImage(image, width, 0, width, height, 0, 0, width, height);
+            ctx.drawImage(img, width, 0, width, height, 0, 0, width, height);
             const rightDataURL = canvas.toDataURL("image/png");
             const rightId = uuidv4();
             await saveLogo(rightId, rightDataURL);
 
-            // Pass both halves to parent component
+            // Pass both halves and full logo to parent component
             onLogoSelect(leftId, rightId, fullId);
           }
         };
+
+        img.onerror = () => {
+          setErrorMessage("Failed to load image. Please try again.");
+        };
       };
+
+      reader.onerror = () => {
+        setErrorMessage("Failed to read file. Please try again.");
+      };
+
       reader.readAsDataURL(file);
     }
   };

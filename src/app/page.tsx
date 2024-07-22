@@ -19,31 +19,15 @@ const SockSelectionPageContent = () => {
     return value !== null ? value : undefined;
   };
 
-  const [backgroundColor, setBackgroundColor] = useState(
-    getParam("backgroundColor") || "#8E1E1E"
-  );
-  const [stripeColor, setStripeColor] = useState(
-    getParam("stripeColor") || "#FFFFFF"
-  );
-  const [selectedTemplate, setSelectedTemplate] = useState<number>(
-    parseInt(getParam("selectedTemplate") || "1", 10)
-  );
-  const [leftSockLogoId, setLeftSockLogoId] = useState<string | undefined>(
-    getParam("leftSockLogo")
-  );
-  const [rightSockLogoId, setRightSockLogoId] = useState<string | undefined>(
-    getParam("rightSockLogo")
-  );
-  const [fullLogoId, setFullLogoId] = useState<string | undefined>(
-    getParam("fullLogo")
-  );
-  const [quantity, setQuantity] = useState<number>(
-    parseInt(getParam("quantity") || "50", 10)
-  );
+  const [backgroundColor, setBackgroundColor] = useState("#8E1E1E");
+  const [stripeColor, setStripeColor] = useState("#FFFFFF");
+  const [selectedTemplate, setSelectedTemplate] = useState<number>(1);
+  const [leftSockLogoId, setLeftSockLogoId] = useState<string | undefined>();
+  const [rightSockLogoId, setRightSockLogoId] = useState<string | undefined>();
+  const [fullLogoId, setFullLogoId] = useState<string | undefined>();
+  const [quantity, setQuantity] = useState<number>(50);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
-  const [quantityErrorMessage, setQuantityErrorMessage] = useState<
-    string | null
-  >(null);
+  const [quantityErrorMessage, setQuantityErrorMessage] = useState<string | null>(null);
   const [activeSidebar, setActiveSidebar] = useState<string | null>("design");
 
   const [leftSockLogo, setLeftSockLogo] = useState<string | undefined>();
@@ -60,23 +44,51 @@ const SockSelectionPageContent = () => {
   };
 
   useEffect(() => {
-    setIsClient(true); // This ensures client-side rendering
+    setIsClient(true); 
+
+    const initialBackgroundColor = getParam("backgroundColor") || "#8E1E1E";
+    const initialStripeColor = getParam("stripeColor") || "#FFFFFF";
+    const initialSelectedTemplate = parseInt(getParam("selectedTemplate") || "1", 10);
+    const initialLeftSockLogoId = getParam("leftSockLogo");
+    const initialRightSockLogoId = getParam("rightSockLogo");
+    const initialFullLogoId = getParam("fullLogo");
+    const initialQuantity = parseInt(getParam("quantity") || "50", 10);
+
+    setBackgroundColor(initialBackgroundColor);
+    setStripeColor(initialStripeColor);
+    setSelectedTemplate(initialSelectedTemplate);
+    setLeftSockLogoId(initialLeftSockLogoId);
+    setRightSockLogoId(initialRightSockLogoId);
+    setFullLogoId(initialFullLogoId);
+    setQuantity(initialQuantity);
 
     const fetchLogos = async () => {
-      console.log("Fetching logos with IDs:", leftSockLogoId, rightSockLogoId);
-      if (leftSockLogoId) {
-        const storedLeftSockLogo = await getLogo(leftSockLogoId);
+      console.log("Fetching logos with IDs:", initialLeftSockLogoId, initialRightSockLogoId);
+      if (initialLeftSockLogoId) {
+        const storedLeftSockLogo = await getLogo(initialLeftSockLogoId);
         setLeftSockLogo(storedLeftSockLogo || undefined);
         console.log("Fetched left logo:", storedLeftSockLogo);
       }
-      if (rightSockLogoId) {
-        const storedRightSockLogo = await getLogo(rightSockLogoId);
+      if (initialRightSockLogoId) {
+        const storedRightSockLogo = await getLogo(initialRightSockLogoId);
         setRightSockLogo(storedRightSockLogo || undefined);
         console.log("Fetched right logo:", storedRightSockLogo);
       }
-      setLogosUploaded(!!(leftSockLogoId && rightSockLogoId));
+      setLogosUploaded(!!(initialLeftSockLogoId && initialRightSockLogoId));
     };
     fetchLogos();
+  }, []);
+
+  useEffect(() => {
+    if (leftSockLogoId && rightSockLogoId) {
+      const fetchLogos = async () => {
+        const storedLeftSockLogo = await getLogo(leftSockLogoId);
+        const storedRightSockLogo = await getLogo(rightSockLogoId);
+        setLeftSockLogo(storedLeftSockLogo || undefined);
+        setRightSockLogo(storedRightSockLogo || undefined);
+      };
+      fetchLogos();
+    }
   }, [leftSockLogoId, rightSockLogoId]);
 
   const handleBackgroundColorSelect = (color: string) => {
@@ -151,9 +163,7 @@ const SockSelectionPageContent = () => {
     window.history.replaceState({}, "", newUrl);
   };
 
-  const handleContinue = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const handleContinue = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     if (!logosUploaded) {
       setShowErrorMessage(true);
@@ -216,17 +226,13 @@ const SockSelectionPageContent = () => {
               />
             </div>
           </div>
-          {/*
           {showErrorMessage && (
             <div className="text-red-500 text-sm mt-2">
               Please upload a logo before continuing.
             </div>
           )}
-            */}
+          <DesignerFooter price={price} onContinue={handleContinue} />
         </div>
-      </div>
-      <div className="mt-auto w-full">
-        <DesignerFooter price={price} onContinue={handleContinue} />
       </div>
       {isClient && (
         <div className="block lg:hidden">
