@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 interface QuantitySelectorProps {
   quantity: number;
@@ -18,17 +18,10 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
     setInputValue(quantity.toString());
   }, [quantity]);
 
-  const handleSlideChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = parseInt(e.target.value, 10);
-    setInputValue(newValue.toString());
-    onChange(newValue);
-    setShowError(newValue < 50);
-  };
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setInputValue(value);
-    if (value === '') {
+    if (value === "") {
       setShowError(true);
     } else {
       const numericValue = parseInt(value, 10);
@@ -44,11 +37,11 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
   const handleInputBlur = () => {
     const value = parseInt(inputValue, 10);
     if (isNaN(value) || value < 50) {
-      setInputValue('');
+      setInputValue("");
       setShowError(true);
       onChange(NaN); // Keep NaN to trigger error state
     } else if (value > 500) {
-      setInputValue('500');
+      setInputValue("500");
       onChange(500);
       setShowError(false);
     } else {
@@ -86,15 +79,11 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
 
   return (
     <div className="bg-white p-4 rounded-lg w-full">
-      <label htmlFor="quantity" className="block text-sm font-medium text-black">
-        Quantity
-      </label>
-
       <div className="flex items-center mt-2">
         <button
           type="button"
           onClick={handleDecrement}
-          className="bg-gray-300 text-black px-2 py-1 rounded-l focus:outline-none"
+          className="bg-gray-300 text-black px-4 py-2 rounded-l text-sm focus:outline-none"
         >
           -
         </button>
@@ -105,12 +94,12 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
           value={inputValue}
           onChange={handleInputChange}
           onBlur={handleInputBlur}
-          className="w-16 text-center border border-gray-300 focus:outline-none"
+          className="w-20 text-center border border-gray-300 focus:outline-none text-lg"
         />
         <button
           type="button"
           onClick={handleIncrement}
-          className="bg-gray-300 text-black px-2 py-1 rounded-r focus:outline-none"
+          className="bg-gray-300 text-black px-4 py-2 rounded-r text-sm focus:outline-none"
         >
           +
         </button>
@@ -120,20 +109,10 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
           Enter quantity between 50 to 500
         </div>
       )}
-      <input
-        type="range"
-        id="quantity-range"
-        name="quantity-range"
-        min="50"
-        max="500"
-        value={quantity}
-        onChange={handleSlideChange}
-        onBlur={onBlur}
-        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer mt-2"
-      />
       {savings > 0 && (
         <div className="flex justify-center items-center text-xs font-semibold bg-green-100 text-green-700 px-2 py-1 rounded-lg mt-2">
-          <span className="text-green-700">{savings.toFixed(0)}%</span>‎ Quantity discount
+          <span className="text-green-700">{savings.toFixed(0)}%</span>‎
+          Quantity discount
         </div>
       )}
     </div>
