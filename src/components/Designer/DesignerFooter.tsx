@@ -1,11 +1,11 @@
 import React from "react";
 
-interface FooterComponentProps {
+interface DesignerFooterProps {
   price: string;
   onContinue: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
-const FooterComponent: React.FC<FooterComponentProps> = ({
+const DesignerFooter: React.FC<DesignerFooterProps> = ({
   price,
   onContinue,
 }) => {
@@ -25,4 +25,4 @@ const FooterComponent: React.FC<FooterComponentProps> = ({
   );
 };
 
-export default FooterComponent;
+export default DesignerFooter;

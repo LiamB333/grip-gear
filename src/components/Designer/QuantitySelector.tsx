@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface QuantitySelectorProps {
   quantity: number;
@@ -11,26 +11,64 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
   onChange,
   onBlur,
 }) => {
+  const [inputValue, setInputValue] = useState<string>(quantity.toString());
+  const [showError, setShowError] = useState<boolean>(false);
+
+  useEffect(() => {
+    setInputValue(quantity.toString());
+  }, [quantity]);
+
   const handleSlideChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(parseInt(e.target.value, 10));
+    const newValue = parseInt(e.target.value, 10);
+    setInputValue(newValue.toString());
+    onChange(newValue);
+    setShowError(newValue < 50);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseInt(e.target.value, 10);
-    if (!isNaN(value) && value >= 50 && value <= 500) {
-      onChange(value);
+    const value = e.target.value;
+    setInputValue(value);
+    if (value === '') {
+      setShowError(true);
+    } else {
+      const numericValue = parseInt(value, 10);
+      if (!isNaN(numericValue) && numericValue >= 50 && numericValue <= 500) {
+        onChange(numericValue);
+        setShowError(false);
+      } else {
+        setShowError(true);
+      }
     }
+  };
+
+  const handleInputBlur = () => {
+    const value = parseInt(inputValue, 10);
+    if (isNaN(value) || value < 50) {
+      setInputValue('');
+      setShowError(true);
+      onChange(NaN); // Keep NaN to trigger error state
+    } else if (value > 500) {
+      setInputValue('500');
+      onChange(500);
+      setShowError(false);
+    } else {
+      onChange(value);
+      setShowError(false);
+    }
+    onBlur();
   };
 
   const handleDecrement = () => {
     if (quantity > 50) {
       onChange(quantity - 1);
+      setShowError(false);
     }
   };
 
   const handleIncrement = () => {
     if (quantity < 500) {
       onChange(quantity + 1);
+      setShowError(false);
     }
   };
 
@@ -64,9 +102,9 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
           type="text"
           id="quantity"
           name="quantity"
-          value={quantity}
+          value={inputValue}
           onChange={handleInputChange}
-          onBlur={onBlur}
+          onBlur={handleInputBlur}
           className="w-16 text-center border border-gray-300 focus:outline-none"
         />
         <button
@@ -77,6 +115,11 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
           +
         </button>
       </div>
+      {showError && (
+        <div className="text-red-500 text-xs mt-1">
+          Enter quantity between 50 to 500
+        </div>
+      )}
       <input
         type="range"
         id="quantity-range"

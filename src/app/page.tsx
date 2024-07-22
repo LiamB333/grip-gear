@@ -1,13 +1,13 @@
 "use client";
 import React, { useState, useEffect, Suspense } from "react";
-import SockOutline from "@/components/Designer/SockOutline";
-import FooterComponent from "@/components/Designer/DesignerFooter";
-import Sidebar from "@/components/Designer/Sidebar";
-import MobileConfig from "@/components/Designer/MobileConfig";
-import Link from "next/link";
-import Image from "next/image";
 import { useSearchParams, useRouter } from "next/navigation";
 import { getLogo } from "../utils/indexedDB";
+import SockOutline from "@/components/Designer/SockOutline";
+import DesignerFooter from "@/components/Designer/DesignerFooter";
+import Sidebar from "@/components/Designer/Sidebar";
+import MobileBar from "@/components/Designer/MobileBar";
+import Link from "next/link";
+import Image from "next/image";
 
 const SockSelectionPageContent = () => {
   const searchParams = useSearchParams();
@@ -215,21 +215,22 @@ const SockSelectionPageContent = () => {
                 rightLogoUrl={rightSockLogo}
               />
             </div>
-            <div className="controls flex flex-col items-center space-y-4 md:space-y-6">
-              {showErrorMessage && (
-                <p className="text-red-500 mt-2">Please upload a logo.</p>
-              )}
-              {quantityErrorMessage && (
-                <p className="text-red-500 mt-2">{quantityErrorMessage}</p>
-              )}
-            </div>
           </div>
-          <FooterComponent price={price} onContinue={handleContinue} />
+          {/*
+          {showErrorMessage && (
+            <div className="text-red-500 text-sm mt-2">
+              Please upload a logo before continuing.
+            </div>
+          )}
+            */}
         </div>
+      </div>
+      <div className="mt-auto w-full">
+        <DesignerFooter price={price} onContinue={handleContinue} />
       </div>
       {isClient && (
         <div className="block lg:hidden">
-          <MobileConfig
+          <MobileBar
             handleLogoSelect={handleLogoSelect}
             handleBackgroundColorSelect={handleBackgroundColorSelect}
             handleStripeColorSelect={handleStripeColorSelect}

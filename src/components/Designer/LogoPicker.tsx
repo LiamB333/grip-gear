@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { saveLogo } from "../../utils/indexedDB";
+import NextImage from "next/image";
 
 interface LogoPickerProps {
   onLogoSelect: (
@@ -11,7 +12,12 @@ interface LogoPickerProps {
   defaultLogoUrl: string;
 }
 
-const LogoPicker: React.FC<LogoPickerProps> = ({ onLogoSelect, defaultLogoUrl }) => {
+const LogoPicker: React.FC<LogoPickerProps> = ({
+  onLogoSelect,
+  defaultLogoUrl,
+}) => {
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
   useEffect(() => {
     const loadDefaultLogo = async () => {
       if (defaultLogoUrl) {
@@ -21,6 +27,11 @@ const LogoPicker: React.FC<LogoPickerProps> = ({ onLogoSelect, defaultLogoUrl })
         const image = new Image();
         image.src = defaultLogoUrl;
         image.onload = async () => {
+          if (image.width > 600 || image.height > 600) {
+            setErrorMessage("Image dimensions must be 600x600 pixels or less");
+            return;
+          }
+
           const canvas = document.createElement("canvas");
           const ctx = canvas.getContext("2d");
           if (ctx) {
@@ -60,26 +71,32 @@ const LogoPicker: React.FC<LogoPickerProps> = ({ onLogoSelect, defaultLogoUrl })
     if (file) {
       const validTypes = ["image/png", "image/jpeg"];
       if (!validTypes.includes(file.type)) {
-        alert("Please upload a .png or .jpeg file");
+        setErrorMessage("Please upload a .png or .jpeg file");
         return;
       }
 
       // Check if the file size exceeds 10MB
       const maxSizeInBytes = 10 * 1024 * 1024; // 10MB in bytes
       if (file.size > maxSizeInBytes) {
-        alert("Please upload a file smaller than 10MB");
+        setErrorMessage("Please upload a file smaller than 10MB");
         return;
       }
 
       const reader = new FileReader();
       reader.onloadend = async () => {
         const base64String = reader.result as string;
-        const fullId = uuidv4();
-        await saveLogo(fullId, base64String);
 
         const image = new Image();
         image.src = base64String;
         image.onload = async () => {
+          if (image.width > 600 || image.height > 600) {
+            setErrorMessage("Image dimensions must be 600x600 pixels or less");
+            return;
+          }
+
+          const fullId = uuidv4();
+          await saveLogo(fullId, base64String);
+
           const canvas = document.createElement("canvas");
           const ctx = canvas.getContext("2d");
           if (ctx) {
@@ -127,7 +144,13 @@ const LogoPicker: React.FC<LogoPickerProps> = ({ onLogoSelect, defaultLogoUrl })
         className="p-4 border border-gray-300 rounded bg-white text-black cursor-pointer hover:bg-blue-100 transition duration-300 inline-block"
       >
         <div className="flex flex-col items-center">
-          <img src="/icons/upload-simple.svg" alt="Logo" width={20} height={20} className="mb-2" />
+          <NextImage
+            src="/icons/upload-simple.svg"
+            alt="Logo"
+            width={20}
+            height={20}
+            className="mb-2"
+          />
           <div className="text-sm">Choose File</div>
           <div className="text-xs text-gray-500">(Max size: 10MB)</div>
           <div className="text-xs text-gray-500">
@@ -135,6 +158,9 @@ const LogoPicker: React.FC<LogoPickerProps> = ({ onLogoSelect, defaultLogoUrl })
           </div>
         </div>
       </label>
+      {errorMessage && (
+        <div className="text-red-500 text-xs mt-2">{errorMessage}</div>
+      )}
     </div>
   );
 };

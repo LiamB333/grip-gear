@@ -2,7 +2,7 @@
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState, Suspense } from "react";
 import { getLogo } from "../../utils/indexedDB";
-import Navbar from "@/components/NavBar";
+import Navbar from "@/components/Designer/NavBar";
 
 const DetailsPageContent = () => {
   const searchParams = useSearchParams();

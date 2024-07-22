@@ -1,11 +1,49 @@
-import React, { useState, useEffect, useRef } from "react";
-import { SketchPicker } from "react-color";
+import React, { useState } from "react";
 
 interface ColorPickerProps {
   title: string;
   onSelect: (color: string) => void;
-  defaultColor?: string; // Add a defaultColor prop
+  defaultColor?: string;
 }
+
+const presetColors = [
+  "#F1EB9C",
+  "#E9EC6B",
+  "#FEDD00",
+  "#FFCD00",
+  "#FFB81C",
+  "#FF8200",
+  "#FF8674",
+  "#FE5000",
+  "#F9423A",
+  "#E4002B",
+  "#A6192E",
+  "#D50032",
+  "#6C1D45",
+  "#CE0058",
+  "#FABBCB",
+  "#E31C79",
+  "#9678D3",
+  "#582C83",
+  "#D48BC8",
+  "#93328E",
+  "#6A3460",
+  "#005A6F",
+  "#008C96",
+  "#6ECEB2",
+  "#8BB8E8",
+  "#004C97",
+  "#171C8F",
+  "#003865",
+  "#BDD6E6",
+  "#8DC8E8",
+  "#5BC2E7",
+  "#00B2A9",
+  "#0057B7",
+  "#051C2C",
+  "#000000",
+  "#FFFFFF",
+];
 
 const ColorPicker: React.FC<ColorPickerProps> = ({
   title,
@@ -13,76 +51,26 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
   defaultColor = "#FF0000",
 }) => {
   const [selectedColor, setSelectedColor] = useState<string>(defaultColor);
-  const [displayColorPicker, setDisplayColorPicker] = useState<boolean>(false);
-  const colorPickerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        colorPickerRef.current &&
-        !colorPickerRef.current.contains(event.target as Node)
-      ) {
-        setDisplayColorPicker(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
-  const handleColorChange = (color: any) => {
-    setSelectedColor(color.hex);
-    onSelect(color.hex);
-  };
-
-  const handleColorPickerToggle = () => {
-    setDisplayColorPicker(!displayColorPicker);
+  const handleColorSelect = (color: string) => {
+    setSelectedColor(color);
+    onSelect(color);
   };
 
   return (
-    <div className="relative text-center mt-2" ref={colorPickerRef}>
-      <button
-        className="flex items-center justify-between w-full p-2 border border-gray-300 rounded bg-white text-black hover:bg-blue-100 transition duration-300"
-        onClick={handleColorPickerToggle}
-      >
-        <div className="flex items-center">
-          <span
-            className="inline-block w-6 h-6 mr-2 rounded-full border border-gray-400"
-            style={{ backgroundColor: selectedColor }}
-          ></span>
-          <span className="text-xs">{title}</span>
-        </div>
-        <svg
-          className="w-4 h-4 text-black"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M9 5l7 7-7 7"
-          ></path>
-        </svg>
-      </button>
-      {displayColorPicker && (
-        <div className="pb-20 z-10">
-          <div className="p-1">
-            <SketchPicker
-              color={selectedColor}
-              onChange={handleColorChange}
-              width="200px"
-              presetColors={[]}
-              disableAlpha
-            />
-          </div>
-        </div>
-      )}
+    <div className="text-center mt-2">
+      <div className="grid grid-cols-6 gap-2 justify-center">
+        {presetColors.map((color) => (
+          <button
+            key={color}
+            className={`w-8 h-8 rounded-full border-2 ${
+              selectedColor === color ? "border-blue-900" : "border-gray-300"
+            }`}
+            style={{ backgroundColor: color }}
+            onClick={() => handleColorSelect(color)}
+          ></button>
+        ))}
+      </div>
     </div>
   );
 };

@@ -22,12 +22,12 @@ const SockOutline: React.FC<SockOutlineProps> = ({
   useEffect(() => {
     const updateViewBoxAndSize = () => {
       if (window.innerWidth < 768) {
-        setViewBox("5 50 900 800");
-        setSvgSize({ width: "390", height: "390" });
+        setViewBox("5 120 900 900");
+        setSvgSize({ width: "390", height: "490" });
         setSvgPosition("center");
       } else if (window.innerWidth >= 768 && window.innerWidth < 1024) {
-        setViewBox("50 50 800 800");
-        setSvgSize({ width: "520", height: "500" });
+        setViewBox("0 50 900 900");
+        setSvgSize({ width: "720", height: "700" });
         setSvgPosition("center");
       } else {
         setViewBox("200 50 800 800");
