@@ -27,6 +27,7 @@
     "react-color": "^2.19.3",
     "react-confetti": "^6.1.0",
     "react-dom": "^18",
+    "react-hook-form": "^7.52.1",
     "resend": "^3.4.0",
     "timeago.js": "^4.0.2",
     "uuid": "^10.0.0",

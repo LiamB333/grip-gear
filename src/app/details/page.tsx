@@ -1,111 +1,131 @@
 "use client";
 import { useSearchParams, useRouter } from "next/navigation";
-import { useEffect, useState, Suspense } from "react";
+import { useEffect, useState, useCallback, Suspense } from "react";
 import { getLogo } from "../../utils/indexedDB";
-import Navbar from "@/components/Designer/NavBar";
+import dynamic from "next/dynamic";
+import { useForm, SubmitHandler } from "react-hook-form";
+
+const Navbar = dynamic(() => import("@/components/Designer/NavBar"), {
+  suspense: true,
+});
+
+interface FormData {
+  firstName: string;
+  lastName: string;
+  telephone: string;
+  email: string;
+}
 
 const DetailsPageContent = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
   const selectedTemplate = searchParams.get("selectedTemplate") || "1";
-  const backgroundColor = searchParams.get("backgroundColor") || "#E4E4E4"; // Default to #E4E4E4
-  const stripeColor = searchParams.get("stripeColor") || "#FFFFFF"; // Default to #FFFFFF
+  const backgroundColor = searchParams.get("backgroundColor") || "#E4E4E4";
+  const stripeColor = searchParams.get("stripeColor") || "#FFFFFF";
   const fullLogoId = searchParams.get("fullLogo") || "";
   const leftLogoId = searchParams.get("leftSockLogo") || "";
   const rightLogoId = searchParams.get("rightSockLogo") || "";
-  const quantity = searchParams.get("quantity") || "50"; // Default to 50
+  const quantity = searchParams.get("quantity") || "50";
 
-  const [fullLogo, setFullLogo] = useState<string | undefined>();
-  const [leftLogo, setLeftLogo] = useState<string | undefined>();
-  const [rightLogo, setRightLogo] = useState<string | undefined>();
+  const [logos, setLogos] = useState({
+    fullLogo: undefined as string | undefined,
+    leftLogo: undefined as string | undefined,
+    rightLogo: undefined as string | undefined,
+  });
+
   const [submissionStatus, setSubmissionStatus] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchLogos = async () => {
-      if (fullLogoId) {
-        const storedFullLogo = await getLogo(fullLogoId);
-        setFullLogo(storedFullLogo || undefined);
-      }
-      if (leftLogoId) {
-        const storedLeftLogo = await getLogo(leftLogoId);
-        setLeftLogo(storedLeftLogo || undefined);
-      }
-      if (rightLogoId) {
-        const storedRightLogo = await getLogo(rightLogoId);
-        setRightLogo(storedRightLogo || undefined);
-      }
+      const [storedFullLogo, storedLeftLogo, storedRightLogo] =
+        await Promise.all([
+          fullLogoId ? getLogo(fullLogoId) : undefined,
+          leftLogoId ? getLogo(leftLogoId) : undefined,
+          rightLogoId ? getLogo(rightLogoId) : undefined,
+        ]);
+      setLogos({
+        fullLogo: storedFullLogo || undefined,
+        leftLogo: storedLeftLogo || undefined,
+        rightLogo: storedRightLogo || undefined,
+      });
     };
     fetchLogos();
   }, [fullLogoId, leftLogoId, rightLogoId]);
 
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    telephone: "",
-    email: "",
-  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const onSubmit: SubmitHandler<FormData> = useCallback(
+    async (formData: {
+      firstName: any;
+      lastName: any;
+      email: string | Blob;
+      telephone: string | Blob;
+    }) => {
+      const data = new FormData();
+      data.append("name", `${formData.firstName} ${formData.lastName}`);
+      data.append("email", formData.email);
+      data.append("telephone", formData.telephone);
+      data.append("template", selectedTemplate);
+      data.append("backgroundColor", backgroundColor);
+      data.append("stripeColor", stripeColor);
+      data.append("quantity", quantity);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const data = new FormData();
-    data.append("name", `${formData.firstName} ${formData.lastName}`);
-    data.append("email", formData.email);
-    data.append("telephone", formData.telephone);
-    data.append("template", selectedTemplate);
-    data.append("backgroundColor", backgroundColor);
-    data.append("stripeColor", stripeColor);
-    data.append("quantity", quantity);
-    if (fullLogo) {
-      const response = await fetch(fullLogo);
-      const blob = await response.blob();
-      const base64Logo = await new Promise<string>((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result as string);
-        reader.onerror = reject;
-        reader.readAsDataURL(blob);
-      });
-      data.append("fullLogo", base64Logo);
-    }
-    data.append("message", "");
-
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        body: data,
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error("Server error:", errorData);
-        throw new Error(
-          `Response status: ${response.status}, ${errorData.message}`
-        );
+      if (logos.fullLogo) {
+        try {
+          const response = await fetch(logos.fullLogo);
+          const blob = await response.blob();
+          const base64Logo = await new Promise<string>((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result as string);
+            reader.onerror = reject;
+            reader.readAsDataURL(blob);
+          });
+          data.append("fullLogo", base64Logo);
+        } catch (error) {
+          console.error("Error converting logo to base64:", error);
+        }
       }
 
-      const responseData = await response.json();
-      console.log(responseData.message);
+      data.append("message", "");
 
-      setSubmissionStatus("success");
-    } catch (err: unknown) {
-      const errorMessage =
-        err instanceof Error ? err.message : "Unknown error occurred";
-      console.error("Client error:", errorMessage);
-      setSubmissionStatus("error");
-    }
-  };
+      try {
+        const response = await fetch("/api/contact", {
+          method: "POST",
+          body: data,
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          console.error("Server error:", errorData);
+          throw new Error(
+            `Response status: ${response.status}, ${errorData.message}`
+          );
+        }
+
+        const responseData = await response.json();
+        console.log(responseData.message);
+
+        setSubmissionStatus("success");
+      } catch (err: unknown) {
+        const errorMessage =
+          err instanceof Error ? err.message : "Unknown error occurred";
+        console.error("Client error:", errorMessage);
+        setSubmissionStatus("error");
+      }
+    },
+    [selectedTemplate, backgroundColor, stripeColor, quantity, logos.fullLogo]
+  );
 
   return (
     <>
-      <Navbar />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Navbar />
+      </Suspense>
       <div className="flex justify-center items-center min-h-screen bg-[#F5F7FA]">
         <div className="max-w-xl w-full bg-white shadow-md rounded border-2 border-gray-100 px-8 py-4 mx-4 sm:mx-0 mb-20">
           {submissionStatus === "success" ? (
@@ -120,7 +140,7 @@ const DetailsPageContent = () => {
               <h1 className="text-2xl font-bold text-center mb-4">
                 Enter your details
               </h1>
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="m-4">
                   <div className="mb-4">
                     <label
@@ -132,12 +152,14 @@ const DetailsPageContent = () => {
                     <input
                       type="text"
                       id="firstName"
-                      name="firstName"
-                      value={formData.firstName}
-                      onChange={handleChange}
+                      {...register("firstName", { required: true })}
                       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      required
                     />
+                    {errors.firstName && (
+                      <span className="text-red-500 text-sm">
+                        First name is required
+                      </span>
+                    )}
                   </div>
                   <div className="mb-4">
                     <label
@@ -149,12 +171,14 @@ const DetailsPageContent = () => {
                     <input
                       type="text"
                       id="lastName"
-                      name="lastName"
-                      value={formData.lastName}
-                      onChange={handleChange}
+                      {...register("lastName", { required: true })}
                       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      required
                     />
+                    {errors.lastName && (
+                      <span className="text-red-500 text-sm">
+                        Last name is required
+                      </span>
+                    )}
                   </div>
                   <div className="mb-4">
                     <label
@@ -166,12 +190,14 @@ const DetailsPageContent = () => {
                     <input
                       type="tel"
                       id="telephone"
-                      name="telephone"
-                      value={formData.telephone}
-                      onChange={handleChange}
+                      {...register("telephone", { required: true })}
                       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      required
                     />
+                    {errors.telephone && (
+                      <span className="text-red-500 text-sm">
+                        Telephone is required
+                      </span>
+                    )}
                   </div>
                   <div className="mb-6">
                     <label
@@ -183,12 +209,14 @@ const DetailsPageContent = () => {
                     <input
                       type="email"
                       id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
+                      {...register("email", { required: true })}
                       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      required
                     />
+                    {errors.email && (
+                      <span className="text-red-500 text-sm">
+                        Email is required
+                      </span>
+                    )}
                   </div>
                   <div className="flex items-center justify-between">
                     <button

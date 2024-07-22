@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect, useCallback, Suspense, useMemo } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { getLogo } from "../utils/indexedDB";
 import SockOutline from "@/components/Designer/SockOutline";
@@ -13,28 +13,27 @@ const SockSelectionPageContent = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const getParam = (param: string) => {
+  const getParam = useCallback((param: string) => {
     const value = searchParams.get(param);
-    console.log(`Fetched param ${param}: ${value}`);
     return value !== null ? value : undefined;
-  };
+  }, [searchParams]);
 
-  const [backgroundColor, setBackgroundColor] = useState("#8E1E1E");
-  const [stripeColor, setStripeColor] = useState("#FFFFFF");
-  const [selectedTemplate, setSelectedTemplate] = useState<number>(1);
-  const [leftSockLogoId, setLeftSockLogoId] = useState<string | undefined>();
-  const [rightSockLogoId, setRightSockLogoId] = useState<string | undefined>();
-  const [fullLogoId, setFullLogoId] = useState<string | undefined>();
-  const [quantity, setQuantity] = useState<number>(50);
-  const [showErrorMessage, setShowErrorMessage] = useState(false);
-  const [quantityErrorMessage, setQuantityErrorMessage] = useState<string | null>(null);
-  const [activeSidebar, setActiveSidebar] = useState<string | null>("design");
-
-  const [leftSockLogo, setLeftSockLogo] = useState<string | undefined>();
-  const [rightSockLogo, setRightSockLogo] = useState<string | undefined>();
-  const [logosUploaded, setLogosUploaded] = useState(false);
-
-  const [isClient, setIsClient] = useState(false);
+  const [state, setState] = useState({
+    backgroundColor: "#8E1E1E",
+    stripeColor: "#FFFFFF",
+    selectedTemplate: 1,
+    leftSockLogoId: undefined as string | undefined,
+    rightSockLogoId: undefined as string | undefined,
+    fullLogoId: undefined as string | undefined,
+    quantity: 50,
+    showErrorMessage: false,
+    quantityErrorMessage: null as string | null,
+    activeSidebar: "design" as string | null,
+    leftSockLogo: undefined as string | undefined,
+    rightSockLogo: undefined as string | undefined,
+    logosUploaded: false,
+    isClient: false,
+  });
 
   const templatePrices: { [key: number]: number } = {
     1: 240,
@@ -44,7 +43,7 @@ const SockSelectionPageContent = () => {
   };
 
   useEffect(() => {
-    setIsClient(true); 
+    setState((prevState) => ({ ...prevState, isClient: true }));
 
     const initialBackgroundColor = getParam("backgroundColor") || "#8E1E1E";
     const initialStripeColor = getParam("stripeColor") || "#FFFFFF";
@@ -54,162 +53,175 @@ const SockSelectionPageContent = () => {
     const initialFullLogoId = getParam("fullLogo");
     const initialQuantity = parseInt(getParam("quantity") || "50", 10);
 
-    setBackgroundColor(initialBackgroundColor);
-    setStripeColor(initialStripeColor);
-    setSelectedTemplate(initialSelectedTemplate);
-    setLeftSockLogoId(initialLeftSockLogoId);
-    setRightSockLogoId(initialRightSockLogoId);
-    setFullLogoId(initialFullLogoId);
-    setQuantity(initialQuantity);
+    setState((prevState) => ({
+      ...prevState,
+      backgroundColor: initialBackgroundColor,
+      stripeColor: initialStripeColor,
+      selectedTemplate: initialSelectedTemplate,
+      leftSockLogoId: initialLeftSockLogoId,
+      rightSockLogoId: initialRightSockLogoId,
+      fullLogoId: initialFullLogoId,
+      quantity: initialQuantity,
+    }));
 
     const fetchLogos = async () => {
-      console.log("Fetching logos with IDs:", initialLeftSockLogoId, initialRightSockLogoId);
       if (initialLeftSockLogoId) {
         const storedLeftSockLogo = await getLogo(initialLeftSockLogoId);
-        setLeftSockLogo(storedLeftSockLogo || undefined);
-        console.log("Fetched left logo:", storedLeftSockLogo);
+        setState((prevState) => ({ ...prevState, leftSockLogo: storedLeftSockLogo || undefined }));
       }
       if (initialRightSockLogoId) {
         const storedRightSockLogo = await getLogo(initialRightSockLogoId);
-        setRightSockLogo(storedRightSockLogo || undefined);
-        console.log("Fetched right logo:", storedRightSockLogo);
+        setState((prevState) => ({ ...prevState, rightSockLogo: storedRightSockLogo || undefined }));
       }
-      setLogosUploaded(!!(initialLeftSockLogoId && initialRightSockLogoId));
+      setState((prevState) => ({
+        ...prevState,
+        logosUploaded: !!(initialLeftSockLogoId && initialRightSockLogoId),
+      }));
     };
     fetchLogos();
-  }, []);
+  }, [getParam]);
 
   useEffect(() => {
-    if (leftSockLogoId && rightSockLogoId) {
+    if (state.leftSockLogoId && state.rightSockLogoId) {
       const fetchLogos = async () => {
-        const storedLeftSockLogo = await getLogo(leftSockLogoId);
-        const storedRightSockLogo = await getLogo(rightSockLogoId);
-        setLeftSockLogo(storedLeftSockLogo || undefined);
-        setRightSockLogo(storedRightSockLogo || undefined);
+        const storedLeftSockLogo = await getLogo(state.leftSockLogoId);
+        const storedRightSockLogo = await getLogo(state.rightSockLogoId);
+        setState((prevState) => ({
+          ...prevState,
+          leftSockLogo: storedLeftSockLogo || undefined,
+          rightSockLogo: storedRightSockLogo || undefined,
+        }));
       };
       fetchLogos();
     }
-  }, [leftSockLogoId, rightSockLogoId]);
+  }, [state.leftSockLogoId, state.rightSockLogoId]);
 
-  const handleBackgroundColorSelect = (color: string) => {
-    setBackgroundColor(color);
+  const handleBackgroundColorSelect = useCallback((color: string) => {
+    setState((prevState) => ({ ...prevState, backgroundColor: color }));
     updateSearchParams("backgroundColor", color);
-  };
+  }, []);
 
-  const handleStripeColorSelect = (color: string) => {
-    setStripeColor(color);
+  const handleStripeColorSelect = useCallback((color: string) => {
+    setState((prevState) => ({ ...prevState, stripeColor: color }));
     updateSearchParams("stripeColor", color);
-  };
+  }, []);
 
-  const handleLogoSelect = (
-    leftLogoId: string,
-    rightLogoId: string,
-    fullLogoId: string
-  ) => {
-    setLeftSockLogoId(leftLogoId);
-    setRightSockLogoId(rightLogoId);
-    setFullLogoId(fullLogoId);
-    updateSearchParams("leftSockLogo", leftLogoId);
-    updateSearchParams("rightSockLogo", rightLogoId);
-    updateSearchParams("fullLogo", fullLogoId);
-    setLogosUploaded(true);
-    setShowErrorMessage(false);
-  };
+  const handleLogoSelect = useCallback(
+    (leftLogoId: string, rightLogoId: string, fullLogoId: string) => {
+      setState((prevState) => ({
+        ...prevState,
+        leftSockLogoId: leftLogoId,
+        rightSockLogoId: rightLogoId,
+        fullLogoId,
+        logosUploaded: true,
+        showErrorMessage: false,
+      }));
+      updateSearchParams("leftSockLogo", leftLogoId);
+      updateSearchParams("rightSockLogo", rightLogoId);
+      updateSearchParams("fullLogo", fullLogoId);
+    },
+    []
+  );
 
-  const handleTemplateChange = (selectedValue: number) => {
-    setSelectedTemplate(selectedValue);
+  const handleTemplateChange = useCallback((selectedValue: number) => {
+    setState((prevState) => ({
+      ...prevState,
+      selectedTemplate: selectedValue,
+      stripeColor: selectedValue === 1 ? "#FFFFFF" : prevState.stripeColor,
+    }));
+    updateSearchParams("selectedTemplate", selectedValue.toString());
     if (selectedValue === 1) {
-      setStripeColor("#FFFFFF");
       updateSearchParams("stripeColor", "#FFFFFF");
     }
-    updateSearchParams("selectedTemplate", selectedValue.toString());
-  };
+  }, []);
 
-  const handleQuantityChange = (value: number) => {
-    setQuantity(value);
+  const handleQuantityChange = useCallback((value: number) => {
+    setState((prevState) => ({ ...prevState, quantity: value }));
     updateSearchParams("quantity", value.toString());
-  };
+  }, []);
 
-  const handleQuantityBlur = () => {
-    if (quantity < 50) {
-      setQuantityErrorMessage("Quantity cannot be less than 50.");
-    } else {
-      setQuantityErrorMessage(null);
-    }
-  };
+  const handleQuantityBlur = useCallback(() => {
+    setState((prevState) => ({
+      ...prevState,
+      quantityErrorMessage: prevState.quantity < 50 ? "Quantity cannot be less than 50." : null,
+    }));
+  }, []);
 
-  const calculatePriceAndSavings = () => {
-    const pricePer50 = templatePrices[selectedTemplate];
+  const calculatePriceAndSavings = useMemo(() => {
+    const pricePer50 = templatePrices[state.selectedTemplate];
     let savings = 0;
     if (pricePer50 !== undefined) {
-      let price = (pricePer50 / 50) * quantity;
+      let price = (pricePer50 / 50) * state.quantity;
       let discount = 0;
-      if (quantity > 100) {
-        discount = quantity * 0.4;
-      } else if (quantity > 80) {
-        discount = quantity * 0.1;
+      if (state.quantity > 100) {
+        discount = state.quantity * 0.4;
+      } else if (state.quantity > 80) {
+        discount = state.quantity * 0.1;
       }
       price -= discount;
       savings = (discount / (price + discount)) * 100;
       return { price: `£${price.toFixed(0)}`, savings: savings.toFixed(0) };
     }
     return { price: "Price information not available", savings: "0" };
-  };
+  }, [state.selectedTemplate, state.quantity, templatePrices]);
 
-  const updateSearchParams = (key: string, value: string) => {
+  const updateSearchParams = useCallback((key: string, value: string) => {
     const params = new URLSearchParams(window.location.search);
     params.set(key, value);
     const newUrl = `${window.location.pathname}?${params.toString()}`;
     window.history.replaceState({}, "", newUrl);
-  };
+  }, []);
 
-  const handleContinue = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
-    if (!logosUploaded) {
-      setShowErrorMessage(true);
-    } else if (quantity < 50) {
-      setQuantityErrorMessage("Quantity cannot be less than 50.");
-    } else {
-      setShowErrorMessage(false);
-      setQuantityErrorMessage(null);
-      router.push(`/details${window.location.search}`);
-    }
-  };
+  const handleContinue = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      e.preventDefault();
+      if (!state.logosUploaded) {
+        setState((prevState) => ({ ...prevState, showErrorMessage: true }));
+      } else if (state.quantity < 50) {
+        setState((prevState) => ({
+          ...prevState,
+          quantityErrorMessage: "Quantity cannot be less than 50.",
+        }));
+      } else {
+        setState((prevState) => ({
+          ...prevState,
+          showErrorMessage: false,
+          quantityErrorMessage: null,
+        }));
+        router.push(`/details${window.location.search}`);
+      }
+    },
+    [router, state.logosUploaded, state.quantity]
+  );
 
-  const toggleSidebar = (sidebar: string) => {
-    if (activeSidebar === sidebar) {
-      setActiveSidebar(null);
-    } else {
-      setActiveSidebar(sidebar);
-    }
-  };
+  const toggleSidebar = useCallback((sidebar: string) => {
+    setState((prevState) => ({
+      ...prevState,
+      activeSidebar: prevState.activeSidebar === sidebar ? null : sidebar,
+    }));
+  }, []);
 
-  const { price, savings } = calculatePriceAndSavings();
+  const { price, savings } = calculatePriceAndSavings;
 
   return (
     <div className="flex flex-col min-h-screen overflow-hidden bg-[#F5F7FA]">
       <div className="flex justify-center lg:justify-end p-4">
         <Link href="/" className="flex items-center gap-3">
-          <Image
-            src="/logo-removed-bg.svg"
-            alt="Grip Gear logo"
-            width={160}
-            height={60}
-          />
+          <Image src="/logo-removed-bg.svg" alt="Grip Gear logo" width={160} height={60} />
         </Link>
       </div>
 
       <div className="flex flex-row flex-1 overflow-hidden">
         <div className="hidden lg:block lg:w-64">
           <Sidebar
-            activeSidebar={activeSidebar}
+            activeSidebar={state.activeSidebar}
             toggleSidebar={toggleSidebar}
             handleLogoSelect={handleLogoSelect}
             handleBackgroundColorSelect={handleBackgroundColorSelect}
             handleStripeColorSelect={handleStripeColorSelect}
             handleTemplateChange={handleTemplateChange}
-            selectedTemplate={selectedTemplate}
-            quantity={quantity}
+            selectedTemplate={state.selectedTemplate}
+            quantity={state.quantity}
             onQuantityChange={handleQuantityChange}
             onQuantityBlur={handleQuantityBlur}
           />
@@ -218,31 +230,29 @@ const SockSelectionPageContent = () => {
           <div className="flex flex-col md:flex-row md:space-x-8 space-y-8 md:space-y-0 items-center">
             <div className="flex justify-center w-full md:w-auto">
               <SockOutline
-                backgroundColor={backgroundColor}
-                stripeColor={stripeColor}
-                selectedTemplate={selectedTemplate}
-                leftLogoUrl={leftSockLogo}
-                rightLogoUrl={rightSockLogo}
+                backgroundColor={state.backgroundColor}
+                stripeColor={state.stripeColor}
+                selectedTemplate={state.selectedTemplate}
+                leftLogoUrl={state.leftSockLogo}
+                rightLogoUrl={state.rightSockLogo}
               />
             </div>
           </div>
-          {showErrorMessage && (
-            <div className="text-red-500 text-sm mt-2">
-              Please upload a logo before continuing.
-            </div>
+          {state.showErrorMessage && (
+            <div className="text-red-500 text-sm mt-2">Please upload a logo before continuing.</div>
           )}
           <DesignerFooter price={price} onContinue={handleContinue} />
         </div>
       </div>
-      {isClient && (
+      {state.isClient && (
         <div className="block lg:hidden">
           <MobileBar
             handleLogoSelect={handleLogoSelect}
             handleBackgroundColorSelect={handleBackgroundColorSelect}
             handleStripeColorSelect={handleStripeColorSelect}
             handleTemplateChange={handleTemplateChange}
-            selectedTemplate={selectedTemplate}
-            quantity={quantity}
+            selectedTemplate={state.selectedTemplate}
+            quantity={state.quantity}
             onQuantityChange={handleQuantityChange}
             onQuantityBlur={handleQuantityBlur}
           />

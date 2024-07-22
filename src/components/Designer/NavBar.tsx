@@ -69,11 +69,6 @@ const Navbar = () => {
             />
           </Link>
         </div>
-        {/* RIGHT 
-        <div className="flex items-center gap-8 ml-auto">
-          <NavIcons />
-        </div>
-        */}
       </div>
     </div>
   );

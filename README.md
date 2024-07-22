@@ -1,2 +1,2 @@
-# Grip Gear Website
+# Grip Gear Customiser
 
