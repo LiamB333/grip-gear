@@ -30,6 +30,7 @@ const presetColors = [
   "#F9423A",
   "#E4002B",
   "#A6192E",
+  "#8E1E1E",
   "#D50032",
   "#6C1D45",
   "#CE0058",
@@ -71,8 +72,12 @@ const MobileBar: React.FC<MobileBarProps> = ({
   const [activeColorPicker, setActiveColorPicker] = useState<string | null>(
     null
   );
-  const [selectedBackgroundColor, setSelectedBackgroundColor] = useState<string | null>(null);
-  const [selectedStripeColor, setSelectedStripeColor] = useState<string | null>(null);
+  const [selectedBackgroundColor, setSelectedBackgroundColor] = useState<
+    string | null
+  >(null);
+  const [selectedStripeColor, setSelectedStripeColor] = useState<string | null>(
+    null
+  );
 
   const toggleSection = (section: string) => {
     if (activeSection === section) {
@@ -188,7 +193,10 @@ const MobileBar: React.FC<MobileBarProps> = ({
             {activeColorPicker === "background" && (
               <div className="flex overflow-x-scroll space-x-2 py-2">
                 {presetColors.map((color) => (
-                  <div key={color} className="flex flex-col items-center relative">
+                  <div
+                    key={color}
+                    className="flex flex-col items-center relative"
+                  >
                     <button
                       className="w-10 h-10 rounded-full border-2 border-gray-300"
                       style={{ backgroundColor: color }}
@@ -229,7 +237,10 @@ const MobileBar: React.FC<MobileBarProps> = ({
                 {activeColorPicker === "stripe" && (
                   <div className="flex overflow-x-scroll space-x-2 py-2">
                     {presetColors.map((color) => (
-                      <div key={color} className="flex flex-col items-center relative">
+                      <div
+                        key={color}
+                        className="flex flex-col items-center relative"
+                      >
                         <button
                           className="w-10 h-10 rounded-full border-2 border-gray-300"
                           style={{ backgroundColor: color }}
@@ -286,10 +297,7 @@ const MobileBar: React.FC<MobileBarProps> = ({
           </button>
           <h1 className="text-xl pb-2">Select Logo</h1>
           <div className="p-4">
-            <LogoPicker
-              onLogoSelect={handleLogoSelect}
-            
-            />
+            <LogoPicker onLogoSelect={handleLogoSelect} />
           </div>
         </div>
       )}

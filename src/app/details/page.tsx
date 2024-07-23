@@ -21,7 +21,7 @@ const DetailsPageContent = () => {
   const router = useRouter();
 
   const selectedTemplate = searchParams.get("selectedTemplate") || "1";
-  const backgroundColor = searchParams.get("backgroundColor") || "#E4E4E4";
+  const backgroundColor = searchParams.get("backgroundColor") || "#8E1E1E";
   const stripeColor = searchParams.get("stripeColor") || "#FFFFFF";
   const fullLogoId = searchParams.get("fullLogo") || "";
   const leftLogoId = searchParams.get("leftSockLogo") || "";

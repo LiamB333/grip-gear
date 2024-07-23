@@ -3,11 +3,12 @@ import React, { useState, useEffect, useCallback, Suspense, useMemo } from "reac
 import { useSearchParams, useRouter } from "next/navigation";
 import { getLogo } from "../utils/indexedDB";
 import SockOutline from "@/components/Designer/SockOutline";
-import DesignerFooter from "@/components/Designer/DesignerFooter";
+import DesignerFooter from "@/components/Designer/Footer";
 import Sidebar from "@/components/Designer/Sidebar";
 import MobileBar from "@/components/Designer/MobileBar";
 import Link from "next/link";
 import Image from "next/image";
+import LogoPicker from "@/components/Designer/LogoPicker";
 
 const SockSelectionPageContent = () => {
   const searchParams = useSearchParams();

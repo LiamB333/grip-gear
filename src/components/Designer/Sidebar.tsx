@@ -33,6 +33,7 @@ const presetColors = [
   "#F9423A",
   "#E4002B",
   "#A6192E",
+  "#8E1E1E",
   "#D50032",
   "#6C1D45",
   "#CE0058",
@@ -82,8 +83,12 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   const [showBackgroundColors, setShowBackgroundColors] = useState(false);
   const [showStripeColors, setShowStripeColors] = useState(false);
-  const [selectedBackgroundColor, setSelectedBackgroundColor] = useState<string | null>(null);
-  const [selectedStripeColor, setSelectedStripeColor] = useState<string | null>(null);
+  const [selectedBackgroundColor, setSelectedBackgroundColor] = useState<
+    string | null
+  >(null);
+  const [selectedStripeColor, setSelectedStripeColor] = useState<string | null>(
+    null
+  );
 
   const handleColorSelect = (color: string, type: string) => {
     if (type === "background") {
@@ -172,7 +177,10 @@ const Sidebar: React.FC<SidebarProps> = ({
                 {showBackgroundColors && (
                   <div className="flex overflow-x-scroll space-x-2 py-2">
                     {presetColors.map((color) => (
-                      <div key={color} className="flex flex-col items-center relative">
+                      <div
+                        key={color}
+                        className="flex flex-col items-center relative"
+                      >
                         <button
                           className="w-10 h-10 rounded-full border-2 border-gray-300"
                           style={{ backgroundColor: color }}
@@ -214,7 +222,10 @@ const Sidebar: React.FC<SidebarProps> = ({
                     {showStripeColors && (
                       <div className="flex overflow-x-scroll space-x-2 py-2">
                         {presetColors.map((color) => (
-                          <div key={color} className="flex flex-col items-center relative">
+                          <div
+                            key={color}
+                            className="flex flex-col items-center relative"
+                          >
                             <button
                               className="w-10 h-10 rounded-full border-2 border-gray-300"
                               style={{ backgroundColor: color }}
@@ -253,7 +264,7 @@ const Sidebar: React.FC<SidebarProps> = ({
               <div className="mb-2">
                 <h1 className="text-xl">Select Logo</h1>
               </div>
-              <LogoPicker onLogoSelect={handleLogoSelect} />
+              <LogoPicker onLogoSelect={handleLogoSelect} cropperHeight="h-48" />
             </div>
           )}
 
