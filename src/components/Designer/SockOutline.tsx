@@ -15,8 +15,8 @@ const SockOutline: React.FC<SockOutlineProps> = ({
   leftLogoUrl,
   rightLogoUrl,
 }) => {
-  const [viewBox, setViewBox] = useState("0 50 900 800");
-  const [svgSize, setSvgSize] = useState({ width: "400", height: "400" });
+  const [viewBox, setViewBox] = useState("0 120 900 800");
+  const [svgSize, setSvgSize] = useState({ width: "390", height: "460" });
 
   useEffect(() => {
     const updateViewBoxAndSize = () => {
@@ -91,8 +91,22 @@ const SockOutline: React.FC<SockOutlineProps> = ({
 
     case 3:
       patternRectangles = [
-        <rect key="stripe1" x="250" y="160" width="145" height="120" fill={stripeColor} />,
-        <rect key="stripe2" x="524" y="160" width="145" height="120" fill={stripeColor} />,
+        <rect
+          key="stripe1"
+          x="250"
+          y="160"
+          width="145"
+          height="120"
+          fill={stripeColor}
+        />,
+        <rect
+          key="stripe2"
+          x="524"
+          y="160"
+          width="145"
+          height="120"
+          fill={stripeColor}
+        />,
       ];
       break;
 
