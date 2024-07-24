@@ -36,14 +36,27 @@ const SockSelectionPageContent = () => {
     isClient: false,
   });
 
-  const templatePrices: { [key: number]: number } = {
-    1: 240,
-    2: 250,
-    3: 245,
-    4: 245,
-    5: 245,
-    6: 250,
+  const updateSearchParams = useCallback((key: string, value: string) => {
+    const params = new URLSearchParams(window.location.search);
+    params.set(key, value);
+    const newUrl = `${window.location.pathname}?${params.toString()}`;
+    window.history.replaceState({}, "", newUrl);
+  }, []);
+
+  type TemplatePrices = {
+    [key: number]: number;
   };
+
+  const templatePrices: TemplatePrices = useMemo(() => {
+    return {
+      1: 240,
+      2: 250,
+      3: 245,
+      5: 245,
+      6: 245,
+      4: 250,
+    };
+  }, []);
 
   useEffect(() => {
     setState((prevState) => ({ ...prevState, isClient: true }));
@@ -102,12 +115,12 @@ const SockSelectionPageContent = () => {
   const handleBackgroundColorSelect = useCallback((color: string) => {
     setState((prevState) => ({ ...prevState, backgroundColor: color }));
     updateSearchParams("backgroundColor", color);
-  }, []);
+  }, [updateSearchParams]);
 
   const handleStripeColorSelect = useCallback((color: string) => {
     setState((prevState) => ({ ...prevState, stripeColor: color }));
     updateSearchParams("stripeColor", color);
-  }, []);
+  }, [updateSearchParams]);
 
   const handleLogoSelect = useCallback(
     (leftLogoId: string, rightLogoId: string, fullLogoId: string) => {
@@ -123,7 +136,7 @@ const SockSelectionPageContent = () => {
       updateSearchParams("rightSockLogo", rightLogoId);
       updateSearchParams("fullLogo", fullLogoId);
     },
-    []
+    [updateSearchParams]
   );
 
   const handleTemplateChange = useCallback((selectedValue: number) => {
@@ -136,12 +149,12 @@ const SockSelectionPageContent = () => {
     if (selectedValue === 1) {
       updateSearchParams("stripeColor", "#FFFFFF");
     }
-  }, []);
+  }, [updateSearchParams]);
 
   const handleQuantityChange = useCallback((value: number) => {
     setState((prevState) => ({ ...prevState, quantity: value }));
     updateSearchParams("quantity", value.toString());
-  }, []);
+  }, [updateSearchParams]);
 
   const handleQuantityBlur = useCallback(() => {
     setState((prevState) => ({
@@ -167,13 +180,6 @@ const SockSelectionPageContent = () => {
     }
     return { price: "Price information not available", savings: "0" };
   }, [state.selectedTemplate, state.quantity, templatePrices]);
-
-  const updateSearchParams = useCallback((key: string, value: string) => {
-    const params = new URLSearchParams(window.location.search);
-    params.set(key, value);
-    const newUrl = `${window.location.pathname}?${params.toString()}`;
-    window.history.replaceState({}, "", newUrl);
-  }, []);
 
   const handleContinue = useCallback(
     (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
