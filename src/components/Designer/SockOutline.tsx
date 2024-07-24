@@ -91,8 +91,8 @@ const SockOutline: React.FC<SockOutlineProps> = ({
 
     case 3:
       patternRectangles = [
-        <rect x="250" y="160" width="145" height="120" fill={stripeColor} />,
-        <rect x="524" y="160" width="145" height="120" fill={stripeColor} />,
+        <rect key="stripe1" x="250" y="160" width="145" height="120" fill={stripeColor} />,
+        <rect key="stripe2" x="524" y="160" width="145" height="120" fill={stripeColor} />,
       ];
       break;
 
