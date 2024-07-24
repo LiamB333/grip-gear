@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from '@vercel/speed-insights/next';
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -9,6 +9,18 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Grip Gear",
   description: "Grip Sock Customiser",
+  metadataBase: new URL("www.gripgear.co.uk"),
+  keywords: [
+    "Grip Gear",
+    "GripGear",
+    "Grip Sock",
+    "Grip Socks",
+    "Custom Grip Socks",
+    "Athletic Grip Socks",
+    "Anti-slip Socks",
+    "Football Socks",
+    "Soccer Socks",
+  ],
 };
 
 export default function RootLayout({
