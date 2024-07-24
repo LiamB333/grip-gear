@@ -22,8 +22,8 @@ const SockOutline: React.FC<SockOutlineProps> = ({
     const updateViewBoxAndSize = () => {
       if (window.innerWidth < 768) {
         //5 120 900 900
-        setViewBox("0 120 900 900");
-        setSvgSize({ width: "390", height: "460" });
+        setViewBox("0 120 850 850");
+        setSvgSize({ width: "400", height: "490" });
       } else if (window.innerWidth >= 768 && window.innerWidth < 1024) {
         setViewBox("0 50 900 900");
         setSvgSize({ width: "720", height: "700" });
