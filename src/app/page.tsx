@@ -40,7 +40,9 @@ const SockSelectionPageContent = () => {
     1: 240,
     2: 250,
     3: 245,
-    4: 250,
+    4: 245,
+    5: 245,
+    6: 250,
   };
 
   useEffect(() => {
@@ -208,7 +210,13 @@ const SockSelectionPageContent = () => {
     <div className="flex flex-col min-h-screen overflow-hidden bg-[#F5F7FA]">
       <div className="flex justify-center lg:justify-end p-4">
         <Link href="/" className="flex items-center gap-3">
-          <Image src="/logo-removed-bg.svg" alt="Grip Gear logo" width={160} height={60} />
+          <Image
+            src="/logo-removed-bg.svg"
+            alt="Grip Gear logo"
+            width={160}
+            height={60}
+            priority
+          />
         </Link>
       </div>
 

@@ -13,6 +13,7 @@ const Navbar = () => {
             alt="Grip Gear logo"
             width={180}
             height={60}
+            priority
           />
         </Link>
       </div>
@@ -28,6 +29,7 @@ const Navbar = () => {
               alt="Grip Gear logo"
               width={180}
               height={60}
+              priority
             />
           </Link>
         </div>

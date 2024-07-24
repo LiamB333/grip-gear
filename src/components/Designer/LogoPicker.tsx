@@ -262,12 +262,26 @@ const LogoPicker: React.FC<LogoPickerProps> = ({ onLogoSelect, cropperHeight = "
               onCropComplete={onCropComplete}
             />
           </div>
-          <button
-            className="absolute top-2 right-2 bg-black text-white p-2 rounded"
-            onClick={handleCropComplete}
-          >
-            <MdCrop size={24} />
-          </button>
+          <div className="absolute top-2 right-2 flex flex-col space-y-2">
+            <button
+              className="bg-black text-white p-1 rounded"
+              onClick={handleCropComplete}
+            >
+              <MdCrop size={24} />
+            </button>
+            <button
+              className="bg-black text-white p-1 rounded"
+              onClick={() => setZoom((prevZoom) => Math.min(prevZoom + 0.1, 3))}
+            >
+              +
+            </button>
+            <button
+              className="bg-black text-white p-1 rounded"
+              onClick={() => setZoom((prevZoom) => Math.max(prevZoom - 0.1, 1))}
+            >
+              -
+            </button>
+          </div>
         </div>
       )}
       {isLoading && <div className="text-sm">Uploading...</div>}

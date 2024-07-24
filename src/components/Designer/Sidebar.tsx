@@ -79,6 +79,8 @@ const Sidebar: React.FC<SidebarProps> = ({
     { id: 2, image: "/sock-2.png" },
     { id: 3, image: "/sock-3.png" },
     { id: 4, image: "/sock-4.png" },
+    { id: 5, image: "/sock-5.png" },
+    { id: 6, image: "/sock-6.png" },
   ];
 
   const [showBackgroundColors, setShowBackgroundColors] = useState(false);
@@ -264,7 +266,10 @@ const Sidebar: React.FC<SidebarProps> = ({
               <div className="mb-2">
                 <h1 className="text-xl">Select Logo</h1>
               </div>
-              <LogoPicker onLogoSelect={handleLogoSelect} cropperHeight="h-48" />
+              <LogoPicker
+                onLogoSelect={handleLogoSelect}
+                cropperHeight="h-48"
+              />
             </div>
           )}
 

@@ -17,22 +17,19 @@ const SockOutline: React.FC<SockOutlineProps> = ({
 }) => {
   const [viewBox, setViewBox] = useState("0 50 900 800");
   const [svgSize, setSvgSize] = useState({ width: "400", height: "400" });
-  const [svgPosition, setSvgPosition] = useState("center");
 
   useEffect(() => {
     const updateViewBoxAndSize = () => {
       if (window.innerWidth < 768) {
-        setViewBox("5 120 900 900");
-        setSvgSize({ width: "390", height: "490" });
-        setSvgPosition("center");
+        //5 120 900 900
+        setViewBox("0 120 900 900");
+        setSvgSize({ width: "390", height: "460" });
       } else if (window.innerWidth >= 768 && window.innerWidth < 1024) {
         setViewBox("0 50 900 900");
         setSvgSize({ width: "720", height: "700" });
-        setSvgPosition("center");
       } else {
         setViewBox("200 50 800 800");
         setSvgSize({ width: "900", height: "500" });
-        setSvgPosition("flex-end");
       }
     };
 
@@ -91,7 +88,29 @@ const SockOutline: React.FC<SockOutlineProps> = ({
         />,
       ];
       break;
+
     case 3:
+      patternRectangles = [
+        <rect x="250" y="160" width="145" height="120" fill={stripeColor} />,
+        <rect x="524" y="160" width="145" height="120" fill={stripeColor} />,
+      ];
+      break;
+
+    case 4:
+      patternRectangles = [
+        <path
+          key="path1"
+          d="M 400 52 L 350 52 L 350 256 l 53 109"
+          fill={stripeColor}
+        />,
+        <path
+          key="path2"
+          d="M 572 52 L 520 52 L 518 356 l 51 -94"
+          fill={stripeColor}
+        />,
+      ];
+      break;
+    case 5:
       patternRectangles = [
         <path
           key="path1"
@@ -105,7 +124,7 @@ const SockOutline: React.FC<SockOutlineProps> = ({
         />,
       ];
       break;
-    case 4:
+    case 6:
       patternRectangles = [
         <path
           key="path3"
@@ -155,7 +174,7 @@ const SockOutline: React.FC<SockOutlineProps> = ({
   }
 
   return (
-    <div className={`flex justify-${svgPosition} items-center`}>
+    <div className="flex justify-center items-center overflow-hidden">
       <svg width={svgSize.width} height={svgSize.height} viewBox={viewBox}>
         <path
           d="M251.000000,144.500000 

@@ -100,6 +100,8 @@ const MobileBar: React.FC<MobileBarProps> = ({
     { id: 2, image: "/sock-2.png" },
     { id: 3, image: "/sock-3.png" },
     { id: 4, image: "/sock-4.png" },
+    { id: 5, image: "/sock-5.png" },
+    { id: 6, image: "/sock-6.png" },
   ];
 
   const handleColorSelect = (color: string, type: string) => {
