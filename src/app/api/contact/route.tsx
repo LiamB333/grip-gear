@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
       from: username,
       to: myEmail,
       replyTo: email,
-      subject: `Website activity from ${email}`,
+      subject: `Order from ${email}`,
       html: `
         <p>Name: ${name}</p>
         <p>Email: ${email}</p>
