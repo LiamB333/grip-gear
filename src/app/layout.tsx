@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     "Grip Sock",
     "Grip Socks",
     "Custom Grip Socks",
-    "Athletic Grip Socks",
+    "Girl Grip Socks",
     "Anti-slip Socks",
     "Football Socks",
     "Football Grip Socks",

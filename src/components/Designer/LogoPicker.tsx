@@ -267,7 +267,7 @@ const LogoPicker: React.FC<LogoPickerProps> = ({ onLogoSelect, cropperHeight = "
               className="bg-black text-white p-1 rounded"
               onClick={handleCropComplete}
             >
-              <MdCrop size={24} />
+              <MdCrop size={24} /> 
             </button>
             <button
               className="bg-black text-white p-1 rounded"
