@@ -134,6 +134,9 @@ const DetailsPageContent = () => {
               <p className="text-lg text-black mt-2">
                 We will get back to you soon.
               </p>
+              <p className="text-lg text-black mt-2">
+                Contact us at: gripgearsocks@gmail.com
+              </p>
             </div>
           ) : (
             <>
