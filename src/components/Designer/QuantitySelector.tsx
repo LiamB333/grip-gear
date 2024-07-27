@@ -25,7 +25,7 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
       setShowError(true);
     } else {
       const numericValue = parseInt(value, 10);
-      if (!isNaN(numericValue) && numericValue >= 50 && numericValue <= 500) {
+      if (!isNaN(numericValue) && numericValue >= 25 && numericValue <= 500) {
         onChange(numericValue);
         setShowError(false);
       } else {
@@ -36,7 +36,7 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
 
   const handleInputBlur = () => {
     const value = parseInt(inputValue, 10);
-    if (isNaN(value) || value < 50) {
+    if (isNaN(value) || value < 25) {
       setInputValue("");
       setShowError(true);
       onChange(NaN); // Keep NaN to trigger error state
@@ -52,7 +52,7 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
   };
 
   const handleDecrement = () => {
-    if (quantity > 50) {
+    if (quantity > 25) {
       onChange(quantity - 1);
       setShowError(false);
     }
@@ -65,17 +65,23 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
     }
   };
 
-  const calculateSavings = () => {
-    let discount = 0;
-    if (quantity > 100) {
-      discount = 0.4;
-    } else if (quantity > 80) {
-      discount = 0.1;
+  const calculatePricePerQuantity = () => {
+    if (quantity >= 150) {
+      return 4.60;
+    } else if (quantity >= 100) {
+      return 4.90;
+    } else if (quantity >= 50) {
+      return 5.00;
+    } else if (quantity >= 25) {
+      return 9.20;
     }
-    return discount;
+    return 0;
   };
 
-  const savings = calculateSavings() * 100;
+  const pricePerQuantity = calculatePricePerQuantity();
+  const totalPrice = pricePerQuantity * quantity;
+  const basePrice = 9.20 * quantity;
+  const savings = ((basePrice - totalPrice) / basePrice) * 100;
 
   return (
     <div className="bg-white p-4 rounded-lg w-full">
@@ -106,13 +112,12 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
       </div>
       {showError && (
         <div className="text-red-500 text-xs mt-1">
-          Enter quantity between 50 to 500
+          Enter quantity between 25 to 500
         </div>
       )}
       {savings > 0 && (
         <div className="flex justify-center items-center text-xs font-semibold bg-green-100 text-green-700 px-2 py-1 rounded-lg mt-2">
-          <span className="text-green-700">{savings.toFixed(0)}%</span>‎
-          Quantity discount
+          <span className="text-green-700">{savings.toFixed(0)}%</span>‎ Quantity discount
         </div>
       )}
     </div>

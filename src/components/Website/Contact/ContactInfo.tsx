@@ -20,7 +20,7 @@ const contactData: ContactInfo[] = [
   {
     icon: "/icons/telephone.svg",
     title: "Phone",
-    description: "Call us for assistance and inquiries.",
+    description: "Call us for assistance and enquiries.",
     contact: "+44 7718 958135",
     link: "",
   },
@@ -40,7 +40,7 @@ const ContactInformation: React.FC = () => {
         Contact Information
       </h1>
       <p className="mt-6 text-lg leading-7 text-center text-black max-md:max-w-full">
-        For any inquiries, please feel free to reach out to us.
+        For any enquiries, please feel free to reach out to us.
       </p>
       <div className="self-stretch mt-20 max-md:mt-10 max-md:max-w-full">
         <div className="flex gap-5 max-md:flex-col">

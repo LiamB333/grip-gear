@@ -14,14 +14,14 @@ const teamMembers: TeamMemberData[] = [
     role: "Founder",
     description:
       "James is a leader with a passion for innovation and customer satisfaction.",
-    imageSrc: "/hero-ai-2.webp",
+    imageSrc: "/james.jpeg",
   },
   {
     name: "Liam Black",
     role: "Director",
     description:
       "Liam is a technical expert with a strong focus on product development and quality assurance.",
-    imageSrc: "/hero-ai-2.webp",
+    imageSrc: "/liam.jpg",
   },
 ];
 

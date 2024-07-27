@@ -1,5 +1,11 @@
 "use client";
-import React, { useState, useEffect, useCallback, Suspense, useMemo } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  Suspense,
+  useMemo,
+} from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { getLogo } from "../../utils/indexedDB";
 import SockOutline from "@/components/Designer/SockOutline";
@@ -14,10 +20,13 @@ const SockSelectionPageContent = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const getParam = useCallback((param: string) => {
-    const value = searchParams.get(param);
-    return value !== null ? value : undefined;
-  }, [searchParams]);
+  const getParam = useCallback(
+    (param: string) => {
+      const value = searchParams.get(param);
+      return value !== null ? value : undefined;
+    },
+    [searchParams]
+  );
 
   const [state, setState] = useState({
     backgroundColor: "#8E1E1E",
@@ -44,17 +53,15 @@ const SockSelectionPageContent = () => {
   }, []);
 
   type TemplatePrices = {
-    [key: number]: number;
+    [key: number]: [number, number]; // Price brackets based on quantity
   };
 
   const templatePrices: TemplatePrices = useMemo(() => {
     return {
-      1: 240,
-      2: 250,
-      3: 245,
-      5: 245,
-      6: 245,
-      4: 250,
+      1: [25, 9.20],  // For quantities from 25 to 49
+      2: [50, 5.00],  // For quantities from 50 to 99
+      3: [100, 4.90], // For quantities from 100 to 149
+      4: [150, 4.60], // For quantities 150 and above
     };
   }, []);
 
@@ -63,7 +70,10 @@ const SockSelectionPageContent = () => {
 
     const initialBackgroundColor = getParam("backgroundColor") || "#8E1E1E";
     const initialStripeColor = getParam("stripeColor") || "#FFFFFF";
-    const initialSelectedTemplate = parseInt(getParam("selectedTemplate") || "1", 10);
+    const initialSelectedTemplate = parseInt(
+      getParam("selectedTemplate") || "1",
+      10
+    );
     const initialLeftSockLogoId = getParam("leftSockLogo");
     const initialRightSockLogoId = getParam("rightSockLogo");
     const initialFullLogoId = getParam("fullLogo");
@@ -83,11 +93,17 @@ const SockSelectionPageContent = () => {
     const fetchLogos = async () => {
       if (initialLeftSockLogoId) {
         const storedLeftSockLogo = await getLogo(initialLeftSockLogoId);
-        setState((prevState) => ({ ...prevState, leftSockLogo: storedLeftSockLogo || undefined }));
+        setState((prevState) => ({
+          ...prevState,
+          leftSockLogo: storedLeftSockLogo || undefined,
+        }));
       }
       if (initialRightSockLogoId) {
         const storedRightSockLogo = await getLogo(initialRightSockLogoId);
-        setState((prevState) => ({ ...prevState, rightSockLogo: storedRightSockLogo || undefined }));
+        setState((prevState) => ({
+          ...prevState,
+          rightSockLogo: storedRightSockLogo || undefined,
+        }));
       }
       setState((prevState) => ({
         ...prevState,
@@ -112,15 +128,21 @@ const SockSelectionPageContent = () => {
     }
   }, [state.leftSockLogoId, state.rightSockLogoId]);
 
-  const handleBackgroundColorSelect = useCallback((color: string) => {
-    setState((prevState) => ({ ...prevState, backgroundColor: color }));
-    updateSearchParams("backgroundColor", color);
-  }, [updateSearchParams]);
+  const handleBackgroundColorSelect = useCallback(
+    (color: string) => {
+      setState((prevState) => ({ ...prevState, backgroundColor: color }));
+      updateSearchParams("backgroundColor", color);
+    },
+    [updateSearchParams]
+  );
 
-  const handleStripeColorSelect = useCallback((color: string) => {
-    setState((prevState) => ({ ...prevState, stripeColor: color }));
-    updateSearchParams("stripeColor", color);
-  }, [updateSearchParams]);
+  const handleStripeColorSelect = useCallback(
+    (color: string) => {
+      setState((prevState) => ({ ...prevState, stripeColor: color }));
+      updateSearchParams("stripeColor", color);
+    },
+    [updateSearchParams]
+  );
 
   const handleLogoSelect = useCallback(
     (leftLogoId: string, rightLogoId: string, fullLogoId: string) => {
@@ -139,57 +161,67 @@ const SockSelectionPageContent = () => {
     [updateSearchParams]
   );
 
-  const handleTemplateChange = useCallback((selectedValue: number) => {
-    setState((prevState) => ({
-      ...prevState,
-      selectedTemplate: selectedValue,
-      stripeColor: selectedValue === 1 ? "#FFFFFF" : prevState.stripeColor,
-    }));
-    updateSearchParams("selectedTemplate", selectedValue.toString());
-    if (selectedValue === 1) {
-      updateSearchParams("stripeColor", "#FFFFFF");
-    }
-  }, [updateSearchParams]);
+  const handleTemplateChange = useCallback(
+    (selectedValue: number) => {
+      setState((prevState) => ({
+        ...prevState,
+        selectedTemplate: selectedValue,
+        stripeColor: selectedValue === 1 ? "#FFFFFF" : prevState.stripeColor,
+      }));
+      updateSearchParams("selectedTemplate", selectedValue.toString());
+      if (selectedValue === 1) {
+        updateSearchParams("stripeColor", "#FFFFFF");
+      }
+    },
+    [updateSearchParams]
+  );
 
-  const handleQuantityChange = useCallback((value: number) => {
-    setState((prevState) => ({ ...prevState, quantity: value }));
-    updateSearchParams("quantity", value.toString());
-  }, [updateSearchParams]);
+  const handleQuantityChange = useCallback(
+    (value: number) => {
+      setState((prevState) => ({ ...prevState, quantity: value }));
+      updateSearchParams("quantity", value.toString());
+    },
+    [updateSearchParams]
+  );
 
   const handleQuantityBlur = useCallback(() => {
     setState((prevState) => ({
       ...prevState,
-      quantityErrorMessage: prevState.quantity < 50 ? "Quantity cannot be less than 50." : null,
+      quantityErrorMessage:
+        prevState.quantity < 25 ? "Quantity cannot be less than 25." : null,
     }));
   }, []);
 
   const calculatePriceAndSavings = useMemo(() => {
-    const pricePer50 = templatePrices[state.selectedTemplate];
-    let savings = 0;
-    if (pricePer50 !== undefined) {
-      let price = (pricePer50 / 50) * state.quantity;
-      let discount = 0;
-      if (state.quantity > 100) {
-        discount = state.quantity * 0.4;
-      } else if (state.quantity > 80) {
-        discount = state.quantity * 0.1;
-      }
-      price -= discount;
-      savings = (discount / (price + discount)) * 100;
-      return { price: `£${price.toFixed(0)}`, savings: savings.toFixed(0) };
+    const quantity = state.quantity;
+    let pricePerUnit = 0;
+
+    if (quantity >= 150) {
+      pricePerUnit = templatePrices[4][1]; // £4.60 per unit
+    } else if (quantity >= 100) {
+      pricePerUnit = templatePrices[3][1]; // £4.90 per unit
+    } else if (quantity >= 50) {
+      pricePerUnit = templatePrices[2][1]; // £5.00 per unit
+    } else if (quantity >= 25) {
+      pricePerUnit = templatePrices[1][1]; // £9.20 per unit
     }
-    return { price: "Price information not available", savings: "0" };
-  }, [state.selectedTemplate, state.quantity, templatePrices]);
+
+    const price = quantity * pricePerUnit;
+    return {
+      price: `£${price.toFixed(2)}`,
+      savings: (0).toFixed(2) // You might want to calculate savings or set it to 0
+    };
+  }, [state.quantity, templatePrices]);
 
   const handleContinue = useCallback(
     (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       e.preventDefault();
       if (!state.logosUploaded) {
         setState((prevState) => ({ ...prevState, showErrorMessage: true }));
-      } else if (state.quantity < 50) {
+      } else if (state.quantity < 25) {
         setState((prevState) => ({
           ...prevState,
-          quantityErrorMessage: "Quantity cannot be less than 50.",
+          quantityErrorMessage: "Quantity cannot be less than 25.",
         }));
       } else {
         setState((prevState) => ({
@@ -254,7 +286,9 @@ const SockSelectionPageContent = () => {
             </div>
           </div>
           {state.showErrorMessage && (
-            <div className="text-red-500 text-sm mt-2">Please upload a logo before continuing.</div>
+            <div className="text-red-500 text-sm mt-2">
+              Please upload a logo before continuing.
+            </div>
           )}
           <DesignerFooter price={price} onContinue={handleContinue} />
         </div>

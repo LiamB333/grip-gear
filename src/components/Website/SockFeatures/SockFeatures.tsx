@@ -11,7 +11,7 @@ const features: Feature[] = [
   {
     iconSrc: "/grid.svg",
     title: "Choose from a Wide Selection of Grip Sock Styles",
-    description: "Create your own unique grip socks by selecting colors, patterns, and logos."
+    description: "Create your own unique grip socks by selecting colours, patterns and logos."
   },
   {
     iconSrc: "/medal.svg",
@@ -29,7 +29,7 @@ const SocksFeatures: React.FC = () => {
   return (
     <section className="flex flex-col px-16 py-20 bg-neutral-100 max-md:px-5">
       <h1 className="mt-8 text-4xl font-bold leading-10 text-black max-md:max-w-full">
-        Explore the versatility of our 2D designer as you personalize your grip socks with an extensive selection of colors, patterns, and sizes.
+        Explore the versatility of our 2D designer as you personalise your grip socks with an extensive selection of colours, patterns and sizes.
       </h1>
       <div className="justify-center pb-20 mt-20 max-md:mt-10 max-md:max-w-full">
         <div className="flex gap-5 max-md:flex-col">

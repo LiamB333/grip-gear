@@ -11,12 +11,12 @@ const faqData: FAQData[] = [
   {
     question: "How do I customise?",
     answer:
-      "To customise your grip socks, simply use our 2D configuration software on our website. You can choose from a variety of colors, patterns, and designs to create your unique grip socks.",
+      "To customise your grip socks, simply use our 2D configuration software on our website. You can choose from a variety of colors, patterns and designs to create your unique grip socks.",
   },
   {
     question: "What are the benefits?",
     answer:
-      "Our customized grip socks provide enhanced grip and traction, reducing the risk of slips and falls. They are also comfortable and stylish, making them perfect for various activities such as football, pilates, and dance.",
+      "Our customized grip socks provide enhanced grip and traction, reducing the risk of slips and falls. They are also comfortable and stylish, making them perfect for various activities such as football, pilates and dance.",
   },
   {
     question: "How long does customisation take?",
@@ -31,7 +31,7 @@ const faqData: FAQData[] = [
   {
     question: "What is the minimum order quantity?",
     answer:
-      "The minimum order is 25 pairs. However, ordering 50 pairs drops the price to £5 each (67% off). The more you order, the more you save! ",
+      "The minimum order is 25 pairs. However, ordering 50 pairs drops the price to £5 each (over 55% off). The more you order, the more you save! ",
   },
 ];
 
