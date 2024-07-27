@@ -17,13 +17,15 @@ function NavBar() {
     <div>
       <div className="flex flex-col justify-center px-16 py-4 text-base leading-6 bg-white border-0 border-black border-solid max-md:px-5">
         <div className="flex gap-5 justify-between items-center w-full max-md:flex-wrap max-md:mr-1 max-md:max-w-full">
-          <Image
-            src="/logo-removed-bg.svg"
-            alt="Grip Gear logo"
-            width={180}
-            height={60}
-            priority
-          />
+          <Link href="/">
+            <Image
+              src="/logo-removed-bg.svg"
+              alt="Grip Gear logo"
+              width={180}
+              height={60}
+              priority
+            />
+          </Link>
           <div className="hidden flex-1 justify-center lg:flex">
             <div className="flex gap-5 text-black max-md:flex-wrap">
               <Link href="/design">

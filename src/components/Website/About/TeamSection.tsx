@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import TeamMember from "@/components/Website/About/TeamMember";
 
 interface TeamMemberData {
@@ -12,14 +12,16 @@ const teamMembers: TeamMemberData[] = [
   {
     name: "James Bromley",
     role: "Founder",
-    description: "John is a leader with a passion for innovation and customer satisfaction.",
-    imageSrc: "https://cdn.builder.io/api/v1/image/assets/TEMP/ec589a1be008583ca1981b4db74d61c063b019ae67e12d9241d38369a603a0b6?apiKey=539899181cdc423d8ab13174b3d94053&&apiKey=539899181cdc423d8ab13174b3d94053"
+    description:
+      "John is a leader with a passion for innovation and customer satisfaction.",
+    imageSrc: "/hero-ai-2.webp",
   },
   {
     name: "Liam Black",
     role: "Director",
-    description: "Jane is a technical expert with a strong focus on product development and quality assurance.",
-    imageSrc: "https://cdn.builder.io/api/v1/image/assets/TEMP/ec589a1be008583ca1981b4db74d61c063b019ae67e12d9241d38369a603a0b6?apiKey=539899181cdc423d8ab13174b3d94053&&apiKey=539899181cdc423d8ab13174b3d94053"
+    description:
+      "Jane is a technical expert with a strong focus on product development and quality assurance.",
+    imageSrc: "/hero-ai-2.webp",
   },
 ];
 
