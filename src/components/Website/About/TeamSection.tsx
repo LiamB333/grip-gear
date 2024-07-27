@@ -13,21 +13,21 @@ const teamMembers: TeamMemberData[] = [
     name: "James Bromley",
     role: "Founder",
     description:
-      "John is a leader with a passion for innovation and customer satisfaction.",
+      "James is a leader with a passion for innovation and customer satisfaction.",
     imageSrc: "/hero-ai-2.webp",
   },
   {
     name: "Liam Black",
     role: "Director",
     description:
-      "Jane is a technical expert with a strong focus on product development and quality assurance.",
+      "Liam is a technical expert with a strong focus on product development and quality assurance.",
     imageSrc: "/hero-ai-2.webp",
   },
 ];
 
 const TeamSection: React.FC = () => {
   return (
-    <section className="flex flex-col px-16 py-5 bg-white max-md:px-5">
+    <section className="flex flex-col px-16 py-2 bg-white max-md:px-5">
       <header className="flex flex-col self-center mt-8 max-w-full text-center text-black w-[768px]">
         <h1 className="text-5xl font-bold leading-[57.6px] mt-4 max-md:max-w-full max-md:text-4xl">
           Meet Our Team

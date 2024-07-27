@@ -1,4 +1,4 @@
-import Navbar from "@/components/Website/NavBar";
+import Navbar from "@/components/Website/NavBar/NavBar";
 import Hero from "@/components/Website/Hero/Hero";
 import Footer from "@/components/Website/Footer/Footer";
 import SockFeatures from "@/components/Website/SockFeatures/SockFeatures";
@@ -12,8 +12,8 @@ const Page = () => {
     content:
       "I absolutely love my customised grip sock from Grip Gear! The 2D designer made it easy to design exactly what I wanted.",
     author: {
-      name: "Nigel Black",
-      role: "Local football club organiser",
+      name: "Richard Stock",
+      role: "Eton Manor Colts Rugby Club",
       avatar: "/",
     },
   };

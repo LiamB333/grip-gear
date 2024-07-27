@@ -13,13 +13,19 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
         <FaTimes className="text-black w-6 h-6 cursor-pointer" onClick={onClose} />
       </div>
       <div className="flex flex-col items-center gap-6 mt-10">
+      <Link href="/">
+          <div onClick={onClose}>Home</div>
+        </Link>
         <Link href="/design">
           <div onClick={onClose}>Design</div>
         </Link>
-        <Link href="/help">
-          <div onClick={onClose}>Help</div>
+        <Link href="/about">
+          <div onClick={onClose}>About Us</div>
         </Link>
-        <Link href="/get-started">
+        <Link href="/contact">
+          <div onClick={onClose}>Contact Us</div>
+        </Link>
+        <Link href="/design">
           <div className="px-5 py-3 font-medium text-white whitespace-nowrap bg-red-800 border border-red-800 hover:bg-red-600 rounded-[30px] cursor-pointer" onClick={onClose}>
             Get Started
           </div>

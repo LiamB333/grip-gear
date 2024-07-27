@@ -4,7 +4,7 @@ import Link from "next/link";
 import * as React from "react";
 import { FaBars } from "react-icons/fa";
 import { useState } from "react";
-import MobileMenu from "./MobileMenu"; // Import the MobileMenu component
+import MobileMenu from "./MobileMenu";
 
 function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -30,6 +30,9 @@ function NavBar() {
             <div className="flex gap-5 text-black max-md:flex-wrap">
               <Link href="/design">
                 <div>Design</div>
+              </Link>
+              <Link href="/about">
+                <div>About Us</div>
               </Link>
             </div>
           </div>

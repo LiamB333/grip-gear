@@ -45,17 +45,20 @@ const Footer4: React.FC<Props> = ({
     {
       links: [
         { title: "Design", url: "/design" },
-        { title: "About Us", url: "#" },
-        { title: "Contact Us", url: "#" },
+        { title: "About Us", url: "/about" },
+        { title: "Contact Us", url: "/contact" },
         { title: "Shipping", url: "#" },
       ],
     },
   ],
   socialMediaLinks = [
-    { url: "#", icon: <BiLogoTiktok className="size-6" /> },
     {
       url: "https://www.instagram.com/gripgear__uk/",
       icon: <BiLogoInstagram className="size-6" />,
+    },
+    {
+      url: "https://www.tiktok.com/@ne.stud",
+      icon: <BiLogoTiktok className="size-6" />,
     },
   ],
   footerText = "© 2024 Grip Gear. All rights reserved.",

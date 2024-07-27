@@ -1,8 +1,9 @@
 import React from "react";
+import Link from "next/link";
 
 const ContactSection: React.FC = () => {
   return (
-    <section className="flex flex-col mt-20 max-w-full text-black w-[560px] max-md:mt-10">
+    <section className="flex flex-col mt-20 text-black max-md:mt-10">
       <div className="flex flex-col max-md:max-w-full">
         <h2 className="text-3xl font-bold leading-10 max-md:max-w-full">
           Still have questions?
@@ -11,12 +12,11 @@ const ContactSection: React.FC = () => {
           Contact us for further assistance.
         </p>
       </div>
-      <a
-        href="#contact"
-        className="self-start px-6 py-3 mt-6 text-base leading-6 whitespace-nowrap border border-black border-solid max-md:px-5"
-      >
-        Contact
-      </a>
+      <Link href="/contact">
+        <div className="self-start text-center px-3 py-2 mt-6 text-base leading-5 whitespace-nowrap border border-black border-solid rounded-[30px] hover:text-red-600 hover:border-red-600 max-md:px-3 max-md:py-1 w-1/2">
+          Contact
+        </div>
+      </Link>
     </section>
   );
 };
