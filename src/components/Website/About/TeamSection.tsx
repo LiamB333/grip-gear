@@ -14,14 +14,14 @@ const teamMembers: TeamMemberData[] = [
     role: "Founder",
     description:
       "James is a leader with a passion for innovation and customer satisfaction.",
-    imageSrc: "/james.jpeg",
+    imageSrc: "/james.png",
   },
   {
     name: "Liam Black",
     role: "Director",
     description:
       "Liam is a technical expert with a strong focus on product development and quality assurance.",
-    imageSrc: "/liam.jpg",
+    imageSrc: "/liam.png",
   },
 ];
 
