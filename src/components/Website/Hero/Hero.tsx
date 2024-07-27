@@ -24,11 +24,11 @@ export const Hero: React.FC = () => {
       </div>
       <div className="flex flex-col w-5/12 items-end max-md:ml-0 max-md:w-full">
         <Image
-          loading="lazy"
+          priority
           src="/hero-ai.webp"
           alt="Custom grip sock"
-          width={500} // Adjust the width as needed
-          height={500} // Adjust the height as needed
+          width={500}
+          height={500}
           className="w-full max-md:mt-10 max-md:max-w-full"
         />
       </div>
