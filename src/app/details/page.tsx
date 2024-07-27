@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState, useCallback, Suspense } from "react";
 import { getLogo } from "../../utils/indexedDB";
@@ -35,6 +35,7 @@ const DetailsPageContent = () => {
   });
 
   const [submissionStatus, setSubmissionStatus] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false); // New state to manage button status
 
   useEffect(() => {
     const fetchLogos = async () => {
@@ -60,12 +61,10 @@ const DetailsPageContent = () => {
   } = useForm<FormData>();
 
   const onSubmit: SubmitHandler<FormData> = useCallback(
-    async (formData: {
-      firstName: any;
-      lastName: any;
-      email: string | Blob;
-      telephone: string | Blob;
-    }) => {
+    async (formData) => {
+      if (isSubmitting) return; // Prevent submission if already in progress
+      setIsSubmitting(true); // Set submitting to true
+
       const data = new FormData();
       data.append("name", `${formData.firstName} ${formData.lastName}`);
       data.append("email", formData.email);
@@ -116,9 +115,11 @@ const DetailsPageContent = () => {
           err instanceof Error ? err.message : "Unknown error occurred";
         console.error("Client error:", errorMessage);
         setSubmissionStatus("error");
+      } finally {
+        setIsSubmitting(false); // Reset submitting state
       }
     },
-    [selectedTemplate, backgroundColor, stripeColor, quantity, logos.fullLogo]
+    [selectedTemplate, backgroundColor, stripeColor, quantity, logos.fullLogo, isSubmitting]
   );
 
   return (
@@ -232,8 +233,9 @@ const DetailsPageContent = () => {
                     <button
                       type="submit"
                       className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                      disabled={isSubmitting} // Disable button while submitting
                     >
-                      Submit
+                      {isSubmitting ? "Submitting..." : "Submit"}
                     </button>
                   </div>
                 </div>
