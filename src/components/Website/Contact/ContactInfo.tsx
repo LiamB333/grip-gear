@@ -21,7 +21,7 @@ const contactData: ContactInfo[] = [
     icon: "/icons/telephone.svg",
     title: "Phone",
     description: "Call us for assistance and enquiries.",
-    contact: "+44 7718 958135",
+    contact: "+44 7885 990842",
     link: "",
   },
   {
