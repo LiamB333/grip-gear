@@ -26,26 +26,29 @@ function NavBar() {
               priority
             />
           </Link>
-          <div className="hidden flex-1 justify-center lg:flex">
-            <div className="flex gap-5 text-black max-md:flex-wrap">
+          <div className="flex items-center">
+            <div className="hidden lg:flex gap-5 text-black">
               <Link href="/design">
                 <div>Design</div>
               </Link>
               <Link href="/about">
                 <div>About Us</div>
               </Link>
+              <Link href="/help">
+                <div>Help</div>
+              </Link>
             </div>
-          </div>
-          <Link href="/design">
-            <div className="hidden lg:block px-5 py-3 font-medium text-white whitespace-nowrap bg-red-800 border border-red-800 hover:bg-red-600 rounded-[30px] cursor-pointer">
-              Get Started
+            <Link href="/design">
+              <div className="hidden lg:block px-5 py-3 font-medium text-white whitespace-nowrap bg-[#C62828] border hover:bg-[#C62828] rounded-[30px] cursor-pointer ml-10">
+                Get Started
+              </div>
+            </Link>
+            <div className="lg:hidden">
+              <FaBars
+                className="text-black w-6 h-6 cursor-pointer"
+                onClick={toggleMenu}
+              />
             </div>
-          </Link>
-          <div className="lg:hidden">
-            <FaBars
-              className="text-black w-6 h-6 cursor-pointer"
-              onClick={toggleMenu}
-            />
           </div>
         </div>
       </div>

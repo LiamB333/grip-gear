@@ -27,9 +27,9 @@ const features: Feature[] = [
 
 const SocksFeatures: React.FC = () => {
   return (
-    <section className="flex flex-col px-16 py-20 bg-neutral-100 max-md:px-5">
-      <h1 className="mt-8 text-4xl font-bold leading-10 text-black max-md:max-w-full">
-        Explore the versatility of our 2D designer as you personalise your grip socks with an extensive selection of colours, patterns and sizes.
+    <section className="flex flex-col px-16 py-20 bg-[#cb3f3f] max-md:px-5">
+      <h1 className="mt-8 text-4xl font-bold leading-10 text-white text-center max-md:max-w-full">
+        Explore the versatility of our 2D designer.
       </h1>
       <div className="justify-center pb-20 mt-20 max-md:mt-10 max-md:max-w-full">
         <div className="flex gap-5 max-md:flex-col">

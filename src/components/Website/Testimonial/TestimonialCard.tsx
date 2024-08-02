@@ -16,7 +16,7 @@ export const TestimonialCard: React.FC<TestimonialCardProps> = ({
 }) => {
   return (
     <>
-      <blockquote className="self-stretch mt-8 text-4xl font-bold leading-10 text-red-800 max-md:max-w-full">
+      <blockquote className="self-stretch mt-8 text-4xl font-bold leading-10 text-[#C62828] max-md:max-w-full">
         {testimonial.content}
       </blockquote>
       <div className="flex flex-col mt-8 max-w-full text-base leading-6 text-black w-[300px]">

@@ -18,7 +18,7 @@ export const Testimonial: React.FC<TestimonialProps> = ({ testimonial, logo }) =
   return (
     <section className="flex justify-center items-center px-16 py-20 text-center bg-white max-md:px-5">
       <div className="flex flex-col items-center mt-8 max-w-full w-[768px]">
-        <div className="flex justify-center items-center w-full h-[80px]"> {/* Adjust the width and height here */}
+        <div className="flex justify-center items-center w-full h-[80px]">
           <Image
             src={logo}
             alt="Company Logo"

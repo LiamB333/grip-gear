@@ -39,7 +39,7 @@ type Props = {
 const Footer4: React.FC<Props> = ({
   logo = {
     url: "/",
-    src: "logo-removed-bg.svg",
+    src: "logo-1200x1200-2.svg",
     alt: "Grip Gear logo",
   },
   columnLinks = [
@@ -56,12 +56,12 @@ const Footer4: React.FC<Props> = ({
     {
       url: "https://www.instagram.com/gripgear__uk/",
       icon: <BiLogoInstagram className="size-6" />,
-      alt: "Grip Gear Instagram" // Added alt text
+      alt: "Grip Gear Instagram", // Added alt text
     },
     {
       url: "https://www.tiktok.com/@ne.stud",
       icon: <BiLogoTiktok className="size-6" />,
-      alt: "Grip Gear TikTok" // Added alt text
+      alt: "Grip Gear TikTok", // Added alt text
     },
   ],
   footerText = "© 2024 Grip Gear. All rights reserved.",
@@ -71,15 +71,19 @@ const Footer4: React.FC<Props> = ({
   ],
 }) => {
   return (
-    <footer className="px-[5%] py-12 md:py-18 lg:py-20 bg-[#F5F5F5]">
+    <footer className="px-[5%] py-12 md:py-18 lg:py-20 bg-[#0c0c0c] text-white">
       <div className="container mx-auto">
         <div className="grid grid-cols-1 items-center justify-center justify-items-center gap-x-[4vw] gap-y-12 pb-12 md:pb-18 lg:grid-cols-[0.25fr_1fr_0.25fr] lg:justify-between lg:gap-y-4 lg:pb-20">
-          <a href={logo.url} aria-label="Grip Gear Logo" className="lg:justify-self-start">
+          <a
+            href={logo.url}
+            aria-label="Grip Gear Logo"
+            className="lg:justify-self-start"
+          >
             <Image
               src={logo.src}
               alt={logo.alt || "Grip Gear logo"}
-              width={250}
-              height={150}
+              width={100}
+              height={100}
               className="inline-block"
             />
           </a>
@@ -114,7 +118,7 @@ const Footer4: React.FC<Props> = ({
             ))}
           </div>
         </div>
-        <div className="h-px w-full" />
+        <div className="h-px w-full bg-white" />
         <div className="flex flex-col-reverse items-center justify-center justify-items-center pb-4 pt-3 text-sm md:flex-row md:gap-x-6 md:pb-0 md:pt-8">
           <p className="mt-3 md:mt-0">{footerText}</p>
           <ul className="grid grid-flow-row grid-cols-[max-content] items-center justify-center justify-items-center gap-x-0 gap-y-4 text-sm md:grid-flow-col md:gap-x-6 md:gap-y-0">
