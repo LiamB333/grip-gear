@@ -11,21 +11,21 @@ interface ContactInfo {
 
 const contactData: ContactInfo[] = [
   {
-    icon: "/icons/email.svg",
+    icon: "/email.svg",
     title: "Email",
     description: "Email us for a quick response.",
     contact: "gripgearsocks@gmail.com",
     link: "",
   },
   {
-    icon: "/icons/telephone.svg",
+    icon: "/telephone.svg",
     title: "Phone",
     description: "Call us for assistance and enquiries.",
-    contact: "+44 7885 990842",
+    contact: "+44 7718 958135",
     link: "",
   },
   {
-    icon: "/icons/instagram.svg",
+    icon: "/instagram.svg",
     title: "Instagram",
     description: "Message us to get in touch.",
     contact: "gripgear__uk",
