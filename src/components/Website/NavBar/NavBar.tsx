@@ -39,7 +39,7 @@ function NavBar() {
               </Link>
             </div>
             <Link href="/design">
-              <div className="hidden lg:block px-5 py-3 font-medium text-white whitespace-nowrap bg-[#C62828] transition ease-in-out delay-100 hover:-translate-y-1 hover:scale-110 hover:bg-[#911d1d] duration-300 rounded-[30px] cursor-pointer ml-10">
+              <div className="hidden lg:block px-5 py-3 font-medium text-white whitespace-nowrap bg-[#C62828] hover:bg-[#911d1d] rounded-[30px] cursor-pointer ml-10">
                 Get Started
               </div>
             </Link>
