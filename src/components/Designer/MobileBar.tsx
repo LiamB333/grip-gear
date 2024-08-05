@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import LogoPicker from "@/components/Designer/LogoPicker";
 import QuantitySelector from "./QuantitySelector";
+import Tooltip from "./ToolTip";
 import Image from "next/image";
 
 interface MobileBarProps {
@@ -79,6 +80,44 @@ const MobileBar: React.FC<MobileBarProps> = ({
     null
   );
 
+  const [tooltipVisible, setTooltipVisible] = useState(false);
+  const [tooltipMessage, setTooltipMessage] = useState("");
+  const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
+
+  const toggleTooltip = (
+    message: string,
+    position: { top: number; left: number }
+  ) => {
+    setTooltipMessage(message);
+    setTooltipPosition(position);
+    setTooltipVisible(!tooltipVisible);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = () => {
+      if (tooltipVisible) {
+        setTooltipVisible(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [tooltipVisible]);
+
+  const handleInfoClick = (
+    event: React.MouseEvent,
+    message: string
+  ) => {
+    event.stopPropagation();
+    const rect = (event.target as HTMLElement).getBoundingClientRect();
+    toggleTooltip(message, {
+      top: rect.bottom + window.scrollY,
+      left: rect.right + window.scrollX,
+    });
+  };
+
   const toggleSection = (section: string) => {
     if (activeSection === section) {
       setActiveSection(null);
@@ -116,6 +155,13 @@ const MobileBar: React.FC<MobileBarProps> = ({
 
   return (
     <div className="w-full fixed bottom-16 left-0 bg-white text-sm z-40 shadow-xl">
+      {tooltipVisible && (
+        <Tooltip
+          message={tooltipMessage}
+          isVisible={tooltipVisible}
+          position={tooltipPosition}
+        />
+      )}
       {activeSection === "design" && (
         <div className="bg-white shadow-md p-2 relative">
           <button
@@ -137,7 +183,22 @@ const MobileBar: React.FC<MobileBarProps> = ({
               />
             </svg>
           </button>
-          <h1 className="text-xl p-2">Select Design</h1>
+          <div className="flex items-center p-2">
+            <h1 className="text-xl">Select Design</h1>
+            <button
+              onClick={(e) =>
+                handleInfoClick(e, "Select a design template for your sock.")
+              }
+            >
+              <Image
+                src="/info-icon.svg"
+                alt="Info Icon"
+                width={16}
+                height={16}
+                className="ml-2"
+              />
+            </button>
+          </div>
           <div className="grid grid-cols-2 gap-2 overflow-auto max-h-96 mt-2">
             {templates.map((template) => (
               <div
@@ -182,7 +243,22 @@ const MobileBar: React.FC<MobileBarProps> = ({
               />
             </svg>
           </button>
-          <h1 className="text-xl pb-2">Select Colour</h1>
+          <div className="flex items-center pb-2">
+            <h1 className="text-xl">Select Colour</h1>
+            <button
+              onClick={(e) =>
+                handleInfoClick(e, "Select a color for your sock.")
+              }
+            >
+              <Image
+                src="/info-icon.svg"
+                alt="Info Icon"
+                width={16}
+                height={16}
+                className="ml-2"
+              />
+            </button>
+          </div>
           <div className="mt-2 space-y-4">
             <button
               className={`w-full p-2 border border-gray-300 rounded bg-white text-black hover:bg-blue-100 transition duration-300 ${
@@ -297,7 +373,22 @@ const MobileBar: React.FC<MobileBarProps> = ({
               />
             </svg>
           </button>
-          <h1 className="text-xl pb-2">Select Logo</h1>
+          <div className="flex items-center pb-2">
+            <h1 className="text-xl">Select Logo</h1>
+            <button
+              onClick={(e) =>
+                handleInfoClick(e, "Upload or select a logo for your sock.")
+              }
+            >
+              <Image
+                src="/info-icon.svg"
+                alt="Info Icon"
+                width={16}
+                height={16}
+                className="ml-2"
+              />
+            </button>
+          </div>
           <div className="p-4">
             <LogoPicker onLogoSelect={handleLogoSelect} />
           </div>
@@ -325,7 +416,25 @@ const MobileBar: React.FC<MobileBarProps> = ({
               />
             </svg>
           </button>
-          <h1 className="text-xl pb-2">Select Quantity</h1>
+          <div className="flex items-center pb-2">
+            <h1 className="text-xl">Select Quantity</h1>
+            <button
+              onClick={(e) =>
+                handleInfoClick(
+                  e,
+                  "Select the quantity of socks you want to order."
+                )
+              }
+            >
+              <Image
+                src="/info-icon.svg"
+                alt="Info Icon"
+                width={16}
+                height={16}
+                className="ml-2"
+              />
+            </button>
+          </div>
           <QuantitySelector
             quantity={quantity}
             onChange={onQuantityChange}

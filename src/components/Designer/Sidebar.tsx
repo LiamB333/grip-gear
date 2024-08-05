@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import LogoPicker from "@/components/Designer/LogoPicker";
+import React, { useState, useEffect } from "react";
+import LogoPicker from "./LogoPicker";
 import QuantitySelector from "./QuantitySelector";
+import Tooltip from "./ToolTip";
 import Image from "next/image";
 
 interface SidebarProps {
@@ -102,6 +103,44 @@ const Sidebar: React.FC<SidebarProps> = ({
     }
   };
 
+  const [tooltipVisible, setTooltipVisible] = useState(false);
+  const [tooltipMessage, setTooltipMessage] = useState("");
+  const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
+
+  const toggleTooltip = (
+    message: string,
+    position: { top: number; left: number }
+  ) => {
+    setTooltipMessage(message);
+    setTooltipPosition(position);
+    setTooltipVisible(!tooltipVisible);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = () => {
+      if (tooltipVisible) {
+        setTooltipVisible(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [tooltipVisible]);
+
+  const handleInfoClick = (
+    event: React.MouseEvent,
+    message: string
+  ) => {
+    event.stopPropagation();
+    const rect = (event.target as HTMLElement).getBoundingClientRect();
+    toggleTooltip(message, {
+      top: rect.bottom + window.scrollY,
+      left: rect.right + window.scrollX,
+    });
+  };
+
   return (
     <div className={`flex relative overflow-hidden ${className}`}>
       {/* Main Sidebar */}
@@ -135,10 +174,28 @@ const Sidebar: React.FC<SidebarProps> = ({
       {activeSidebar && (
         <div className="w-64 bg-white h-full shadow-xl fixed top-0 left-20 z-10 overflow-auto">
           {activeSidebar === "design" && (
-            <div className="p-4">
-              <div className="mb-2">
+            <div className="p-4 relative">
+              <div className="mb-2 flex items-center">
                 <h1 className="text-xl">Select Design</h1>
+                <button
+                  onClick={(e) =>
+                    handleInfoClick(e, "Choose a standard design for your sock")
+                  }
+                >
+                  <Image
+                    src="info-icon.svg"
+                    alt="Info Icon"
+                    width={16}
+                    height={16}
+                    className="ml-2"
+                  />
+                </button>
               </div>
+              <Tooltip
+                message={tooltipMessage}
+                isVisible={tooltipVisible}
+                position={tooltipPosition}
+              />
               <div className="grid grid-cols-2 gap-2 overflow-auto max-h-96">
                 {templates.map((template) => (
                   <div
@@ -162,10 +219,28 @@ const Sidebar: React.FC<SidebarProps> = ({
             </div>
           )}
           {activeSidebar === "colour" && (
-            <div className="p-4">
-              <div className="mb-2">
+            <div className="p-4 relative">
+              <div className="mb-2 flex items-center">
                 <h1 className="text-xl">Select Colour</h1>
+                <button
+                  onClick={(e) =>
+                    handleInfoClick(e, "Click on the button to change the sock colour.")
+                  }
+                >
+                  <Image
+                    src="info-icon.svg"
+                    alt="Info Icon"
+                    width={16}
+                    height={16}
+                    className="ml-2"
+                  />
+                </button>
               </div>
+              <Tooltip
+                message={tooltipMessage}
+                isVisible={tooltipVisible}
+                position={tooltipPosition}
+              />
               <div className="flex flex-col space-y-4">
                 <button
                   className="p-2 border border-gray-300 rounded bg-white text-black hover:bg-blue-100 transition duration-300"
@@ -186,7 +261,9 @@ const Sidebar: React.FC<SidebarProps> = ({
                         <button
                           className="w-10 h-10 rounded-full border-2 border-gray-300"
                           style={{ backgroundColor: color }}
-                          onClick={() => handleColorSelect(color, "background")}
+                          onClick={() =>
+                            handleColorSelect(color, "background")
+                          }
                         />
                         {selectedBackgroundColor === color && (
                           <div className="absolute bottom-0 right-0">
@@ -262,10 +339,28 @@ const Sidebar: React.FC<SidebarProps> = ({
           )}
 
           {activeSidebar === "logo" && (
-            <div className="p-4">
-              <div className="mb-2">
+            <div className="p-4 relative">
+              <div className="mb-2 flex items-center">
                 <h1 className="text-xl">Select Logo</h1>
+                <button
+                  onClick={(e) =>
+                    handleInfoClick(e, "Upload or drop a logo, if it's over 500x500 you have to crop it.")
+                  }
+                >
+                  <Image
+                    src="info-icon.svg"
+                    alt="Info Icon"
+                    width={16}
+                    height={16}
+                    className="ml-2"
+                  />
+                </button>
               </div>
+              <Tooltip
+                message={tooltipMessage}
+                isVisible={tooltipVisible}
+                position={tooltipPosition}
+              />
               <LogoPicker
                 onLogoSelect={handleLogoSelect}
                 cropperHeight="h-48"
@@ -274,10 +369,31 @@ const Sidebar: React.FC<SidebarProps> = ({
           )}
 
           {activeSidebar === "quantity" && (
-            <div className="p-4">
-              <div className="mb-2">
+            <div className="p-4 relative">
+              <div className="mb-2 flex items-center">
                 <h1 className="text-xl">Select Quantity</h1>
+                <button
+                  onClick={(e) =>
+                    handleInfoClick(
+                      e,
+                      "Select the quantity of socks you want to order."
+                    )
+                  }
+                >
+                  <Image
+                    src="info-icon.svg"
+                    alt="Info Icon"
+                    width={16}
+                    height={16}
+                    className="ml-2"
+                  />
+                </button>
               </div>
+              <Tooltip
+                message={tooltipMessage}
+                isVisible={tooltipVisible}
+                position={tooltipPosition}
+              />
               <QuantitySelector
                 quantity={quantity}
                 onChange={onQuantityChange}

@@ -58,10 +58,10 @@ const SockSelectionPageContent = () => {
 
   const templatePrices: TemplatePrices = useMemo(() => {
     return {
-      1: [25, 9.20],  // For quantities from 25 to 49
-      2: [50, 5.00],  // For quantities from 50 to 99
-      3: [100, 4.90], // For quantities from 100 to 149
-      4: [150, 4.60], // For quantities 150 and above
+      1: [25, 9.2], // For quantities from 25 to 49
+      2: [50, 5.0], // For quantities from 50 to 99
+      3: [100, 4.9], // For quantities from 100 to 149
+      4: [150, 4.6], // For quantities 150 and above
     };
   }, []);
 
@@ -127,6 +127,25 @@ const SockSelectionPageContent = () => {
       fetchLogos();
     }
   }, [state.leftSockLogoId, state.rightSockLogoId]);
+
+  useEffect(() => {
+    const handleClick = () => {
+      setState((prevState) => ({
+        ...prevState,
+        showErrorMessage: false,
+      }));
+    };
+
+    if (state.showErrorMessage) {
+      document.addEventListener("click", handleClick);
+    } else {
+      document.removeEventListener("click", handleClick);
+    }
+
+    return () => {
+      document.removeEventListener("click", handleClick);
+    };
+  }, [state.showErrorMessage]);
 
   const handleBackgroundColorSelect = useCallback(
     (color: string) => {
@@ -209,7 +228,7 @@ const SockSelectionPageContent = () => {
     const price = quantity * pricePerUnit;
     return {
       price: `£${price.toFixed(2)}`,
-      savings: (0).toFixed(2) // You might want to calculate savings or set it to 0
+      savings: (0).toFixed(2), // You might want to calculate savings or set it to 0
     };
   }, [state.quantity, templatePrices]);
 
@@ -245,7 +264,7 @@ const SockSelectionPageContent = () => {
   const { price, savings } = calculatePriceAndSavings;
 
   return (
-    <div className="flex flex-col min-h-screen overflow-hidden bg-[#F5F7FA]">
+    <div className="flex flex-col min-h-screen overflow-hidden bg-[#F5F7FA] relative">
       <div className="flex justify-center lg:justify-end p-4">
         <Link href="/" className="flex items-center gap-3">
           <Image
@@ -286,11 +305,17 @@ const SockSelectionPageContent = () => {
             </div>
           </div>
           {state.showErrorMessage && (
-            <div className="text-red-500 text-sm mt-2">
-              Please upload a logo before continuing.
+            <div className="fixed inset-0 flex items-center justify-center">
+              <div className="bg-red-500 text-white text-sm p-2 rounded">
+                Please upload a logo.
+              </div>
             </div>
           )}
-          <DesignerFooter price={price} onContinue={handleContinue} />
+          <DesignerFooter
+            price={price}
+            onContinue={handleContinue}
+            quantity={state.quantity}
+          />
         </div>
       </div>
       {state.isClient && (
