@@ -8,25 +8,44 @@ interface MobileMenuProps {
 
 const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
   return (
-    <div className={`fixed inset-0 bg-white z-50 transform ${isOpen ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out`}>
+    <div
+      className={`fixed inset-0 bg-white z-50 transform ${
+        isOpen ? "translate-x-0" : "translate-x-full"
+      } transition-transform duration-300 ease-in-out`}
+    >
       <div className="flex justify-end p-4">
-        <FaTimes className="text-black w-6 h-6 cursor-pointer" onClick={onClose} />
+        <FaTimes
+          className="text-black w-6 h-6 cursor-pointer"
+          onClick={onClose}
+        />
       </div>
       <div className="flex flex-col items-center gap-6 mt-10">
-      <Link href="/">
-          <div onClick={onClose}>Home</div>
+        <Link href="/">
+          <div aria-label="Home" onClick={onClose}>
+            Home
+          </div>
         </Link>
         <Link href="/design">
-          <div onClick={onClose}>Design</div>
+          <div aria-label="Design Now" onClick={onClose}>
+            Design
+          </div>
         </Link>
         <Link href="/about">
-          <div onClick={onClose}>About Us</div>
+          <div aria-label="About Us" onClick={onClose}>
+            About Us
+          </div>
         </Link>
         <Link href="/contact">
-          <div onClick={onClose}>Contact Us</div>
+          <div aria-label="Contact Us" onClick={onClose}>
+            Contact Us
+          </div>
         </Link>
         <Link href="/design">
-          <div className="px-5 py-3 font-medium text-white whitespace-nowrap bg-red-800 border border-red-800 hover:bg-red-600 rounded-[30px] cursor-pointer" onClick={onClose}>
+          <div
+            aria-label="Design Now"
+            className="px-5 py-3 font-medium text-white whitespace-nowrap bg-red-800 border border-red-800 hover:bg-red-600 rounded-[30px] cursor-pointer"
+            onClick={onClose}
+          >
             Get Started
           </div>
         </Link>

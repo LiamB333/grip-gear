@@ -21,11 +21,6 @@ const About: React.FC = () => {
   return (
     <div>
       <Navbar />
-      <AboutGripGear
-        title="About Grip Gear"
-        content="Grip Gear started as a small idea conceived by two passionate individuals who wanted to revolutionise how people customise their own socks. We envisioned a platform where anyone could easily design unique grip socks tailored to their style and needs. Our goal is to provide an intuitive and seamless customisation experience, empowering you to create socks that are not only functional but also a true reflection of your personality."
-        imageSrc="/sock-diagram.png"
-      />
       <TeamSection />
       <Testimonial
         testimonial={sampleTestimonial}

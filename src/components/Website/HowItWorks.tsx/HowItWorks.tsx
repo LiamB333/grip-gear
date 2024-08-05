@@ -1,5 +1,5 @@
-import React from "react";
-import StepItem from "./StepItem";
+import React from 'react';
+import StepItem from './StepItem';
 
 interface Step {
   icon: string;
@@ -9,28 +9,28 @@ interface Step {
 
 const steps: Step[] = [
   {
-    icon: "/number-1.svg",
-    title: "Select your sock template",
+    icon: '/number-1.svg',
+    title: 'Select your sock template',
     description:
-      "Choose from one of our six unique templates, ranging from stripes to chevrons, and design your perfect pair of custom socks.",
+      'Choose from one of our six unique templates, ranging from stripes to chevrons, and design your perfect pair of custom socks.',
   },
   {
-    icon: "/number-2.svg",
-    title: "Select your colour",
+    icon: '/number-2.svg',
+    title: 'Select your colour',
     description:
-      "Explore our wide range of vibrant colors to customise the stripes on your socks, ensuring your design is as bold and unique as you are.",
+      'Explore our wide range of vibrant colors to customise the stripes on your socks, ensuring your design is as bold and unique as you are.',
   },
   {
-    icon: "/number-3.svg",
-    title: "Add your logo",
+    icon: '/number-3.svg',
+    title: 'Add your logo',
     description:
-      "Easily add your own logo to your custom socks with our design tool, making personalisation simple and seamless.",
+      'Easily add your own logo to your custom socks with our design tool, making personalisation simple and seamless.',
   },
   {
-    icon: "/number-4.svg",
-    title: "Fill in your details",
+    icon: '/number-4.svg',
+    title: 'Fill in your details',
     description:
-      "Send us your details, and we will get back to you shortly with your order details and confirmation.",
+      'Send us your details, and we will get back to you shortly with your order details and confirmation.',
   },
 ];
 
@@ -54,6 +54,7 @@ const HowItWorks: React.FC = () => {
               title={step.title}
               description={step.description}
               isLast={index === steps.length - 1}
+              headingLevel={3} // Ensure the correct heading level is passed
             />
           ))}
         </div>
