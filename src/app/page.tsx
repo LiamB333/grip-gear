@@ -7,6 +7,7 @@ import Testimonial from "@/components/Website/Testimonial/Testimonial";
 import React from "react";
 import FAQs from "@/components/Website/FAQs/FAQs";
 import HowItWorks from "@/components/Website/HowItWorks.tsx/HowItWorks";
+import OurDesigns from "@/components/Website/OurDesigns/OurDesigns";
 
 const Page = () => {
   const sampleTestimonial = {
@@ -53,6 +54,7 @@ const Page = () => {
       <Hero />
       <SockFeatures />
       <HowItWorks />
+      <OurDesigns />
       <Testimonial
         testimonial={sampleTestimonial}
         logo="/logo-1200x1200-2.svg"
