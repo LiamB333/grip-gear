@@ -8,7 +8,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Grip Gear",
-  description: "Grip Sock Customiser",
+  description:
+    "Discover high-quality grip socks that enhance your performance and reflect your unique style. Customise with logos and colors for a perfect match. Join the Grip Gear community today!",
   metadataBase: new URL("https://www.gripgear.co.uk"),
   keywords: [
     "Grip Gear",
