@@ -26,7 +26,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
           </div>
         </Link>
         <Link href="/design">
-          <div aria-label="Design Now" onClick={onClose}>
+          <div aria-label="Design" onClick={onClose}>
             Design
           </div>
         </Link>

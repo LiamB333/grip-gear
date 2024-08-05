@@ -29,17 +29,17 @@ function NavBar() {
           <div className="flex items-center">
             <div className="hidden lg:flex gap-5 text-black">
               <Link href="/design">
-                <div>Design</div>
+                <div aria-label="Design">Design</div>
               </Link>
               <Link href="/about">
-                <div>About</div>
+                <div aria-label="About">About</div>
               </Link>
               <Link href="/contact">
-                <div>Help</div>
+                <div aria-label="Help">Help</div>
               </Link>
             </div>
             <Link href="/design">
-              <div className="hidden lg:block px-5 py-3 font-medium text-white whitespace-nowrap bg-[#C62828] hover:bg-[#911d1d] rounded-[30px] cursor-pointer ml-10">
+              <div aria-label="Design Now" className="hidden lg:block px-5 py-3 font-medium text-white whitespace-nowrap bg-[#C62828] hover:bg-[#911d1d] rounded-[30px] cursor-pointer ml-10">
                 Get Started
               </div>
             </Link>
