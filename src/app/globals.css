@@ -23,3 +23,6 @@
     brightness(96%) contrast(88%);
 }
 
+body {
+  overflow-x: hidden;
+}

@@ -23,6 +23,7 @@ interface SidebarProps {
 }
 
 const presetColors = [
+  "#767676",
   "#F1EB9C",
   "#E9EC6B",
   "#FEDD00",
@@ -129,10 +130,7 @@ const Sidebar: React.FC<SidebarProps> = ({
     };
   }, [tooltipVisible]);
 
-  const handleInfoClick = (
-    event: React.MouseEvent,
-    message: string
-  ) => {
+  const handleInfoClick = (event: React.MouseEvent, message: string) => {
     event.stopPropagation();
     const rect = (event.target as HTMLElement).getBoundingClientRect();
     toggleTooltip(message, {
@@ -224,7 +222,10 @@ const Sidebar: React.FC<SidebarProps> = ({
                 <h1 className="text-xl">Select Colour</h1>
                 <button
                   onClick={(e) =>
-                    handleInfoClick(e, "Click on the button to change the sock colour.")
+                    handleInfoClick(
+                      e,
+                      "Click on the button to change the sock colour."
+                    )
                   }
                 >
                   <Image
@@ -261,9 +262,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                         <button
                           className="w-10 h-10 rounded-full border-2 border-gray-300"
                           style={{ backgroundColor: color }}
-                          onClick={() =>
-                            handleColorSelect(color, "background")
-                          }
+                          onClick={() => handleColorSelect(color, "background")}
                         />
                         {selectedBackgroundColor === color && (
                           <div className="absolute bottom-0 right-0">
@@ -344,7 +343,10 @@ const Sidebar: React.FC<SidebarProps> = ({
                 <h1 className="text-xl">Select Logo</h1>
                 <button
                   onClick={(e) =>
-                    handleInfoClick(e, "Upload or drop a logo, if it's over 500x500 you have to crop it.")
+                    handleInfoClick(
+                      e,
+                      "Upload or drop a logo, if it's over 500x500 you have to crop it."
+                    )
                   }
                 >
                   <Image
