@@ -1,5 +1,8 @@
+"use client";
 import ContactInformation from "@/components/Website/Contact/ContactInfo";
 import CustomiseAction from "@/components/Website/CustomiseAction/CustomiseAction";
+import EmailComponent from "@/components/Website/EmailForm/EmailComponent";
+import EmailForm from "@/components/Website/EmailForm/EmailForm";
 import FAQs from "@/components/Website/FAQs/FAQs";
 import Footer from "@/components/Website/Footer/Footer";
 import GetInTouch from "@/components/Website/GetInTouch/GetInTouch";
@@ -28,7 +31,8 @@ const Contact: React.FC = () => {
     <div>
       <NavBar />
       <ContactInformation />
-      <GetInTouch />
+      <EmailComponent />
+      <GetInTouch /> 
       <FAQs
         faqData={faqData}
         paragraphText="Find answers to commonly asked questions about contacting our company or support."

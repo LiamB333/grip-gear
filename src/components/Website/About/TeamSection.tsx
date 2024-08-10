@@ -27,7 +27,7 @@ const teamMembers: TeamMemberData[] = [
 
 const TeamSection: React.FC = () => {
   return (
-    <section className="flex flex-col px-16 py-2 bg-white max-md:px-5">
+    <section className="flex flex-col px-16 py-6 bg-zinc-100 max-md:px-5 max-md:py-5">
       <header className="flex flex-col self-center mt-8 max-w-full text-center text-black w-[768px]">
         <h1 className="text-5xl font-bold leading-[57.6px] mt-4 max-md:max-w-full max-md:text-4xl">
           Meet Our Team

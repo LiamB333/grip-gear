@@ -29,7 +29,7 @@ const ContactCard: React.FC<ContactCardProps> = ({
         <p className="mt-4 leading-6">{description}</p>
         <a
           href={`${title.toLowerCase()}:${contact}`}
-          className="mt-6 text-black leading-[150%]"
+          className="mt-6 text-[#C62828] leading-[150%]"
         >
           {contact}
         </a>

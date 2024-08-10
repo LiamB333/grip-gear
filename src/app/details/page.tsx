@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState, useCallback, Suspense } from "react";
 import { getLogo } from "../../utils/indexedDB";
@@ -35,7 +35,7 @@ const DetailsPageContent = () => {
   });
 
   const [submissionStatus, setSubmissionStatus] = useState<string | null>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false); // New state to manage button status
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const fetchLogos = async () => {
@@ -119,7 +119,14 @@ const DetailsPageContent = () => {
         setIsSubmitting(false); // Reset submitting state
       }
     },
-    [selectedTemplate, backgroundColor, stripeColor, quantity, logos.fullLogo, isSubmitting]
+    [
+      selectedTemplate,
+      backgroundColor,
+      stripeColor,
+      quantity,
+      logos.fullLogo,
+      isSubmitting,
+    ]
   );
 
   return (

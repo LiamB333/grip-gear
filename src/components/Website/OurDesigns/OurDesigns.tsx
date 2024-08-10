@@ -4,8 +4,9 @@ import TextAndVideo from "./Video";
 const OurDesigns = () => {
   return (
     <section className="w-full">
-      <div className="px-4 py-5 md:px-8 lg:px-16 md:py-5">
-        <h1 className="text-4xl md:text-5xl font-bold leading-tight md:leading-[58px] mb-5">
+      <div className="bg-gray-100 px-4 py-5 md:px-8 lg:px-16 md:py-5">
+        <h1 className="text-4xl md:text-5xl font-bold leading-tight md:leading-[58px] mb-5 mt-12">
+          {" "}
           Some Of Our Designs
         </h1>
       </div>

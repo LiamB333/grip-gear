@@ -1,11 +1,10 @@
-// pages/about.tsx
 import React from "react";
 import Navbar from "@/components/Website/NavBar/NavBar";
 import Footer from "@/components/Website/Footer/Footer";
 import TeamSection from "@/components/Website/About/TeamSection";
 import CustomiseAction from "@/components/Website/CustomiseAction/CustomiseAction";
 import Testimonial from "@/components/Website/Testimonial/Testimonial";
-import AboutGripGear from "@/components/Website/About/AboutGripGear";
+import Hero from "@/components/Website/Contact/Hero";
 
 const sampleTestimonial = {
   content:
@@ -21,6 +20,11 @@ const About: React.FC = () => {
   return (
     <div>
       <Navbar />
+      <Hero
+        title="About us"
+        subtitle="Gear Up, Stand Out"
+        description="At Grip Gear, we understand that every team has its own identity. That's why we provide a platform where you can tailor your grip socks to match your team’s colours, logo and spirit. Using our intuitive online design tools, you can create gear that boosts not only performance but also team morale and unity."
+      />
       <TeamSection />
       <Testimonial
         testimonial={sampleTestimonial}
