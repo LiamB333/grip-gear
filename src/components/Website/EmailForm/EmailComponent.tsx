@@ -9,7 +9,7 @@ const EmailComponent: React.FC = () => {
           Get in Touch
         </h1>
         <p className="mt-6 text-lg text-center">
-          We're here to answer any questions you may have.
+          We&apos;re here to answer any questions you may have.
         </p>
         <EmailForm />
       </div>
