@@ -38,14 +38,16 @@ const TextAndVideo: React.FC<TextAndVideoProps> = ({ videos }) => {
   const { title, description } = videos[currentVideoIndex];
 
   return (
-    <div className="flex flex-col md:flex-row justify-center items-center bg-gray-100 px-16 py-2 pb-12">
+    <div className="flex flex-col md:flex-row justify-center items-center bg-gray-100 px-4 md:px-16 py-2 pb-12">
       {/* Text Section */}
-      <div className="w-full md:w-1/2 px-16">
+      <div className="w-full md:w-1/2 px-4 md:px-16">
         <h2 className="text-2xl md:text-3xl font-bold mb-2">{title}</h2>
         <p className="text-base md:text-lg leading-relaxed mb-4">
           {description}
         </p>
-        <div className="flex justify-center md:justify-start">
+        <div className="flex justify-center md:justify-start mt-4">
+          {" "}
+          {/* Added margin-top for spacing */}
           <button
             onClick={() => navigate(-1)}
             className="text-lg p-2 mr-2 border border-[#cb3f3f] bg-white text-[#cb3f3f] hover:bg-gray-200"
@@ -64,7 +66,12 @@ const TextAndVideo: React.FC<TextAndVideoProps> = ({ videos }) => {
       </div>
 
       {/* Video Section */}
-      <div className="relative w-full md:w-1/4" style={{ height: "500px" }}>
+      <div
+        className="relative w-full md:w-1/4 mt-8 md:mt-0"
+        style={{ height: "500px" }}
+      >
+        {" "}
+        {/* Added margin-top for spacing */}
         {videos.map((video, index) => (
           <video
             ref={videoRefs.current[index % 2]}
