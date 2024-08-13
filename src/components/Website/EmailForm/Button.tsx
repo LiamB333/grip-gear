@@ -7,7 +7,6 @@ interface ButtonProps {
 
 const Button: React.FC<ButtonProps> = ({ children, type = "button" }) => {
   return (
-    // Adding container div for alignment
     <div className="flex justify-start mt-6">
       <button
         type={type}

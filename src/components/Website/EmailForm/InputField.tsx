@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface InputFieldProps {
   label: string;
@@ -6,10 +6,16 @@ interface InputFieldProps {
   type?: string;
 }
 
-const InputField: React.FC<InputFieldProps> = ({ label, name, type = 'text' }) => {
+const InputField: React.FC<InputFieldProps> = ({
+  label,
+  name,
+  type = "text",
+}) => {
   return (
     <div className="flex flex-col mt-6 w-full text-black whitespace-nowrap max-md:max-w-full">
-      <label htmlFor={name} className="max-md:max-w-full">{label}</label>
+      <label htmlFor={name} className="max-md:max-w-full">
+        {label}
+      </label>
       <input
         type={type}
         id={name}
