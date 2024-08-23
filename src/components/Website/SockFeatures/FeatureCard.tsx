@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+import Image from "next/image";
 
 interface FeatureCardProps {
   iconSrc: string;
@@ -6,12 +7,24 @@ interface FeatureCardProps {
   description: string;
 }
 
-const FeatureCard: React.FC<FeatureCardProps> = ({ iconSrc, title, description }) => {
+const FeatureCard: React.FC<FeatureCardProps> = ({
+  iconSrc,
+  title,
+  description,
+}) => {
   return (
-    <article className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
-      <div className="flex flex-col max-md:mt-10">
-        <img loading="lazy" src={iconSrc} alt="" className="w-12 aspect-square" />
-        <h2 className="mt-6 text-2xl font-bold leading-9 text-white">{title}</h2>
+    <article className="flex flex-col items-center w-[33%] max-md:w-full text-center">
+      <div className="flex flex-col items-center max-md:mt-10">
+        <Image
+          src={iconSrc}
+          alt={title}
+          width={48}
+          height={48}
+          className="aspect-square"
+        />
+        <h2 className="mt-6 text-2xl font-bold leading-9 text-white">
+          {title}
+        </h2>
         <p className="mt-6 text-sm leading-6 text-white">{description}</p>
       </div>
     </article>

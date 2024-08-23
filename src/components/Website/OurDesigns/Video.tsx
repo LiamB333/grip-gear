@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React from "react";
 
 interface VideoData {
   title: string;
@@ -12,88 +12,24 @@ interface TextAndVideoProps {
 }
 
 const TextAndVideo: React.FC<TextAndVideoProps> = ({ videos }) => {
-  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
-  const [isVisible, setIsVisible] = useState(true);
-  const videoRefs = useRef([
-    React.createRef<HTMLVideoElement>(),
-    React.createRef<HTMLVideoElement>(),
-  ]);
-
-  const navigate = (direction: number) => {
-    const nextIndex =
-      (currentVideoIndex + direction + videos.length) % videos.length;
-    setIsVisible(false); // Start opacity transition
-
-    const nextVideoRef = videoRefs.current[nextIndex % 2].current;
-    if (nextVideoRef) {
-      nextVideoRef.src = videos[nextIndex].videoSrc;
-      nextVideoRef.load();
-      nextVideoRef.onloadeddata = () => {
-        setCurrentVideoIndex(nextIndex);
-        setTimeout(() => setIsVisible(true), 10); // Delay to ensure smooth transition
-      };
-    }
-  };
-
-  const { title, description } = videos[currentVideoIndex];
+  const limitedVideos = videos.slice(0, 2);
 
   return (
-    <div className="flex flex-col md:flex-row justify-center items-center bg-gray-100 px-4 md:px-16 py-2 pb-12">
-      {/* Text Section */}
-      <div className="w-full md:w-1/2 px-4 md:px-16">
-        <h2 className="text-2xl md:text-3xl font-bold mb-2">{title}</h2>
-        <p className="text-base md:text-lg leading-relaxed mb-4">
-          {description}
-        </p>
-        <div className="flex justify-center md:justify-start mt-4">
-          {" "}
-          {/* Added margin-top for spacing */}
-          <button
-            onClick={() => navigate(-1)}
-            className="text-lg p-2 mr-2 border border-[#cb3f3f] bg-white text-[#cb3f3f] hover:bg-gray-200"
-            style={{ minWidth: "40px", minHeight: "40px" }}
-          >
-            {"<"}
-          </button>
-          <button
-            onClick={() => navigate(1)}
-            className="text-lg p-2 border border-[#cb3f3f] bg-white text-[#cb3f3f] hover:bg-gray-200"
-            style={{ minWidth: "40px", minHeight: "40px" }}
-          >
-            {">"}
-          </button>
-        </div>
-      </div>
-
-      {/* Video Section */}
-      <div
-        className="relative w-full md:w-1/4 mt-8 md:mt-0"
-        style={{ height: "500px" }}
-      >
-        {" "}
-        {/* Added margin-top for spacing */}
-        {videos.map((video, index) => (
-          <video
-            ref={videoRefs.current[index % 2]}
+    <div className="flex flex-col md:flex-row justify-center items-center bg-black px-4 -mt-10 md:px-16 pb-14 z-20">
+      {/* Video Containers */}
+      <div className="flex flex-col md:flex-row justify-center items-start gap-8 md:gap-20 mt-8 z-20 md:mt-0">
+        {limitedVideos.map((video, index) => (
+          <div
             key={video.videoSrc}
-            style={{
-              opacity: index === currentVideoIndex && isVisible ? 1 : 0,
-              transition: "opacity 0.5s ease",
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              objectFit: "contain", // Ensure the entire video fits within the container
-            }}
-            autoPlay
-            muted
-            loop
-            className="object-contain"
+            className={`bg-white rounded-3xl overflow-hidden w-72 h-[450px] md:w-80 md:h-[550px] p-2 md:p-3 ${
+              index === 0 ? "mt-0" : "mt-8 md:-mt-[5rem]"
+            }`}
           >
-            <source src={video.videoSrc} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+            <video className="w-full h-full object-contain" autoPlay muted loop>
+              <source src={video.videoSrc} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
         ))}
       </div>
     </div>

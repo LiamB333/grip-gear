@@ -7,7 +7,7 @@ import Testimonial from "@/components/Website/Testimonial/Testimonial";
 import React from "react";
 import FAQs from "@/components/Website/FAQs/FAQs";
 import HowItWorks from "@/components/Website/HowItWorks.tsx/HowItWorks";
-import OurDesigns from "@/components/Website/OurDesigns/OurDesigns";
+import TextAndVideo from "@/components/Website/OurDesigns/Video";
 
 const Page = () => {
   const sampleTestimonial = {
@@ -48,13 +48,27 @@ const Page = () => {
     },
   ];
 
+  const videos = [
+    {
+      title: "Tailored for Team Colors",
+      description:
+        "Our personalised grip socks for Gateshead Storm, incorporating their vibrant yellow and a variety of blues to perfectly reflect their team colors and logo.",
+      videoSrc: "/lightning.mp4",
+    },
+    {
+      title: "Crafted for Comfort",
+      description:
+        "With soft, breathable materials and ergonomic design, our socks keep you comfortable and focused on your game.",
+      videoSrc: "/stud.mp4",
+    },
+  ];
+
   return (
     <div>
       <Navbar />
       <Hero />
       <SockFeatures />
-      <HowItWorks />
-      <OurDesigns />
+      <TextAndVideo videos={videos} />
       <Testimonial
         testimonial={sampleTestimonial}
         logo="/logo-1200x1200-2.svg"

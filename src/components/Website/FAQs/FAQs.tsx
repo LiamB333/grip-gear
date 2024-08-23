@@ -19,7 +19,7 @@ const FAQs: React.FC<FAQsProps> = ({
   includeContactForm = true,
 }) => {
   return (
-    <main className="flex flex-col items-start px-16 py-20 bg-white max-md:px-5">
+    <main className="flex flex-col items-start px-16 pb-20 bg-white max-md:px-5">
       <header className="flex flex-col mt-8 text-black max-md:max-w-full">
         <h1 className="text-4xl font-bold leading-[57.6px] max-md:max-w-full max-md:text-4xl">
           FAQs

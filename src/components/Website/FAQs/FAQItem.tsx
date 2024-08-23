@@ -11,9 +11,9 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="flex flex-col mt-4 border border-black border-solid max-md:max-w-full">
+    <div className="flex flex-col mt-4 border border-[#C62828] border-1.5 rounded-xl max-md:max-w-full">
       <button
-        className="flex gap-5 px-6 py-5 text-lg font-bold leading-7 text-[#C62828] max-md:flex-wrap max-md:px-5"
+        className="flex gap-5 px-6 py-5 text-lg font-bold leading-7 text-black max-md:flex-wrap max-md:px-5"
         onClick={() => setIsOpen(!isOpen)}
         aria-expanded={isOpen}
       >
