@@ -9,7 +9,7 @@ interface TextAreaProps {
 const TextArea: React.FC<TextAreaProps> = ({ label, name, placeholder }) => {
   return (
     <div className="flex flex-col mt-6 w-full max-md:max-w-full">
-      <label htmlFor={name} className="text-black max-md:max-w-full">
+      <label htmlFor={name} className="text-white max-md:max-w-full">
         {label}
       </label>
       <textarea

@@ -12,7 +12,7 @@ const InputField: React.FC<InputFieldProps> = ({
   type = "text",
 }) => {
   return (
-    <div className="flex flex-col mt-6 w-full text-black whitespace-nowrap max-md:max-w-full">
+    <div className="flex flex-col mt-6 w-full text-white whitespace-nowrap max-md:max-w-full">
       <label htmlFor={name} className="max-md:max-w-full">
         {label}
       </label>

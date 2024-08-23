@@ -15,7 +15,7 @@ export const CustomiseAction: React.FC<CustomiseActionProps> = ({
   buttonText,
 }) => {
   return (
-    <section className="flex flex-col justify-center px-16 py-20max-md:px-5">
+    <section className="flex flex-col justify-center px-16 py-20 max-md:px-5">
       <div className="flex gap-5 mt-8 max-md:flex-wrap max-md:mr-1 max-md:max-w-full">
         <div className="flex flex-col flex-1 justify-center text-black max-md:max-w-full">
           <div className="flex flex-col max-md:max-w-full">

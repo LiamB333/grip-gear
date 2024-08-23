@@ -43,7 +43,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
         <Link href="/design">
           <div
             aria-label="Design Now"
-            className="px-5 py-3 font-medium text-white whitespace-nowrap bg-red-800 border border-red-800 hover:bg-red-600 rounded-[30px] cursor-pointer"
+            className="px-5 py-3 font-medium text-white whitespace-nowrap bg-[#C62828] border hover:bg-[#911d1d] rounded-[30px] cursor-pointer"
             onClick={onClose}
           >
             Get Started
