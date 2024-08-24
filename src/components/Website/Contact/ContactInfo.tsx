@@ -47,7 +47,7 @@ const ContactInformation: React.FC = () => {
           </div>
         </div>
       </section>
-      <div className="relative -mt-64 md:z-0 md:block hidden">
+      <div className="relative -mt-64 z-10 md:block hidden">
         <svg
           width="1440"
           height="555"

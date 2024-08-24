@@ -22,8 +22,7 @@ const About: React.FC = () => {
       <Navbar />
       <Hero
         title="About us"
-        subtitle="Gear Up, Stand Out"
-        description="At Grip Gear, we understand that every team has its own identity. That's why we provide a platform where you can tailor your grip socks to match your team’s colours, logo and spirit. Using our intuitive online design tools, you can create gear that boosts not only performance but also team morale and unity."
+        description="A look inside Grip Gear."
       />
       <TeamSection />
       <Testimonial

@@ -32,13 +32,14 @@ const TeamMember: React.FC<TeamMemberProps> = ({
   const memberLinks = socialMediaLinks[name] || {};
 
   return (
-    <article className="flex flex-col w-[calc(50%-10px)] max-md:w-full">
-      <div className="relative w-full aspect-[1.54]">
+    <article className="flex flex-col max-md:w-full h-full p-5">
+      <div className="relative w-full h-[60%]">
         <Image
           src={imageSrc}
           alt={`${name}, ${role}`}
-          fill
-          style={{ objectFit: "cover" }}
+          layout="fill"
+          objectFit="cover"
+          className="rounded-3xl"
           sizes="(max-width: 768px) 100vw, 50vw"
         />
       </div>
@@ -54,7 +55,7 @@ const TeamMember: React.FC<TeamMemberProps> = ({
             target="_blank"
             rel="noopener noreferrer"
           >
-            <BiLogoInstagram className="size-6 hover:text-red-800 cursor-pointer" />
+            <BiLogoInstagram className="text-2xl hover:text-red-800 cursor-pointer" />
           </Link>
         )}
         {memberLinks.facebook && (
@@ -63,7 +64,7 @@ const TeamMember: React.FC<TeamMemberProps> = ({
             target="_blank"
             rel="noopener noreferrer"
           >
-            <BiLogoFacebook className="size-6 hover:text-red-800 cursor-pointer" />
+            <BiLogoFacebook className="text-2xl hover:text-red-800 cursor-pointer" />
           </Link>
         )}
         {memberLinks.linkedin && (
@@ -72,7 +73,7 @@ const TeamMember: React.FC<TeamMemberProps> = ({
             target="_blank"
             rel="noopener noreferrer"
           >
-            <BiLogoLinkedin className="size-6 hover:text-red-800 cursor-pointer" />
+            <BiLogoLinkedin className="text-2xl hover:text-red-800 cursor-pointer" />
           </Link>
         )}
       </div>
