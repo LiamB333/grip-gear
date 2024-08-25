@@ -315,7 +315,7 @@ const SockSelectionPageContent = () => {
             price={price}
             onContinue={handleContinue}
             quantity={state.quantity}
-          />f
+          />
         </div>
       </div>
       {state.isClient && (

@@ -4,7 +4,7 @@ import EmailForm from "./EmailForm";
 const EmailComponent: React.FC = () => {
   return (
     <>
-      <div className="flex flex-col justify-center items-center -mt-96 px-16 py-28 bg-[#CB3A3A] max-md:-mt-10 max-md:max-w-full">
+      <div className="flex flex-col justify-center items-center -mt-96 px-4 md:px-16 py-28 bg-[#CB3A3A] w-full max-md:-mt-10">
         <div className="flex flex-col w-full max-w-md mx-auto z-20">
           <h1 className="text-5xl font-bold leading-tight text-white text-center max-md:text-4xl">
             Get in Touch
@@ -17,8 +17,8 @@ const EmailComponent: React.FC = () => {
       </div>
       <div className="relative -mt-1 md:block hidden">
         <svg
-          width="1439"
-          height="119"
+          width="100%"
+          height="100%"
           viewBox="0 0 1439 119"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

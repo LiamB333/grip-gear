@@ -19,7 +19,7 @@ export const Hero: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col w-5/12 items-end max-md:ml-0 max-md:w-full">
+      <div className="flex flex-col w-5/12 items-end max-md:ml-0 z-0 max-md:w-full">
         <Image
           priority
           src="/red-sock-img-new.png"

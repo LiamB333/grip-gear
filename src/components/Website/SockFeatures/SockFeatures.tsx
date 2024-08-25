@@ -32,7 +32,7 @@ const SocksFeatures: React.FC = () => {
   return (
     <>
       {/* Top SVG Wave */}
-      <div className="relative -mb-1 -mt-20 md:block hidden">
+      <div className="relative -mb-1 -mt-5 md:-mt-20 z-30">
         <svg
           width="100%"
           height="100%"
@@ -48,8 +48,8 @@ const SocksFeatures: React.FC = () => {
       </div>
 
       {/* Content Section */}
-      <section className="flex flex-col px-16 py-14 bg-[#CB3A3A] max-md:px-5">
-        <div className="justify-center pb-24 mt-20 max-md:mt-5 max-md:max-w-full">
+      <section className="flex flex-col px-16 py-14 pb-24 bg-[#CB3A3A] max-md:px-5 z-30 relative">
+        <div className="justify-center max-md:mt-5 max-md:max-w-full">
           <div className="flex gap-5 max-md:flex-col">
             {features.map((feature, index) => (
               <FeatureCard key={index} {...feature} />
@@ -59,17 +59,17 @@ const SocksFeatures: React.FC = () => {
       </section>
 
       {/* Bottom SVG Wave */}
-      <div className="relative -mt-2 z-0 md:block hidden">
+      <div className="relative -mt-1 z-30">
         <svg
           width="100%"
           height="100%"
-          viewBox="0 0 1414 119"
+          viewBox="0 0 1439 120"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="none"
         >
-          <path d="M0 0H1439V118.18H0V0Z" fill="black" />
           <path
-            d="M0 0C970 0.000106812 1222.6 138.175 1439 115.711V0H0Z"
+            d="M0 0.180725C970 0.180832 1222.6 139.314 1439 116.694V0.180725H0Z"
             fill="#CB3A3A"
           />
         </svg>

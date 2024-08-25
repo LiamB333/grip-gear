@@ -20,7 +20,7 @@ export const Testimonial: React.FC<TestimonialProps> = ({
 }) => {
   return (
     <>
-      <section className="flex justify-center items-center px-16 py-20 text-center bg-black max-md:px-5 -mt-1">
+      <section className="flex justify-center items-center px-16 py-20 text-center -mt-1 bg-black max-md:px-5">
         <div className="flex flex-col items-center mt-8 max-w-full w-[768px]">
           <div className="flex justify-center items-center w-full h-[80px]">
             <Image
@@ -34,7 +34,7 @@ export const Testimonial: React.FC<TestimonialProps> = ({
           <TestimonialCard testimonial={testimonial} />
         </div>
       </section>
-      <div className="md:block hidden">
+      <div className="-mt-1">
         <svg
           width="100%"
           height="100%"

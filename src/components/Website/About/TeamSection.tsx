@@ -28,7 +28,7 @@ const teamMembers: TeamMemberData[] = [
 const TeamSection: React.FC = () => {
   return (
     <>
-      <section className="flex flex-col justify-center items-center bg-[#CB3A3A] md:px-16 pb-24 -mt-4 relative md:-mt-64 pt-">
+      <section className="flex flex-col relative justify-center items-center bg-[#CB3A3A] pt-20 md:px-16 pb-24 md:-mt-[23.9rem]">
         <header className="flex flex-col self-center max-w-full text-center text-white z-20 w-[768px]">
           <h1 className="text-5xl font-bold leading-[57.6px] mt-4 max-md:max-w-full max-md:text-4xl">
             Meet Our Team
@@ -50,7 +50,7 @@ const TeamSection: React.FC = () => {
           ))}
         </div>
       </section>
-      <div className="relative -mt-2 z-0 md:block hidden">
+      <div className="relative z-0 md:block hidden">
         <svg
           width="100%"
           height="100%"

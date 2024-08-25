@@ -20,7 +20,7 @@ const Hero: React.FC<HeroProps> = ({ title, description }) => {
           <div className="flex flex-col w-[50%] max-md:w-full p-4 z-20">
             <div className="flex flex-col text-base text-center text-white bg-black rounded-lg p-6">
               <h3 className="mt-6 text-3xl font-bold leading-10">
-                Small Business, Big Impact
+                Crafting Custom Sock Grips
               </h3>
               <p className="mt-6 text-white leading-[150%]">
                 Grip Gear was founded by two football enthusiasts who wanted to
@@ -31,7 +31,7 @@ const Hero: React.FC<HeroProps> = ({ title, description }) => {
           </div>
         </div>
       </section>
-      <div className="relative -mt-56 z-0 md:block hidden">
+      <div className="relative -mt-52 z-10 md:block hidden">
         <svg
           width="100%"
           height="100%"
@@ -39,7 +39,6 @@ const Hero: React.FC<HeroProps> = ({ title, description }) => {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path d="M0 118H1440V555H0V118Z" fill="#CB3A3A" />
           <path
             d="M1439 118.181C469 118.181 216.399 -19.9945 0 2.46973V118.181H1439Z"
             fill="#CB3A3A"
