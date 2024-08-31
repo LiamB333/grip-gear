@@ -34,7 +34,7 @@ export const Testimonial: React.FC<TestimonialProps> = ({
           <TestimonialCard testimonial={testimonial} />
         </div>
       </section>
-      <div className="-mt-1">
+      <div className="-mt-1 md:block hidden">
         <svg
           width="100%"
           height="100%"

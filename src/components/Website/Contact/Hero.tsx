@@ -4,12 +4,13 @@ import Link from "next/link";
 interface HeroProps {
   title: string;
   description: string;
+  overlayColor?: string;
 }
 
 const Hero: React.FC<HeroProps> = ({ title, description }) => {
   return (
     <>
-      <section className="flex flex-col px-16 py-14 bg-white max-md:px-5">
+      <section className="flex flex-col relative px-16 py-14 bg-white max-md:px-5">
         <h1 className="mt-4 text-5xl font-bold text-black leading-[57.6px] max-md:max-w-full max-md:text-4xl">
           {title}
         </h1>
@@ -31,7 +32,7 @@ const Hero: React.FC<HeroProps> = ({ title, description }) => {
           </div>
         </div>
       </section>
-      <div className="relative -mt-52 z-10 md:block hidden">
+      <div className="relative -mt-60 z-0 md:block hidden">
         <svg
           width="100%"
           height="100%"
@@ -39,6 +40,7 @@ const Hero: React.FC<HeroProps> = ({ title, description }) => {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
+          <path d="M0 118H1440V555H0V118Z" fill="#CB3A3A" />
           <path
             d="M1439 118.181C469 118.181 216.399 -19.9945 0 2.46973V118.181H1439Z"
             fill="#CB3A3A"

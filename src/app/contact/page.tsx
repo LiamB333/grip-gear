@@ -4,7 +4,6 @@ import CustomiseAction from "@/components/Website/CustomiseAction/CustomiseActio
 import EmailComponent from "@/components/Website/EmailForm/EmailComponent";
 import FAQs from "@/components/Website/FAQs/FAQs";
 import Footer from "@/components/Website/Footer/Footer";
-import GetInTouch from "@/components/Website/GetInTouch/GetInTouch";
 import NavBar from "@/components/Website/NavBar/NavBar";
 import React from "react";
 
