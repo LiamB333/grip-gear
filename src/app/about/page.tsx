@@ -8,7 +8,7 @@ import Hero from "@/components/Website/Contact/Hero";
 
 const sampleTestimonial = {
   content:
-    "I absolutely love my customised grip sock from Grip Gear! The 2D designer made it easy to design exactly what I wanted.",
+    "I absolutely love my customised grip socks from Grip Gear! The 2D designer made it easy to design exactly what I wanted.",
   author: {
     name: "Richard Stock",
     role: "Eton Manor Colts Rugby Club",

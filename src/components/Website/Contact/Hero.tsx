@@ -32,17 +32,16 @@ const Hero: React.FC<HeroProps> = ({ title, description }) => {
           </div>
         </div>
       </section>
-      <div className="relative -mt-60 z-0 md:block hidden">
+      <div className="relative -mt-60  md:block hidden">
         <svg
           width="100%"
           height="100%"
-          viewBox="0 0 1440 555"
+          viewBox="0 0 1439 120"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path d="M0 118H1440V555H0V118Z" fill="#CB3A3A" />
           <path
-            d="M1439 118.181C469 118.181 216.399 -19.9945 0 2.46973V118.181H1439Z"
+            d="M1439 120C469 120 216.399 -20.3023 0 2.50775V120H1439Z"
             fill="#CB3A3A"
           />
         </svg>
