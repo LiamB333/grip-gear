@@ -26,7 +26,6 @@ export const Hero: React.FC = () => {
           alt="Custom grip sock"
           width={420}
           height={420}
-         
         />
       </div>
     </section>

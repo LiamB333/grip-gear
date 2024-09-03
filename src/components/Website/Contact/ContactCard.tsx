@@ -20,7 +20,7 @@ const ContactCard: React.FC<ContactCardProps> = ({
       <div className="flex flex-col grow text-base text-center text-white bg-black rounded-lg p-6">
         <div className="self-center w-12 aspect-square relative">
           <Link href={link}>
-            <Image src={icon} alt={contact} width={60} height={60} />
+            <Image src={icon} alt={contact} width={60} height={60} priority />
           </Link>
         </div>
         <h3 className="mt-6 text-3xl font-bold leading-10">{title}</h3>
