@@ -32,7 +32,7 @@ const SocksFeatures: React.FC = () => {
   return (
     <>
       {/* Top SVG Wave */}
-      <div className="relative -mb-1 -mt-5 z-30">
+      <div className="relative -mb-1 mt-10 z-30">
         <svg
           width="100%"
           height="100%"

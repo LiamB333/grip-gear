@@ -22,7 +22,7 @@ export const Hero: React.FC = () => {
       <div className="flex flex-col w-5/12 items-end max-md:ml-0 z-0 max-md:w-full">
         <Image
           priority
-          src="/hero-sock.png"
+          src="/bg-test.png"
           alt="Custom grip sock"
           width={420}
           height={420}
