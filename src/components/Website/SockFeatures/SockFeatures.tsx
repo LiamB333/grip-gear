@@ -32,7 +32,7 @@ const SocksFeatures: React.FC = () => {
   return (
     <>
       {/* Top SVG Wave */}
-      <div className="relative -mb-1 -mt-5 md:-mt-20 z-30">
+      <div className="relative -mb-1 -mt-5 z-30">
         <svg
           width="100%"
           height="100%"
@@ -48,9 +48,9 @@ const SocksFeatures: React.FC = () => {
       </div>
 
       {/* Content Section */}
-      <section className="flex flex-col px-16 py-14 pb-24 bg-[#CB3A3A] max-md:px-5 z-30 relative">
+      <section className="flex flex-col px-16 py-24 pb-24 bg-[#CB3A3A] max-md:px-5 z-30 relative">
         <div className="justify-center max-md:mt-5 max-md:max-w-full">
-          <div className="flex gap-5 max-md:flex-col">
+          <div className="flex gap-10 max-md:flex-col">
             {features.map((feature, index) => (
               <FeatureCard key={index} {...feature} />
             ))}

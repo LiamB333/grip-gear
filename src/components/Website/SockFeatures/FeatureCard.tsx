@@ -25,7 +25,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
         <h2 className="mt-6 text-2xl font-bold leading-9 text-white">
           {title}
         </h2>
-        <p className="mt-6 text-sm leading-6 text-white">{description}</p>
+        <p className="mt-12 text-sm leading-6 text-white">{description}</p>
       </div>
     </article>
   );
