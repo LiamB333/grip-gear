@@ -15,42 +15,48 @@ function NavBar() {
 
   return (
     <div className="absolute top-0 left-0 w-full z-20">
-      <div className="flex justify-center items-center px-16 py-4 text-base leading-6 max-md:px-5">
-        {/* Left side navigation links */}
-        <div className="flex gap-6 items-center text-black font-medium mr-16">
-          <Link href="/">
-            <div className="hover:text-[#C62828]" aria-label="Design">
-              Home
-            </div>
-          </Link>
+      <div className="flex justify-between items-center px-4 py-4 text-base leading-6 max-w-6xl mx-auto">
+        <div className="flex-1 flex justify-center md:justify-end">
+          {/* Left side navigation links (hidden on mobile) */}
+          <div className="hidden md:flex gap-6 items-center text-black font-medium mr-12">
+            <Link href="/">
+              <div className="hover:text-[#C62828]" aria-label="Home">
+                Home
+              </div>
+            </Link>
+          </div>
         </div>
 
         {/* Centered Logo */}
-        <Link href="/">
-          <Image
-            src="/logo-1200x1200-2.svg"
-            alt="Grip Gear logo"
-            width={70}
-            height={70}
-            priority
-          />
-        </Link>
-
-        {/* Right side navigation links */}
-        <div className="flex gap-6 items-center text-black font-medium ml-16">
-        <Link href="/design">
-            <div className="hover:text-[#C62828]" aria-label="Design">
-              Design
-            </div>
+        <div className="flex-shrink-0">
+          <Link href="/">
+            <Image
+              src="/logo-1200x1200-2.svg"
+              alt="Grip Gear logo"
+              width={70}
+              height={70}
+              priority
+            />
           </Link>
         </div>
 
-        {/* Mobile menu icon */}
-        <div className="lg:hidden ml-4">
-          <FaBars
-            className="text-white w-6 h-6 cursor-pointer"
-            onClick={toggleMenu}
-          />
+        <div className="flex-1 flex justify-center md:justify-start">
+          {/* Right side navigation links (hidden on mobile) */}
+          <div className="hidden md:flex gap-6 items-center text-black font-medium ml-12">
+            <Link href="/design">
+              <div className="hover:text-[#C62828]" aria-label="Design">
+                Design
+              </div>
+            </Link>
+          </div>
+
+          {/* Mobile menu icon */}
+          <div className="md:hidden ml-24">
+            <FaBars
+              className="text-black w-6 h-6 cursor-pointer"
+              onClick={toggleMenu}
+            />
+          </div>
         </div>
       </div>
       <MobileMenu isOpen={isMenuOpen} onClose={toggleMenu} />

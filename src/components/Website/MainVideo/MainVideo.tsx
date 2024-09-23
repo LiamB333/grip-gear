@@ -12,7 +12,7 @@ const MainVideo = () => {
       </div>
 
       {/* Video */}
-      <div className="w-[900px] mx-auto"> {/* Set width in pixels here */}
+      <div className="w-[200px] md:w-[900px] mx-auto"> {/* Set width in pixels here */}
         <video
           className="w-full h-auto object-contain"
           autoPlay

@@ -17,9 +17,9 @@ const Hero = () => {
       {/* Content */}
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="text-center mt-6">
-          <h1 className="text-black font-bold text-4xl mb-1">DESIGN YOUR</h1>
-          <h1 className="text-black font-extrabold text-6xl mb-4">MOVEMENT</h1>
-          <h2 className="text-black font-medium  mb-4">
+          <h1 className="text-black font-bold md:text-4xl text-3xl mb-1">DESIGN YOUR</h1>
+          <h1 className="text-black font-extrabold md:text-6xl text-5xl mb-4">MOVEMENT</h1>
+          <h2 className="text-black font-medium mb-4">
             Use our designer to create grip socks, you want.
           </h2>
           <button className="bg-[#C62828] text-white font-medium text-l py-3 px-6 rounded-3xl hover:bg-black transition mb-4">
