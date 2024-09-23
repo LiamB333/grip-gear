@@ -1,13 +1,18 @@
 import type { Metadata } from "next";
-import { Inter, Montserrat } from "next/font/google";
+import { Play, Roboto } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const montserrat = Montserrat({
+const play = Play({
   subsets: ["latin"],
-  variable: "--font-montserrat",
+  weight: ["400", "700"], // Add this to specify font weights
+  variable: "--font-play",
+});
+const roboto = Roboto({
+  subsets: ["latin"],
+  weight: ["400", "700"], // Add this to specify font weights
+  variable: "--font-roboto",
 });
 
 export const metadata: Metadata = {
@@ -36,7 +41,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${montserrat.variable}`}>
+    <html lang="en" className={`${play.variable} ${roboto.variable}`}>
       <body>
         {/* <Navbar /> */}
         {children}

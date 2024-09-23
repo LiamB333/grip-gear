@@ -3,13 +3,18 @@
 @tailwind utilities;
 
 :root {
-  --font-inter: "Inter", sans-serif;
-  --font-montserrat: "Montserrat", sans-serif;
+  --font-play: "Play", sans-serif;
+  --font-roboto: "Roboto", sans-serif;
 }
 
+h1,
+h2,
+h3 {
+  font-family: var(--font-play);
+}
 
 p {
-  font-family: var(--font-montserrat);
+  font-family: var(--font-roboto);
 }
 
 .scrollbar-hide::-webkit-scrollbar {

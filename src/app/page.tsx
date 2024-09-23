@@ -1,13 +1,12 @@
+import React from "react";
 import Navbar from "@/components/Website/NavBar/NavBar";
 import Hero from "@/components/Website/Hero/Hero";
-import Footer from "@/components/Website/Footer/Footer";
+import MainVideo from "@/components/Website/MainVideo/MainVideo";
 import SockFeatures from "@/components/Website/SockFeatures/SockFeatures";
-import CustomiseAction from "@/components/Website/CustomiseAction/CustomiseAction";
-import Testimonial from "@/components/Website/Testimonial/Testimonial";
-import React from "react";
+import SockVideo from "@/components/Website/SockVideo/SockVideo";
 import FAQs from "@/components/Website/FAQs/FAQs";
-import HowItWorks from "@/components/Website/HowItWorks.tsx/HowItWorks";
-import TextAndVideo from "@/components/Website/OurDesigns/Video";
+import ContactSection from "@/components/Website/FAQs/ContactSection";
+import Footer from "@/components/Website/Footer/Footer";
 
 const Page = () => {
   const sampleTestimonial = {
@@ -29,7 +28,7 @@ const Page = () => {
     {
       question: "What are the benefits?",
       answer:
-        "Our customized grip socks provide enhanced grip and traction, reducing the risk of slips and falls. They are also comfortable and stylish, making them perfect for various activities such as football, pilates and dance.",
+        "Our customised grip socks provide enhanced grip and traction, reducing the risk of slips and falls. They are also comfortable and stylish, making them perfect for various activities such as football, pilates and dance.",
     },
     {
       question: "How long does customisation take?",
@@ -48,41 +47,15 @@ const Page = () => {
     },
   ];
 
-  const videos = [
-    {
-      title: "Tailored for Team Colors",
-      description:
-        "Our personalised grip socks for Gateshead Storm, incorporating their vibrant yellow and a variety of blues to perfectly reflect their team colors and logo.",
-      videoSrc: "/lightning.mp4",
-    },
-    {
-      title: "Crafted for Comfort",
-      description:
-        "With soft, breathable materials and ergonomic design, our socks keep you comfortable and focused on your game.",
-      videoSrc: "/stud.mp4",
-    },
-  ];
-
   return (
-    <div>
+    <div className="relative">
       <Navbar />
       <Hero />
+      <MainVideo />
       <SockFeatures />
-      <TextAndVideo videos={videos} />
-      <Testimonial
-        testimonial={sampleTestimonial}
-        logo="/logo-1200x1200-2.svg"
-      />
-      <FAQs
-        faqData={faqData}
-        paragraphText="Find answers to frequently asked questions about our grip socks and customisation process."
-        includeContactForm={false}
-      />
-      <CustomiseAction
-        title="Start Customising Your Grip Socks"
-        description="Create unique grip socks with our easy-to-use designer."
-        buttonText="Design now"
-      />
+      <SockVideo />
+      <FAQs faqData={faqData} />
+      <ContactSection />
       <Footer />
     </div>
   );

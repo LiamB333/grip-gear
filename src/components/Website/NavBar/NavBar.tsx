@@ -14,51 +14,43 @@ function NavBar() {
   };
 
   return (
-    <div>
-      <div className="flex flex-col justify-center px-16 py-4 text-base leading-6 bg-white border-0 border-black border-solid max-md:px-5">
-        <div className="flex gap-5 justify-between items-center w-full max-md:flex-wrap max-md:mr-1 max-md:max-w-full">
+    <div className="absolute top-0 left-0 w-full z-20">
+      <div className="flex justify-center items-center px-16 py-4 text-base leading-6 max-md:px-5">
+        {/* Left side navigation links */}
+        <div className="flex gap-6 items-center text-black font-medium mr-16">
           <Link href="/">
-            <Image
-              src="/logo-removed-bg.svg"
-              alt="Grip Gear logo"
-              width={180}
-              height={60}
-              priority
-            />
+            <div className="hover:text-[#C62828]" aria-label="Design">
+              Home
+            </div>
           </Link>
-          <div className="flex items-center">
-            <div className="hidden lg:flex gap-5 text-black">
-              <Link href="/design">
-                <div className="hover:text-[#C62828]" aria-label="Design">
-                  Design
-                </div>
-              </Link>
-              <Link href="/about">
-                <div className="hover:text-[#C62828]" aria-label="About">
-                  About
-                </div>
-              </Link>
-              <Link href="/contact">
-                <div className="hover:text-[#C62828]" aria-label="Help">
-                  Help
-                </div>
-              </Link>
+        </div>
+
+        {/* Centered Logo */}
+        <Link href="/">
+          <Image
+            src="/logo-1200x1200-2.svg"
+            alt="Grip Gear logo"
+            width={70}
+            height={70}
+            priority
+          />
+        </Link>
+
+        {/* Right side navigation links */}
+        <div className="flex gap-6 items-center text-black font-medium ml-16">
+        <Link href="/design">
+            <div className="hover:text-[#C62828]" aria-label="Design">
+              Design
             </div>
-            <Link href="/design">
-              <div
-                aria-label="Design Now"
-                className="hidden lg:block px-5 py-3 font-medium text-white whitespace-nowrap bg-[#C62828] hover:bg-[#911d1d] rounded-[30px] cursor-pointer ml-10"
-              >
-                Get Started
-              </div>
-            </Link>
-            <div className="lg:hidden">
-              <FaBars
-                className="text-black w-6 h-6 cursor-pointer"
-                onClick={toggleMenu}
-              />
-            </div>
-          </div>
+          </Link>
+        </div>
+
+        {/* Mobile menu icon */}
+        <div className="lg:hidden ml-4">
+          <FaBars
+            className="text-white w-6 h-6 cursor-pointer"
+            onClick={toggleMenu}
+          />
         </div>
       </div>
       <MobileMenu isOpen={isMenuOpen} onClose={toggleMenu} />

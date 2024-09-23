@@ -1,34 +1,49 @@
 import React from "react";
 import Image from "next/image";
-import Button from "@/components/Website/Hero/Button";
 
-export const Hero: React.FC = () => {
+const Hero = () => {
   return (
-    <section className="relative flex gap-3 max-md:flex-col px-16 py-6 max-md:px-5 items-center overflow-hidden">
-      <div className="flex flex-col w-7/12 max-md:ml-0 max-md:w-full">
-        <div className="flex flex-col self-start max-md:mt-10 max-md:max-w-full">
-          <div className="flex flex-col text-black max-md:max-w-full">
-            <h1 className="text-5xl font-bold leading-[50px] max-md:max-w-full max-md:text-4xl max-md:leading-[54px] ">
-              Customise Your Own Grip Socks with Ease
-            </h1>
-            <p className="mt-6 text-l leading-6 max-md:max-w-full">
-              Our 2D designer makes it simple and fun to design personalised
-              grip socks that reflect your style and personality.
-            </p>
-            <Button />
+    <div className="relative w-full h-screen overflow-hidden">
+      {/* Background Image */}
+      <Image
+        src="/hero.png"
+        alt="Background image"
+        layout="fill"
+        objectFit="cover"
+        quality={100}
+        priority={true}
+      />
+
+      {/* Content */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="text-center mt-6">
+          <h1 className="text-black font-bold text-4xl mb-1">DESIGN YOUR</h1>
+          <h1 className="text-black font-extrabold text-6xl mb-4">MOVEMENT</h1>
+          <h2 className="text-black font-medium  mb-4">
+            Use our designer to create grip socks, you want.
+          </h2>
+          <button className="bg-[#C62828] text-white font-medium text-l py-3 px-6 rounded-3xl hover:bg-black transition mb-4">
+            Design Now
+          </button>
+
+          {/* Star Rating */}
+          <div className="flex items-center justify-center mt-2">
+            <div className="flex">
+              {[...Array(5)].map((_, index) => (
+                <Image
+                  key={index}
+                  src="/star.svg"
+                  alt="Star"
+                  width={20}
+                  height={20}
+                />
+              ))}
+            </div>
+            <span className="ml-2 text-black font-bold">3.9</span>
           </div>
         </div>
       </div>
-      <div className="flex flex-col w-5/12 items-end max-md:ml-0 z-0 max-md:w-full">
-        <Image
-          priority
-          src="/bg-test.png"
-          alt="Custom grip sock"
-          width={420}
-          height={420}
-        />
-      </div>
-    </section>
+    </div>
   );
 };
 

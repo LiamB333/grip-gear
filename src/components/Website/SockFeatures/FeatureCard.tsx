@@ -22,10 +22,10 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
           height={48}
           className="aspect-square"
         />
-        <h2 className="mt-6 text-2xl font-bold leading-9 text-white">
+        <h2 className="mt-6 text-2xl font-bold leading-9 text-black">
           {title}
         </h2>
-        <p className="mt-12 text-sm leading-6 text-white">{description}</p>
+        <p className="mt-10 text-sm leading-6 text-gray-600">{description}</p>
       </div>
     </article>
   );
