@@ -13,8 +13,8 @@ const page = () => {
       <Header />
       <Hero />
       <Features />
-      <Review />
       <Videos />
+      <Review />
       <FAQ />
       <Footer />
     </div>

@@ -5,11 +5,6 @@ import Image from "next/image";
 
 export default function Header() {
   const [navbarOpen, setNavbarOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => setMounted(true), []);
-
-  if (!mounted) return null;
 
   return (
     <header className="w-full sticky-nav">
@@ -17,12 +12,12 @@ export default function Header() {
         {/* Logo */}
         <Link href="/" aria-label="Go to GILT Calculator homepage">
           <Image
-            src="logo-white.svg"
+            src="/logo-white.svg"
             alt="Grip Gear Logo"
             width={160}
-            height={120}
+            height={160}
             className="hover:opacity-80 transition duration-300"
-            priority={true} // Optional: Adds priority loading for better performance
+            priority={true}
           />
         </Link>
 
@@ -31,21 +26,21 @@ export default function Header() {
           <Link
             href="/design"
             className="text-black transition duration-300 hover:text-[#CB3A3A]"
-            aria-label="See GILT calculator pricing"
+            aria-label="Go to Grip Gear designer tool"
           >
             Designer
           </Link>
           <Link
-            href="/about"
+            href="/blog"
             className="text-black transition duration-300 hover:text-[#CB3A3A]"
-            aria-label="Read our blog for investment tips"
+            aria-label="Read our blog for more information on grip socks"
           >
-            About
+            Blog
           </Link>
           <Link
             href="/contact"
             className="text-black transition duration-300 hover:text-[#CB3A3A]"
-            aria-label="Use the GILT calculator"
+            aria-label="Contact us with any questions"
           >
             Contact
           </Link>
@@ -55,7 +50,7 @@ export default function Header() {
         <Link href="/design">
           <button
             className="hidden md:block px-4 py-2 font-bold text-white bg-black rounded-md hover:bg-[#CB3A3A] transition duration-300"
-            aria-label="Get started with the GILT calculator"
+            aria-label="Get started with Grip Gear designer tool"
           >
             Get Started
           </button>
@@ -92,11 +87,11 @@ export default function Header() {
         {navbarOpen && (
           <nav className="md:hidden flex flex-col mt-4 space-y-2">
             <Link
-              href="/#pricing"
+              href="/designer"
               className="text-black transition duration-300 hover:text-[#CB3A3A]"
-              aria-label="See GILT calculator pricing"
+              aria-label="Go to Grip Gear designer tool"
             >
-              Pricing
+              Designer
             </Link>
             <Link
               href="/blog"
@@ -106,11 +101,11 @@ export default function Header() {
               Blog
             </Link>
             <Link
-              href="/calculator"
+              href="/contact"
               className="text-black transition duration-300 hover:text-[#CB3A3A]"
-              aria-label="Use the GILT calculator"
+              aria-label="Contact us for help or more information"
             >
-              Calculator
+              Contact
             </Link>
           </nav>
         )}

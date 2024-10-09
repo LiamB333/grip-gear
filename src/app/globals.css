@@ -17,25 +17,13 @@ p {
   font-family: var(--font-roboto);
 }
 
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
-}
-
 .scrollbar-hide {
-  scrollbar-width: none;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
-.sidebar-button {
-  transition: color 0.3s;
-}
-
-.sidebar-button {
-  transition: color 0.3s;
-}
-
-.sidebar-button:hover .sidebar-icon {
-  filter: invert(29%) sepia(98%) saturate(1864%) hue-rotate(180deg)
-    brightness(96%) contrast(88%);
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, and Opera */
 }
 
 body {
