@@ -5,7 +5,7 @@ const TopSection = () => {
     <div className="relative px-4 md:px-16 pt-12 md:pt-24">
       {/* Text Section */}
       <p className="text-white mb-6 text-center md:text-left">
-      Contact us for support with orders, customisation, or any questions.
+        Contact us for support with orders, customisation, or any questions.
       </p>
       {/* Flex Container for Input/Subscribe and Navigation Links */}
       <div className="flex flex-col md:flex-row justify-between items-center">
@@ -25,13 +25,13 @@ const TopSection = () => {
           </button>
         </div>
         <div className="flex flex-col items-center justify-center space-y-4 md:flex-row md:space-y-0 md:space-x-5">
-          <a href="#home" className="text-white hover:text-[#CB3A3A]">
+          <a href="/design" className="text-white hover:text-[#CB3A3A]">
             Designer
           </a>
-          <a href="#about" className="text-white hover:text-[#CB3A3A]">
+          <a href="/" className="text-white hover:text-[#CB3A3A]">
             About
           </a>
-          <a href="#contact" className="text-white hover:text-[#CB3A3A]">
+          <a href="/" className="text-white hover:text-[#CB3A3A]">
             Contact
           </a>
         </div>
