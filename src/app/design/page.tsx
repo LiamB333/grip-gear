@@ -15,6 +15,14 @@ import MobileBar from "@/components/Designer/MobileBar";
 import Link from "next/link";
 import Image from "next/image";
 import LogoPicker from "@/components/Designer/LogoPicker";
+import { Metadata } from "next";
+
+export const generateMetadata = (): Metadata => {
+  return {
+    title: "Grip Gear | Designer",
+    description: "Easily design your own custom grip socks.",
+  };
+};
 
 const SockSelectionPageContent = () => {
   const searchParams = useSearchParams();

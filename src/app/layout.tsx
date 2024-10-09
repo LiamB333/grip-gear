@@ -16,7 +16,7 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "Grip Gear",
+  title: "Grip Gear - Custom Grip Socks",
   description:
     "Discover high-quality grip socks that enhance your performance and reflect your unique style. Customise with logos and colors for a perfect match. Join the Grip Gear community today!",
   metadataBase: new URL("https://www.gripgear.co.uk"),
@@ -43,11 +43,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${play.variable} ${roboto.variable}`}>
       <body>
-        {/* <Navbar /> */}
         {children}
         <SpeedInsights />
         <Analytics />
-        {/* <Footer /> */}
       </body>
     </html>
   );

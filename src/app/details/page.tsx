@@ -4,6 +4,14 @@ import { useEffect, useState, useCallback, Suspense } from "react";
 import { getLogo } from "../../utils/indexedDB";
 import dynamic from "next/dynamic";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { Metadata } from "next";
+
+export const generateMetadata = (): Metadata => {
+  return {
+    title: "Grip Gear | Check Out",
+    description: "Easily design your own custom grip socks.",
+  };
+};
 
 const Navbar = dynamic(() => import("@/components/Designer/NavBar"), {
   suspense: true,
