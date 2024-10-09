@@ -6,12 +6,12 @@ import "./globals.css";
 
 const play = Play({
   subsets: ["latin"],
-  weight: ["400", "700"], // Add this to specify font weights
+  weight: ["400", "700"], 
   variable: "--font-play",
 });
 const roboto = Roboto({
   subsets: ["latin"],
-  weight: ["400", "700"], // Add this to specify font weights
+  weight: ["400", "700"], 
   variable: "--font-roboto",
 });
 
