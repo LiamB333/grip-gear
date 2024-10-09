@@ -5,7 +5,7 @@ const TopSection = () => {
     <div className="relative px-4 md:px-16 pt-12 md:pt-24">
       {/* Text Section */}
       <p className="text-white mb-6 text-center md:text-left">
-        Contact us for support with orders, customisation, or any questions.
+        Subscribe to our newsletter, for more information and deals.
       </p>
       {/* Flex Container for Input/Subscribe and Navigation Links */}
       <div className="flex flex-col md:flex-row justify-between items-center">

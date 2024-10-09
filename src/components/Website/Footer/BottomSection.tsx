@@ -1,22 +1,26 @@
 import React from "react";
 
 const BottomSection = () => {
+  const currentYear = new Date().getFullYear();
+
   return (
     <div className="relative px-4 md:px-16 pb-24">
       <div className="flex flex-col md:flex-row justify-between items-center">
-        {/* Copyright text on the left for desktop, centered for small screens */}
-        <p className="text-white mb-6 md:mb-0">© 2024 Grip Gear.</p>
+        <p className="text-white mb-6 md:mb-0">© {currentYear} Grip Gear.</p>
 
         {/* Links section */}
         <div className="flex flex-col md:flex-row gap-5 text-white items-center">
-          <a href="/" className="underline hover:text-[#CB3A3A]">
-            Privacy Policy
+          <a
+            href="tel:+447718958135"
+            className="underline hover:text-[#CB3A3A]"
+          >
+            +44 7718 958135
           </a>
-          <a href="/" className="underline hover:text-[#CB3A3A]">
-            Cookie Settings
-          </a>
-          <a href="/" className="underline hover:text-[#CB3A3A]">
-            Terms of Service
+          <a
+            href="mailto:gripgearsocks@gmail.com"
+            className="underline hover:text-[#CB3A3A]"
+          >
+            gripgearsocks@gmail.com
           </a>
         </div>
       </div>
