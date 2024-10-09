@@ -6,12 +6,12 @@ import "./globals.css";
 
 const play = Play({
   subsets: ["latin"],
-  weight: ["400", "700"], 
+  weight: ["400", "700"],
   variable: "--font-play",
 });
 const roboto = Roboto({
   subsets: ["latin"],
-  weight: ["400", "700"], 
+  weight: ["400", "700"],
   variable: "--font-roboto",
 });
 
@@ -25,6 +25,8 @@ export const metadata: Metadata = {
     "GripGear",
     "Grip Sock",
     "Grip Socks",
+    "UK Grip Socks",
+    "Grip Socks UK",
     "Custom Grip Socks",
     "Girl Grip Socks",
     "Anti-slip Socks",

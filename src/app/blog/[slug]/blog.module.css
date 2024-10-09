@@ -1,0 +1,110 @@
+/* Container for Blog */
+.blogContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem; /* Adjusted gap for cleaner layout */
+    padding: 0 2rem;
+  }
+  
+  /* Main Article Styling */
+  .article {
+    padding: 4rem 0; /* Added more top padding */
+    margin: 0 auto; /* Center the article horizontally */
+    max-width: 800px; /* Set a max-width for readability */
+    padding-right: 2rem; /* Adjusts padding for better readability */
+    padding-left: 2rem; /* Ensures padding on both sides */
+  }
+  
+  /* Headings Styling */
+  .article h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem; /* Increase bottom margin for better spacing */
+    font-weight: bold;
+    color: #1f2937; /* Dark gray */
+  }
+  
+  .article h2 {
+    font-size: 2rem; /* Adjusted size of h2 headings */
+    margin-top: 3rem; /* Add top margin for better separation */
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+    color: #1f2937; /* Purple for h2 headings */
+  }
+  
+  .article h3 {
+    font-size: 1.25rem; /* Adjusted size of h3 headings */
+    margin-top: 2rem;
+    margin-bottom: 1.5rem; /* Increase bottom margin for better spacing */
+    font-weight: semibold;
+    color: #1f2937; /* Dark gray */
+  }
+  
+  /* Paragraph Styling */
+  .article p {
+    margin-bottom: 2.5rem; /* Increase spacing between paragraphs */
+    color: #1f2937; /* Dark gray for paragraph text */
+    line-height: 1.8; /* Improve readability by increasing line height */
+  }
+  
+  /* Adjust the spacing when scrolling */
+  .article {
+    position: relative;
+    scroll-margin-top: 4rem; /* Keeps the article 4rem below the top after scrolling */
+  }
+  
+  /* Responsive adjustments for tablets */
+  @media (max-width: 1024px) {
+    .blogContainer {
+      padding: 0 1rem;
+    }
+  
+    .article {
+      margin-left: 0; /* Reset margin on smaller screens */
+      padding-right: 1rem; /* Adjust padding for smaller screens */
+      padding-left: 1rem;
+    }
+  
+    .article h1 {
+      font-size: 2rem; /* Reduce font size for better readability */
+    }
+  
+    .article h2 {
+      font-size: 1.75rem; /* Adjust size of h2 headings */
+    }
+  
+    .article h3 {
+      font-size: 1.1rem; /* Adjust size of h3 headings */
+    }
+  }
+  
+  /* Responsive adjustments for mobile */
+  @media (max-width: 640px) {
+    .blogContainer {
+      padding: 0 0.5rem; /* Reduce padding for smaller devices */
+    }
+  
+    .article {
+      padding: 2rem 1rem; /* Less padding for smaller devices */
+      margin-left: 0;
+      padding-right: 0.5rem;
+      padding-left: 0.5rem;
+    }
+  
+    .article h1 {
+      font-size: 1.75rem; /* Further reduce font size for mobile */
+      margin-bottom: 1.5rem;
+    }
+  
+    .article h2 {
+      font-size: 1.5rem; /* Adjust size of h2 headings for mobile */
+    }
+  
+    .article h3 {
+      font-size: 1rem; /* Adjust size of h3 headings for mobile */
+    }
+  
+    .article p {
+      margin-bottom: 1.5rem; /* Adjust spacing between paragraphs */
+      line-height: 1.6; /* Reduce line height for mobile readability */
+    }
+  }
