@@ -51,7 +51,7 @@ export default async function BlogList() {
               date.
             </span>
           </h1>
-          <p className="max-w-md mx-auto mb-12 text-lg text-gray-400 text-center">
+          <p className="max-w-md mx-auto mb-12 text-lg text-gray-600 text-center">
             Discover our insights on the effectiveness of grip socks, top-rated
             reviews, and expert tips for getting the best performance on the
             field.
@@ -64,12 +64,12 @@ export default async function BlogList() {
                 key={post.slug}
                 href={`/blog/${post.slug}`}
                 className="block bg-white  shadow-md overflow-hidden transition-transform duration-300 transform hover:scale-105 hover:shadow-xl hover:border-gray-300"
-                aria-label={`Read more about ${post.title}`}
+                aria-label={post.title}
               >
                 <div className="relative w-full h-56">
                   <Image
                     src={post.image}
-                    alt={`Cover image for ${post.title}`}
+                    alt={post.title}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className="object-cover"
