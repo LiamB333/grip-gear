@@ -26,7 +26,7 @@ const Hero = () => {
             <Link
               href="/design"
               className="inline-flex items-center font-bold px-5 py-3 text-md text-white transition duration-300 bg-black rounded-md hover:bg-[#CB3A3A] focus:ring-2 focus:ring-indigo-500"
-              aria-label="Go to calculator and calculate GILT returns"
+              aria-label="Design Now"
             >
               <span className="flex justify-center">Design Now</span>
             </Link>

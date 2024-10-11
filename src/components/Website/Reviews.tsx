@@ -67,7 +67,7 @@ export default function Review() {
           <h2 className="text-xl font-bold text-gray-800 md:text-2xl">
             {reviews[currentReviewIndex].name}
           </h2>
-          <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-400 font-light italic px-4">
+          <p className="text-lg leading-relaxed text-gray-600 font-light italic px-4">
             {reviews[currentReviewIndex].quote}
           </p>
           <div className="flex justify-center space-x-1">
