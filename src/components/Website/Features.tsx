@@ -88,7 +88,7 @@ export default function Features() {
             </h2>
             <div className="h-auto">
               <Image
-                src="/paid.svg"
+                src="/shopping.svg"
                 alt="User-friendly interface feature in GILT calculator"
                 width={60}
                 height={60}
@@ -102,10 +102,14 @@ export default function Features() {
                   when ordering custom grip socks in larger quantities.
                 </li>
                 <li className="mb-2">
-                  <span className="font-semibold">Bigger Orders, Bigger Savings</span>
+                  <span className="font-semibold">
+                    Bigger Orders, Bigger Savings
+                  </span>
                 </li>
                 <li>
-                  <span className="font-semibold">Accessible for All Teams</span>
+                  <span className="font-semibold">
+                    Accessible for All Teams
+                  </span>
                 </li>
               </ul>
             </div>

@@ -57,12 +57,15 @@ const Designer = () => {
     [key: number]: [number, number];
   };
 
-  const templatePrices: TemplatePrices = useMemo(() => ({
-    1: [25, 9.2],
-    2: [50, 5.0],
-    3: [100, 4.9],
-    4: [150, 4.6],
-  }), []);
+  const templatePrices: TemplatePrices = useMemo(
+    () => ({
+      1: [25, 9.2],
+      2: [50, 5.0],
+      3: [100, 4.9],
+      4: [150, 4.6],
+    }),
+    []
+  );
 
   useEffect(() => {
     setState((prevState) => ({ ...prevState, isClient: true }));
