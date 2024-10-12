@@ -4,7 +4,7 @@ const BottomSection = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <div className="relative px-4 md:px-16 pb-24">
+    <div id="contact" className="relative px-4 md:px-16 pb-24">
       <div className="flex flex-col md:flex-row justify-between items-center">
         <p className="text-white mb-6 md:mb-0">© {currentYear} Grip Gear.</p>
 

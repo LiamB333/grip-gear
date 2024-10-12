@@ -28,11 +28,11 @@ const TopSection = () => {
           <a href="/design" className="text-white hover:text-[#CB3A3A]">
             Designer
           </a>
-          <a href="/" className="text-white hover:text-[#CB3A3A]">
-            About
+          <a href="/blog" className="text-white hover:text-[#CB3A3A]">
+            Blog
           </a>
           <a href="/" className="text-white hover:text-[#CB3A3A]">
-            Contact
+            Home
           </a>
         </div>
       </div>

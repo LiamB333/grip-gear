@@ -142,7 +142,6 @@ export default async function BlogPost({ params }: Params) {
                   key={post.slug}
                   href={`/blog/${post.slug}`}
                   className="block space-y-2 hover:shadow-lg transition-transform duration-300 transform hover:scale-105"
-                  aria-label={`Read more about ${post.title}`}
                 >
                   <div className="relative w-full">
                     <Image

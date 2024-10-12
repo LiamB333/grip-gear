@@ -38,7 +38,7 @@ export default function Header() {
             Blog
           </Link>
           <Link
-            href="/"
+            href="/#contact"
             className="text-black transition duration-300 hover:text-[#CB3A3A]"
             aria-label="Contact us with any questions"
           >

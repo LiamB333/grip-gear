@@ -35,7 +35,8 @@ export default async function BlogList() {
       slug: filename.replace(/\.md$/, ""),
       title: data.title,
       date: data.date,
-      description: data.description || "A must-read post for all investors.",
+      description:
+        data.description || "A must-read post for all sports enthusiasts.",
       image: data.image || "/placeholder.webp",
     };
   });
@@ -64,7 +65,6 @@ export default async function BlogList() {
                 key={post.slug}
                 href={`/blog/${post.slug}`}
                 className="block bg-white  shadow-md overflow-hidden transition-transform duration-300 transform hover:scale-105 hover:shadow-xl hover:border-gray-300"
-                aria-label={post.title}
               >
                 <div className="relative w-full h-56">
                   <Image
