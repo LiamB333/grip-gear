@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -96,14 +96,14 @@ export default function Header() {
             <Link
               href="/blog"
               className="text-black transition duration-300 hover:text-[#CB3A3A]"
-              aria-label="Read our blog for investment tips"
+              aria-label="Read our blog for more information on grip socks"
             >
               Blog
             </Link>
             <Link
               href="/"
               className="text-black transition duration-300 hover:text-[#CB3A3A]"
-              aria-label="Contact us for help or more information"
+              aria-label="Contact us with any questions"
             >
               Contact
             </Link>
