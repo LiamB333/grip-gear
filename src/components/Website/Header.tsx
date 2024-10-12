@@ -10,7 +10,7 @@ export default function Header() {
     <header className="w-full sticky-nav">
       <div className="flex items-center justify-between max-w-5xl p-4 md:p-3 mx-auto">
         {/* Logo */}
-        <Link href="/" aria-label="Go to GILT Calculator homepage">
+        <Link href="/" aria-label="Go to Grip Gear homepage">
           <Image
             src="/logo-white.svg"
             alt="Grip Gear Logo"
@@ -87,7 +87,7 @@ export default function Header() {
         {navbarOpen && (
           <nav className="md:hidden flex flex-col mt-4 space-y-2">
             <Link
-              href="/designer"
+              href="/design"
               className="text-black transition duration-300 hover:text-[#CB3A3A]"
               aria-label="Go to Grip Gear designer tool"
             >
